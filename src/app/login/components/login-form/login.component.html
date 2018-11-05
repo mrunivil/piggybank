@@ -1,0 +1,11 @@
+<div>
+  <h1>Do some awesome login via google or other vendor logins</h1>
+  <button *ngIf="!(_user|async)" (click)="loginWithGoogle()">Login via Google</button>
+  <button *ngIf="_user|async" (click)="logout()">Logout</button>
+  <div>
+    <h4>User Details:</h4>
+    <small>
+      {{_user|async|json}}
+    </small>
+  </div>
+</div>
