@@ -7,17 +7,19 @@ import * as auth from '../auth';
 @Injectable()
 export class LocalAuthService extends auth.AuthService {
 
-  user: User = undefined;
+  user: User = null;
 
   getCurrentUser(): Observable<User> {
     return of(this.user);
   }
+
   loginWithGoogle(): Observable<User> {
     this.user = { uid: 'test', email: 'test.user@me.de' } as User;
     return of(this.user);
   }
+
   logout(): Observable<User> {
-    this.user = undefined;
+    this.user = null;
     return of(this.user);
   }
 

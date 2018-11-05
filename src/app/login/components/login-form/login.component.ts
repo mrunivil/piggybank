@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { AuthState } from '../../state/auth.state';
+import { GoogleLoginAction, LogoutAction } from '../../state/actions';
+import { AppState } from 'src/app/shared/state/app.state';
 
 @Component({
   selector: 'app-login',
@@ -10,19 +13,20 @@ import { User } from 'src/app/models/user';
 })
 export class LoginComponent implements OnInit {
 
-  _user: Observable<User> = undefined;
+  @Select(AuthState.errorMessage) _error: Observable<string>;
+  @Select(AppState.currentUser) _user: Observable<User>;
 
-  constructor(private auth: AuthService) { }
+  constructor(private store: Store) { }
 
   ngOnInit() {
   }
 
   loginWithGoogle(): void {
-    this._user = this.auth.loginWithGoogle();
+    this.store.dispatch(new GoogleLoginAction);
   }
 
   logout(): void {
-    this._user = this.auth.logout();
+    this.store.dispatch(new LogoutAction);
   }
 
 }

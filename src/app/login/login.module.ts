@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { LoginComponent } from './components/login-form/login.component';
 import { LoginRoutingModule } from './login.routing.module';
-import { LocalAuthService } from './services/local/auth.service';
 import { AuthService } from './services/auth';
-import { environment } from 'src/environments/environment';
 import { FirebaseAuthService } from './services/firebase/auth.service';
+import { LocalAuthService } from './services/local/auth.service';
+import { AuthState } from './state/auth.state';
+import { NgxsModule } from '@ngxs/store';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +16,9 @@ import { FirebaseAuthService } from './services/firebase/auth.service';
   ],
   imports: [
     CommonModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    SharedModule,
+    NgxsModule.forFeature([AuthState])
   ],
   providers: [
     {

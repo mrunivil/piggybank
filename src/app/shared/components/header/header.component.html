@@ -1,0 +1,6 @@
+<div>
+  header works!
+  <button *ngIf="!($user|async)" (click)="login()">Login</button>
+  <button *ngIf="($user|async)" (click)="logout()">Logout</button>
+  <div>User: {{($user|async)?($user|async).email:'unknown'}}</div>
+</div>
