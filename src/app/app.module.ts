@@ -7,6 +7,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { AppState } from './shared/state/app.state';
 import { SharedModule } from './shared/shared.module';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
     NgxsModule.forRoot(),
     NgxsRouterPluginModule.forRoot(),
     SharedModule,
-    NgxsReduxDevtoolsPluginModule.forRoot()
+    NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: environment.production
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

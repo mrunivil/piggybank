@@ -3,6 +3,7 @@ import { ResetStateAction } from 'src/app/login/state/actions';
 import { User } from 'src/app/models/user';
 import { SetUserAction } from './actions';
 import { GoogleLoggedInEvent, LoggedOutEvent } from 'src/app/login/state/events';
+import { Navigate } from '@ngxs/router-plugin';
 
 export class AppStateModel {
     user: User;
@@ -32,7 +33,7 @@ export class AppState {
     @Action(SetUserAction)
     userChanged(ctx: StateContext<AppStateModel>, { payload }: SetUserAction) {
         ctx.patchState({ user: payload });
-        ctx.dispatch(['/dashboard']);
+        ctx.dispatch(new Navigate(['/dashboard']));
     }
 
 }

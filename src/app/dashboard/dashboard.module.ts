@@ -4,6 +4,10 @@ import { BankItemComponent } from './components/bank-item/bank-item.component';
 import { BankListComponent } from './components/bank-list/bank-list.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DashboardRoutingModule } from './dashboard.routing.module';
+import { BankService } from './services/bank';
+import { environment } from 'src/environments/environment';
+import { LocalBankService } from './services/local/bank.service';
+import { FirebaseBankService } from './services/firebase/bank.service';
 
 @NgModule({
   declarations: [
@@ -14,6 +18,11 @@ import { DashboardRoutingModule } from './dashboard.routing.module';
   imports: [
     CommonModule,
     DashboardRoutingModule
+  ],
+  providers: [
+    {
+      provide: BankService, useClass: environment.service === 'local' ? LocalBankService : FirebaseBankService
+    }
   ]
 })
 export class DashboardModule { }
