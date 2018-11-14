@@ -2,11 +2,14 @@ import { Observable } from 'rxjs';
 import { Payment } from '../../models/actions/payment';
 import { Action } from '../../models/action';
 import { Injectable } from '@angular/core';
+import { Bank } from 'src/app/models/bank';
 
-export interface Bank {
+export interface BankServiceInterface {
     sendInviteLink(bank: Bank): Observable<string>;
 
-    getMyBanks(): Observable<Bank[]>;
+    getMyOwenedBanks(): Observable<Bank[]>;
+
+    getMyOtherBanks(): Observable<Bank[]>;
 
     getBankDetails(bank: Bank): Observable<Bank>;
 
@@ -23,10 +26,12 @@ export interface Bank {
 
 
 @Injectable()
-export abstract class BankService implements Bank {
+export abstract class BankService implements BankServiceInterface {
     abstract sendInviteLink(bank: Bank): Observable<string>;
 
-    abstract getMyBanks(): Observable<Bank[]>;
+    abstract getMyOwenedBanks(): Observable<Bank[]>;
+
+    abstract getMyOtherBanks(): Observable<Bank[]>;
 
     abstract getBankDetails(bank: Bank): Observable<Bank>;
 

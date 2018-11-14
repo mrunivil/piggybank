@@ -8,6 +8,9 @@ import { BankService } from './services/bank';
 import { environment } from 'src/environments/environment';
 import { LocalBankService } from './services/local/bank.service';
 import { FirebaseBankService } from './services/firebase/bank.service';
+import { Store, NgxsModule } from '@ngxs/store';
+import { LoadUserOwenedBanksAction } from './state/actions';
+import { DashboardState } from './state/dashboard.state';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,7 @@ import { FirebaseBankService } from './services/firebase/bank.service';
   ],
   imports: [
     CommonModule,
+    NgxsModule.forFeature([DashboardState]),
     DashboardRoutingModule
   ],
   providers: [

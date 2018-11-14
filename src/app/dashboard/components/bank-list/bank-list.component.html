@@ -1,3 +1,2 @@
-<p>
-  bank-list works!
-</p>
+<h2>Bank List</h2>
+<app-bank-item *ngFor="let bank of ownedBanks$|async" [item]="bank"></app-bank-item>

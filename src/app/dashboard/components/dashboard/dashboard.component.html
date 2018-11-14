@@ -1,6 +1,17 @@
-<p>
-  dashboard works!
-</p>
 <div>
   <h2 *ngIf="!(user$|async)">Please login to get access to your piggy banks</h2>
 </div>
+
+<div *ngIf="(user$|async)">
+  <h1>Dashboard</h1>
+  <div>
+    <app-bank-list></app-bank-list>
+  </div>
+</div>
+
+<button style="
+position:fixed;
+right:2rem;
+bottom:2rem;">
+  +
+</button>

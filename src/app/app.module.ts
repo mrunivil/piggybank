@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxsModule } from '@ngxs/store';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { AppState } from './shared/state/app.state';
 import { SharedModule } from './shared/shared.module';
@@ -21,6 +22,10 @@ import { environment } from 'src/environments/environment';
     NgxsRouterPluginModule.forRoot(),
     SharedModule,
     NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: environment.production
+    }),
+    NgxsLoggerPluginModule.forRoot({
+      collapsed: true,
       disabled: environment.production
     })
   ],

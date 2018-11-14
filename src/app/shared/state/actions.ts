@@ -8,3 +8,7 @@ export class SetUserAction {
     static readonly type = '[APP SET USER] recieving user information';
     constructor(public payload: User) { }
 }
+
+export class RedirectToLoginAction {
+    static readonly type = '[APP REDIRECT] /login';
+}

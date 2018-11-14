@@ -1,3 +1,17 @@
-<p>
-  bank-item works!
+<p class="list-item">
+  <img [src]="item.photoURL">
+  <label style="padding:0.5rem" [innerHTML]="(item.balance|number:'1.2-2') + ' €'"></label>
 </p>
+
+<style>
+  .list-item {
+    cursor: pointer;
+    border: 1px solid lightgray;
+    padding: 0.5rem;
+  }
+
+  .list-item:hover {
+    background-color: lightblue;
+  }
+
+</style>

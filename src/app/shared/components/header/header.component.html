@@ -2,5 +2,7 @@
   header works!
   <button *ngIf="!($user|async)" (click)="login()">Login</button>
   <button *ngIf="($user|async)" (click)="logout()">Logout</button>
+  <button *ngIf="($user|async)">Preferences</button>
+  <button *ngIf="($user|async)">Send Feedback</button>
   <div>User: {{($user|async)?($user|async).email:'unknown'}}</div>
 </div>

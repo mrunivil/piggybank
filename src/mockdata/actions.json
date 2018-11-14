@@ -1,0 +1,36 @@
+[{
+  "id": null,
+  "bankid": null,
+  "type": null,
+  "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+  "date": "2018-02-21T16:09:07Z",
+  "value": 69.05
+}, {
+  "id": null,
+  "bankid": null,
+  "type": null,
+  "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+  "date": "2018-04-13T14:42:37Z",
+  "value": 8.03
+}, {
+  "id": null,
+  "bankid": null,
+  "type": null,
+  "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+  "date": "2017-12-24T00:12:04Z",
+  "value": -31.69
+}, {
+  "id": null,
+  "bankid": null,
+  "type": null,
+  "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+  "date": "2018-03-18T11:39:16Z",
+  "value": -55.71
+}, {
+  "id": null,
+  "bankid": null,
+  "type": null,
+  "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+  "date": "2017-11-26T00:32:41Z",
+  "value": -82.71
+}]
