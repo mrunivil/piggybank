@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { AppState, AppStateModel } from '../../state/app.state';
-import { Observable } from 'rxjs';
-import { User } from 'src/app/models/user';
-import { GoogleLoginAction, LogoutAction } from 'src/app/login/state/actions';
 import { Navigate } from '@ngxs/router-plugin';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { LogoutAction } from 'src/app/login/state/actions';
+import { User } from 'src/app/models/user';
+import { AppState } from 'src/app/shared/state/app.state';
 
 @Component({
   selector: 'app-header',
@@ -28,4 +28,7 @@ export class HeaderComponent implements OnInit {
     this.store.dispatch(new LogoutAction);
   }
 
+  preferences() {
+    this.store.dispatch(new Navigate(['/preferences']));
+  }
 }

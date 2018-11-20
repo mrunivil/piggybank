@@ -27,21 +27,21 @@ export interface BankServiceInterface {
 
 @Injectable()
 export abstract class BankService implements BankServiceInterface {
-    abstract sendInviteLink(bank: Bank): Observable<string>;
+    abstract sendInviteLink(bank: Bank);
 
     abstract getMyOwenedBanks(): Observable<Bank[]>;
 
     abstract getMyOtherBanks(): Observable<Bank[]>;
 
-    abstract getBankDetails(bank: Bank): Observable<Bank>;
+    abstract getBankDetails(bank: Bank);
 
-    abstract createNewBank(bank: Bank): Observable<Bank>;
+    abstract createNewBank(bank: Bank);
 
-    abstract deleteBank(bank: Bank): Observable<boolean>;
+    abstract deleteBank(bank: Bank);
 
-    abstract updateMyBank(bank: Bank): Observable<Bank>;
+    abstract updateMyBank(bank: Bank);
 
-    abstract payOff(payment: Action): Observable<boolean>;
+    abstract payOff(payment: Action);
 
-    abstract deposit(deposit: Action): Observable<boolean>;
+    abstract deposit(deposit: Action);
 }

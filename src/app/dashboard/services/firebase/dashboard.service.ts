@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BankService } from '../bank';
 import { Observable } from 'rxjs';
 import { Action } from 'src/app/models/action';
 import { Bank } from 'src/app/models/bank';
+import { BankService } from '../dashboard.service';
 
 @Injectable({
   providedIn: 'root'

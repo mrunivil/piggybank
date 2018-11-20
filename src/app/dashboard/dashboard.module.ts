@@ -1,22 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from 'src/environments/environment';
 import { BankItemComponent } from './components/bank-item/bank-item.component';
 import { BankListComponent } from './components/bank-list/bank-list.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DashboardRoutingModule } from './dashboard.routing.module';
-import { BankService } from './services/bank';
-import { environment } from 'src/environments/environment';
-import { LocalBankService } from './services/local/bank.service';
-import { FirebaseBankService } from './services/firebase/bank.service';
-import { Store, NgxsModule } from '@ngxs/store';
-import { LoadUserOwenedBanksAction } from './state/actions';
+import { BankService } from './services/dashboard.service';
+import { FirebaseBankService } from './services/firebase/dashboard.service';
+import { LocalBankService } from './services/local/dashboard.service';
 import { DashboardState } from './state/dashboard.state';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     BankListComponent,
-    BankItemComponent
+    BankItemComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

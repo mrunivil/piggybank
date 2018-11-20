@@ -1,0 +1,13 @@
+<div class="header">
+  <span>
+    <button *ngIf="!($user|async)" (click)="login()">Login</button>
+    <div *ngIf="($user|async)">
+      <button (click)="logout()">Logout</button>
+      <button (click)="preferences()">Preferences</button>
+      <button>Send Feedback</button>
+    </div>
+    <img alt="" [src]="($user|async)?.photoURL">
+    <p>{{($user|async)?($user|async).email:'unknown'}}</p>
+  </span>
+</div>
+<hr>

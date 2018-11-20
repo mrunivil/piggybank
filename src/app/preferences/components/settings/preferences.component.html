@@ -1,0 +1,15 @@
+<app-header></app-header>
+
+<div>
+  <label>your photo is visible to others?</label>
+  <input type="checkbox" (change)="updatePreferences()" [checked]="preferences?.allowPhoto">
+</div>
+
+<div>
+  <label>you want to receive notifications about changes regarding your banks?</label>
+  <input type="checkbox" (change)="updatePreferences()" [checked]="preferences?.allowNotifications">
+</div>
+
+<div>
+  <label>Version Number: 0.0.1</label>
+</div>

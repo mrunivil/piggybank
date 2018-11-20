@@ -1,5 +1,6 @@
 [{
     "id": 1,
+    "name": "Test Bank 1",
     "photoURL": "https://randomuser.me/api/portraits/thumb/men/7.jpg",
     "owner": {
       "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
@@ -28,6 +29,7 @@
   },
   {
     "id": 2,
+    "name": "Test Bank 2",
     "photoURL": "https://randomuser.me/api/portraits/thumb/men/9.jpg",
     "owner": {
       "uid": "081710c6-e962-4a81-955c-93d4bc36c902",

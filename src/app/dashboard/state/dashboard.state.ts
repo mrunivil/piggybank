@@ -1,7 +1,7 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { first, tap } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
-import { BankService } from '../services/bank';
+import { BankService } from '../services/dashboard.service';
 import { LoadUserOwenedBanksAction, ResetStateAction } from './actions';
 
 export class DashboardStateModel {

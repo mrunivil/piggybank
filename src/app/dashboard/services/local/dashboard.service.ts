@@ -1,14 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BankService } from '../bank';
 import { Observable } from 'rxjs';
 import { Action } from 'src/app/models/action';
-import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
+import { BankService } from '../dashboard.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LocalBankService extends BankService {
 
   constructor(private http: HttpClient) {

@@ -1,17 +1,12 @@
+<app-header></app-header>
 <div>
   <h2 *ngIf="!(user$|async)">Please login to get access to your piggy banks</h2>
 </div>
 
 <div *ngIf="(user$|async)">
+  <button> neue Bankerstellen </button>
   <h1>Dashboard</h1>
   <div>
     <app-bank-list></app-bank-list>
   </div>
 </div>
-
-<button style="
-position:fixed;
-right:2rem;
-bottom:2rem;">
-  +
-</button>
