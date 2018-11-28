@@ -12,7 +12,7 @@ export class AppStateModel {
 @State<AppStateModel>({
     name: 'app',
     defaults: {
-        user: null
+        user: undefined
     }
 })
 
@@ -26,7 +26,7 @@ export class AppState {
     @Action(ResetStateAction)
     resetComponentState(ctx: StateContext<AppStateModel>) {
         ctx.patchState({
-            user: null
+            user: undefined
         });
     }
 

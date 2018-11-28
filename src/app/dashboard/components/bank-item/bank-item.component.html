@@ -1,4 +1,4 @@
-<p class="list-item">
+<p class="list-item" (click)="showDetails()">
   <img [src]="item.photoURL">
   <label style="padding:0.5rem" [innerHTML]="(item.balance|number:'1.2-2') + ' €'"></label>
   <label style="padding:0.5rem" [innerHTML]="item.name"></label>

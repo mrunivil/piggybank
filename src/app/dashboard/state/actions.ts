@@ -1,7 +1,7 @@
 export class ResetStateAction {
-    static readonly type = '[BANK RESET] reset state to defaults';
+    static readonly type = '[DASHBOARD RESET] reset state to defaults';
 }
 
 export class LoadUserOwenedBanksAction {
-    static readonly type = '[BANK LOAD] load user owened assets';
+    static readonly type = '[DASHBOARD LOAD] load user owened assets';
 }

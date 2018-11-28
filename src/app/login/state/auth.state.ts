@@ -72,8 +72,7 @@ export class AuthState {
 
     @Action(LoggedOutEvent)
     logoutSuccessful(ctx: StateContext<AuthStateModel>) {
-        ctx.dispatch(new ResetStateAction);
-        ctx.dispatch(new SetUserAction(null));
+        ctx.dispatch([new SetUserAction(null), new ResetStateAction,]);
     }
 
     @Action(LoggedOutFailedEvent)

@@ -18,6 +18,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'bank/:id',
+    loadChildren: './bank/bank.module#BankModule',
+    canActivate: [AuthGuard]
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'

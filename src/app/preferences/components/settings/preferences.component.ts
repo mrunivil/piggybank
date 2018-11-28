@@ -28,7 +28,7 @@ export class PreferencesComponent implements OnInit {
     this.store.dispatch(new Navigate(['/dashboard']));
   }
 
-  updatePreferences() {
+  updatePreferences($event?: CustomEvent) {
     this.store.dispatch(new UpdateUserPreferences({ ...this.preferences }));
   }
 

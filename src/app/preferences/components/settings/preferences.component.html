@@ -2,12 +2,12 @@
 
 <div>
   <label>your photo is visible to others?</label>
-  <input type="checkbox" (change)="updatePreferences()" [checked]="preferences?.allowPhoto">
+  <input type="checkbox" (change)="updatePreferences($event)" [checked]="preferences?.allowPhoto">
 </div>
 
 <div>
   <label>you want to receive notifications about changes regarding your banks?</label>
-  <input type="checkbox" (change)="updatePreferences()" [checked]="preferences?.allowNotifications">
+  <input type="checkbox" (change)="updatePreferences($event)" [checked]="preferences?.allowNotifications">
 </div>
 
 <div>
