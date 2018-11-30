@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { Preferences } from 'src/app/models/preferences';
 import { take } from 'rxjs/operators';
 import { UpdateUserPreferences } from '../../state/actions';
+import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
 
 @Component({
   selector: 'app-preferences',
@@ -25,7 +26,7 @@ export class PreferencesComponent implements OnInit {
   }
 
   backToDashboard() {
-    this.store.dispatch(new Navigate(['/dashboard']));
+    this.store.dispatch(new RedirectToDashboardAction);
   }
 
   updatePreferences($event?: CustomEvent) {

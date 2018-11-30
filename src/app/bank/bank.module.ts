@@ -9,9 +9,10 @@ import { BankState } from './state/bank.state';
 import { LocalBankService } from './services/local/bank.service';
 import { FirebaseBankService } from './services/firebase/bank.service';
 import { CommonModule } from '@angular/common';
+import { BankCreationComponent } from './components/creation/bank.creation.component';
 
 @NgModule({
-  declarations: [HeaderComponent, BankDetailsComponent],
+  declarations: [HeaderComponent, BankDetailsComponent, BankCreationComponent],
   imports: [
     CommonModule,
     BankRoutingModule,

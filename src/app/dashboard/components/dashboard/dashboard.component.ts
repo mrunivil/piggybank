@@ -4,6 +4,7 @@ import { AppStateModel, AppState } from 'src/app/shared/state/app.state';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { LoadUserOwenedBanksAction } from '../../state/actions';
+import { RedirectToBankCreationAction } from 'src/app/shared/state/actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,4 +22,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  createBank() {
+    this.store.dispatch(new RedirectToBankCreationAction);
+  }
 }

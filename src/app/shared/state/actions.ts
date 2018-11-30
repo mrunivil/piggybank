@@ -18,3 +18,20 @@ export class SetUserPreferences {
 export class RedirectToLoginAction {
     static readonly type = '[APP REDIRECT] /login';
 }
+
+export class RedirectToPreferencesAction {
+    static readonly type = '[APP REDIRECT] /preferences';
+}
+
+export class RedirectToDashboardAction {
+    static readonly type = '[APP REDIRECT] /dashboard';
+}
+
+export class RedirectToBankCreationAction {
+    static readonly type = '[APP REDIRECT] /bank';
+}
+
+export class RedirectToBankDetailsAction {
+    static readonly type = '[APP REDIRECT] /bank/:id';
+    constructor(public payload: string) { }
+}

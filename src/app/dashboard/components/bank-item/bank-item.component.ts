@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Bank } from 'src/app/models/bank';
 import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
+import { RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
 
 @Component({
   selector: 'app-bank-item',
@@ -18,7 +19,7 @@ export class BankItemComponent implements OnInit {
   }
 
   showDetails() {
-    this.store.dispatch(new Navigate(['/bank', '5']));
+    this.store.dispatch(new RedirectToBankDetailsAction('5'));
   }
 
 }

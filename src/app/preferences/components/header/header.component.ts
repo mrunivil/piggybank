@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { LogoutAction } from 'src/app/login/state/actions';
 import { User } from 'src/app/models/user';
 import { AppState } from 'src/app/shared/state/app.state';
+import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit {
   }
 
   back() {
-    this.store.dispatch(new Navigate(['/dashboard']));
+    this.store.dispatch(new RedirectToDashboardAction);
   }
 
 }

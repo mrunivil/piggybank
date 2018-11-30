@@ -4,7 +4,7 @@
 </div>
 
 <div *ngIf="(user$|async)">
-  <button> neue Bankerstellen </button>
+  <button (click)="createBank()"> neue Bankerstellen </button>
   <h1>Dashboard</h1>
   <div>
     <app-bank-list></app-bank-list>
