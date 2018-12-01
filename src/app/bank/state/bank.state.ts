@@ -1,8 +1,10 @@
 import { BankService } from '../services/bank.service';
 import { Selector, State, Action, StateContext } from '@ngxs/store';
 import { Bank } from 'src/app/models/bank';
-import { LoadBankDetailsAction } from './actions';
-import { tap, take } from 'rxjs/operators';
+import { LoadBankDetailsAction, SaveNewBankAction } from './actions';
+import { tap, take, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { AttachBankAction } from 'src/app/dashboard/state/actions';
 
 
 export class BankStateModel {
@@ -41,5 +43,19 @@ export class BankState {
                 })
             })
         ).subscribe();
+    }
+
+    @Action(SaveNewBankAction)
+    saveNewBankAction({ patchState, dispatch }: StateContext<BankStateModel>, { payload }: SaveNewBankAction) {
+        return this.bankService.createNewBank(payload).pipe(
+            take(1)
+            , tap((ret) => {
+                dispatch(new AttachBankAction(ret));
+            })
+            , catchError((e) => {
+                console.error(`Error while saving new Bank:${e}`);
+                throw e;
+            })
+        );
     }
 }

@@ -1,8 +1,8 @@
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, StateContext, NgxsOnInit } from '@ngxs/store';
 import { first, tap } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
 import { DashboardService } from '../services/dashboard.service';
-import { LoadUserOwenedBanksAction, ResetStateAction } from './actions';
+import { LoadUserOwenedBanksAction, ResetStateAction, AttachBankAction } from './actions';
 
 export class DashboardStateModel {
     error: string;
@@ -16,9 +16,13 @@ export class DashboardStateModel {
         owenedBanks: undefined
     }
 })
-export class DashboardState {
+export class DashboardState implements NgxsOnInit {
 
     constructor(private bankService: DashboardService) { }
+
+    ngxsOnInit({ dispatch }: StateContext<DashboardStateModel>) {
+        dispatch(new LoadUserOwenedBanksAction);
+    }
 
     @Selector()
     static errorMessage({ error }: DashboardStateModel) {
@@ -49,6 +53,13 @@ export class DashboardState {
         ).subscribe();
     }
 
+    @Action(AttachBankAction)
+    attachBankAction(ctx: StateContext<DashboardStateModel>, { payload }: AttachBankAction) {
+        const state = ctx.getState();
+        ctx.patchState({
+            owenedBanks: [...state.owenedBanks, payload]
+        })
+    }
 
 
 }

@@ -16,7 +16,6 @@ export class DashboardComponent implements OnInit {
   @Select(AppState.currentUser) user$: Observable<User>;
 
   constructor(private store: Store) {
-    this.store.dispatch(new LoadUserOwenedBanksAction);
   }
 
   ngOnInit() {

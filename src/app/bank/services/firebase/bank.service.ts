@@ -9,7 +9,7 @@ export class FirebaseBankService extends BankService {
 
     constructor() { super() }
 
-    createNewBank(bank: Bank) {
+    createNewBank(bank: Bank): Observable<Bank> {
         throw new Error('Method not implemented.');
     }
     deposit(deposit: Action) {
@@ -18,7 +18,7 @@ export class FirebaseBankService extends BankService {
     getBankDetails(id: string, userid: string): Observable<Bank> {
         throw new Error('Method not implemented.');
     }
-    updateMyBank(bank: Bank) {
+    updateMyBank(bank: Bank): Observable<Bank> {
         throw new Error('Method not implemented.');
     }
     payOff(payment: Action) {

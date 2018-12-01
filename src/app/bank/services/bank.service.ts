@@ -17,9 +17,9 @@ export interface BankServiceInterface {
 export abstract class BankService implements BankServiceInterface {
     abstract getBankDetails(id: string, userid: string): Observable<Bank>;
 
-    abstract createNewBank(bank: Bank);
+    abstract createNewBank(bank: Bank): Observable<Bank>;
 
-    abstract updateMyBank(bank: Bank);
+    abstract updateMyBank(bank: Bank): Observable<Bank>;
 
     abstract payOff(payment: Action);
 

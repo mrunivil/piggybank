@@ -1,2 +1,20 @@
 <app-header [title]="'Bank erstellen'"></app-header>
 <h1>Bank creation component is under construction</h1>
+<div>
+  <label>Gib den namen deiner PiggyBank ein</label>
+  <input type="text" [(ngModel)]="bank.name">
+</div>
+<div>
+  <label>Möchtest du dein PayPal Konto hinterlegen?</label>
+  <input type="checkbox" [(ngModel)]="usePayPal">
+</div>
+<div *ngIf="usePayPal">
+  <label>Bitte geb dein PayPal Konto an</label>
+  <input type="text" [(ngModel)]="user.email">
+</div>
+<div *ngIf="error">
+  <label [innerText]="error"></label>
+</div>
+<div>
+  <button (click)="save()">speichern</button>
+</div>
