@@ -2,7 +2,7 @@ import { State, NgxsOnInit, StateContext, Store, Action, Selector } from '@ngxs/
 import { Preferences } from 'src/app/models/preferences';
 import { PreferencesService } from '../services/preferences.service';
 import { User } from 'src/app/models/user';
-import { take } from 'rxjs/operators';
+import { take, catchError, tap } from 'rxjs/operators';
 import { LoadUserPreferences, UpdateUserPreferences } from './actions';
 import { Observable } from 'rxjs';
 
@@ -54,12 +54,18 @@ export class PreferencesState implements NgxsOnInit {
 
     @Action(UpdateUserPreferences)
     updateUserPreferences({ patchState, getState }: StateContext<PreferencesStateModel>, { payload }: UpdateUserPreferences) {
-        this.preferencesService.updatePreferences(payload).pipe(
-            take(1)
-        ).subscribe(res => {
-            console.info('User preferences successfully updated');
-        }, err => patchState({
-            error: err
-        }));
+        return this.preferencesService.updatePreferences(payload).pipe(
+            take(1),
+            tap(() => {
+                // debugger;
+                patchState({ preferences: payload });
+            })
+            , catchError((e) => {
+                // debugger
+                // patchState({ preferences: getState().preferences });
+                console.error(`Error while saving new Bank:${e}`);
+                throw e;
+            })
+        );
     }
 }

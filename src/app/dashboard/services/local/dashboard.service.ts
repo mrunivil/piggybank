@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bank } from 'src/app/models/bank';
 import { DashboardService } from '../dashboard.service';
+import { first, map } from 'rxjs/operators';
+import { User } from 'src/app/models/user';
 
 @Injectable()
 export class LocalDashboardService extends DashboardService {
@@ -14,9 +16,11 @@ export class LocalDashboardService extends DashboardService {
   sendInviteLink(bank: Bank): Observable<string> {
     throw new Error('Method not implemented.');
   }
-  getMyOwenedBanks(): Observable<Bank[]> {
-    console.log('requesting data');
-    return this.http.get<Bank[]>('./mockdata/banks.json');
+  getMyOwenedBanks(uid: string): Observable<Bank[]> {
+    return this.http.get<Bank[]>('./mockdata/banks.json').pipe(first()
+      , map((banks: Bank[]) => {
+        return banks.filter(b => b.owner.uid === uid);
+      }));
   }
   getMyOtherBanks(): Observable<Bank[]> {
     throw new Error('Method not implemented.');

@@ -1,8 +1,8 @@
 import { BankService } from '../services/bank.service';
 import { Selector, State, Action, StateContext } from '@ngxs/store';
 import { Bank } from 'src/app/models/bank';
-import { LoadBankDetailsAction, SaveNewBankAction } from './actions';
-import { tap, take, catchError } from 'rxjs/operators';
+import { LoadBankDetailsAction, SaveNewBankAction, ResetStateAction } from './actions';
+import { tap, take, catchError, flatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AttachBankAction } from 'src/app/dashboard/state/actions';
 
@@ -34,7 +34,7 @@ export class BankState {
     }
 
     @Action(LoadBankDetailsAction)
-    loadBankDetails({ patchState }: StateContext<BankStateModel>, { bankId, userId }: LoadBankDetailsAction) {
+    loadBankDetails({ patchState, dispatch }: StateContext<BankStateModel>, { bankId, userId }: LoadBankDetailsAction) {
         this.bankService.getBankDetails(bankId, userId).pipe(
             take(1)
             , tap(res => {

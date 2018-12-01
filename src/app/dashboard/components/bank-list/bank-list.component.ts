@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { DashboardState } from '../../state/dashboard.state';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import { Bank } from 'src/app/models/bank';
 })
 export class BankListComponent implements OnInit {
 
-  @Select(DashboardState.myOwenedBanks) ownedBanks$: Observable<Bank[]>;
+  @Input() banks$: Observable<Bank[]>
 
   constructor() { }
 

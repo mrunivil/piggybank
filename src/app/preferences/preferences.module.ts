@@ -10,10 +10,12 @@ import { NgxsModule } from '@ngxs/store';
 import { PreferencesRoutingModule } from './preference.routing.module';
 import { HeaderComponent } from './components/header/header.component';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
     NgxsModule.forFeature([PreferencesState]),
     PreferencesRoutingModule

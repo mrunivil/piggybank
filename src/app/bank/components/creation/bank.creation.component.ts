@@ -6,7 +6,7 @@ import { AppState } from 'src/app/shared/state/app.state';
 import { SaveNewBankAction } from '../../state/actions';
 import { catchError } from 'rxjs/operators';
 import { AttachBankAction } from 'src/app/dashboard/state/actions';
-import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
+import { RedirectToDashboardAction, RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
 
 @Component({
     selector: 'app-bank-creation',
@@ -27,7 +27,8 @@ export class BankCreationComponent {
 
     save() {
         this.store.dispatch(new SaveNewBankAction(this.bank)).subscribe(ret => {
-            this.store.dispatch(new RedirectToDashboardAction);
+            this.error = undefined;
+            this.store.dispatch(new RedirectToBankDetailsAction(this.bank.id));
         }, err => {
             this.error = err;
         });

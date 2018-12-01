@@ -5,8 +5,8 @@
 
 <div *ngIf="(user$|async)">
   <button (click)="createBank()"> neue Bankerstellen </button>
-  <h1>Dashboard</h1>
+  <h1>Übersicht</h1>
   <div>
-    <app-bank-list></app-bank-list>
+    <app-bank-list [banks$]="banks$"></app-bank-list>
   </div>
 </div>

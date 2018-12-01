@@ -7,7 +7,7 @@ import { Bank } from 'src/app/models/bank';
 export interface DashboardServiceInterface {
     sendInviteLink(bank: Bank): Observable<string>;
 
-    getMyOwenedBanks(): Observable<Bank[]>;
+    getMyOwenedBanks(uid: string): Observable<Bank[]>;
 
     getMyOtherBanks(): Observable<Bank[]>;
 
@@ -19,7 +19,7 @@ export interface DashboardServiceInterface {
 export abstract class DashboardService implements DashboardServiceInterface {
     abstract sendInviteLink(bank: Bank);
 
-    abstract getMyOwenedBanks(): Observable<Bank[]>;
+    abstract getMyOwenedBanks(uid: string): Observable<Bank[]>;
 
     abstract getMyOtherBanks(): Observable<Bank[]>;
 

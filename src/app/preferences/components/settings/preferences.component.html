@@ -2,14 +2,26 @@
 
 <div>
   <label>your photo is visible to others?</label>
-  <input type="checkbox" (change)="updatePreferences($event)" [checked]="preferences?.allowPhoto">
+  <input type="checkbox" (change)="updatePreferences($event)" [(ngModel)]="preferences.allowPhoto">
 </div>
 
 <div>
   <label>you want to receive notifications about changes regarding your banks?</label>
-  <input type="checkbox" (change)="updatePreferences($event)" [checked]="preferences?.allowNotifications">
+  <input type="checkbox" (change)="updatePreferences($event)" [(ngModel)]="preferences.allowNotifications">
+</div>
+
+<div *ngIf="error">
+  <label [innerText]="error"></label>
 </div>
 
 <div>
   <label>Version Number: 0.0.1</label>
 </div>
+
+<div>
+  {{preferences|json}}
+</div>
+<div>
+  {{preferences$|async|json}}
+</div>
+<button (click)="output()">output</button>

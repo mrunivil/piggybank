@@ -10,7 +10,7 @@ export class FirebasePreferencesService extends PreferencesService {
         throw new Error('Method not implemented.');
     }
 
-    updatePreferences(preferences: Preferences): Observable<boolean> {
+    updatePreferences(preferences: Preferences): Observable<Preferences> {
         throw new Error('Method not implemented.');
     }
 

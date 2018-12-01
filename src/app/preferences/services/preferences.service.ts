@@ -6,7 +6,7 @@ export interface PreferencesServiceInterface {
 
     getPreferences(uid: string): Observable<Preferences>;
 
-    updatePreferences(preferences: Preferences): void;
+    updatePreferences(preferences: Preferences): Observable<Preferences>;
 
     deleteAccountInformation(): void;
 }
@@ -16,7 +16,7 @@ export abstract class PreferencesService implements PreferencesServiceInterface 
 
     abstract getPreferences(uid: string): Observable<Preferences>;
 
-    abstract updatePreferences(preferences: Preferences): Observable<boolean>;
+    abstract updatePreferences(preferences: Preferences): Observable<Preferences>;
 
     abstract deleteAccountInformation();
 }

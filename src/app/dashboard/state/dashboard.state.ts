@@ -16,13 +16,9 @@ export class DashboardStateModel {
         owenedBanks: undefined
     }
 })
-export class DashboardState implements NgxsOnInit {
+export class DashboardState {
 
     constructor(private bankService: DashboardService) { }
-
-    ngxsOnInit({ dispatch }: StateContext<DashboardStateModel>) {
-        dispatch(new LoadUserOwenedBanksAction);
-    }
 
     @Selector()
     static errorMessage({ error }: DashboardStateModel) {
@@ -42,8 +38,8 @@ export class DashboardState implements NgxsOnInit {
     }
 
     @Action(LoadUserOwenedBanksAction)
-    loadUserOwenedBanks({ patchState }: StateContext<DashboardStateModel>) {
-        this.bankService.getMyOwenedBanks().pipe(
+    loadUserOwenedBanks({ patchState }: StateContext<DashboardStateModel>, { payload }: LoadUserOwenedBanksAction) {
+        this.bankService.getMyOwenedBanks(payload.uid).pipe(
             first()
             , tap(res => {
                 patchState({
