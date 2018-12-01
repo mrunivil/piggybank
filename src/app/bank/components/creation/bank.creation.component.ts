@@ -18,12 +18,11 @@ export class BankCreationComponent {
 
     user: User;
     bank: Bank;
-    usePayPal: false;
     error: string;
 
     constructor(private store: Store) {
         this.user = this.store.selectSnapshot(AppState.currentUser);
-        this.bank = { name: 'meine Bank', owner: this.user, photoURL: this.user.photoURL, balance: 0 } as Bank;
+        this.bank = { name: 'meine Bank', owner: this.user, photoURL: this.user.photoURL, balance: 0, paypal_account: this.user.email } as Bank;
     }
 
     save() {

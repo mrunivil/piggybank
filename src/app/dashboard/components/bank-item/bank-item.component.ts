@@ -20,7 +20,7 @@ export class BankItemComponent implements OnInit {
 
   showDetails() {
     console.dir(this.item);
-    this.store.dispatch(new RedirectToBankDetailsAction('5'));
+    this.store.dispatch(new RedirectToBankDetailsAction(this.item.id));
   }
 
 }

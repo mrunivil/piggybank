@@ -9,4 +9,6 @@ export interface Bank {
     members: User[];
     history: Action[];
     balance: number;
+    paypal: boolean;
+    paypal_account: string;
 }

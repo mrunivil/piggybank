@@ -6,11 +6,11 @@
 </div>
 <div>
   <label>Möchtest du dein PayPal Konto hinterlegen?</label>
-  <input type="checkbox" [(ngModel)]="usePayPal">
+  <input type="checkbox" [(ngModel)]="bank.paypal">
 </div>
-<div *ngIf="usePayPal">
+<div *ngIf="bank.paypal">
   <label>Bitte geb dein PayPal Konto an</label>
-  <input type="text" [(ngModel)]="user.email">
+  <input type="text" [(ngModel)]="bank.paypal_account">
 </div>
 <div *ngIf="error">
   <label [innerText]="error"></label>

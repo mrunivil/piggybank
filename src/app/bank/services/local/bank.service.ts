@@ -13,10 +13,11 @@ export class LocalBankService extends BankService {
     constructor(private http: HttpClient) { super() }
 
     createNewBank(bank: Bank): Observable<Bank> {
-        return of(bank).pipe(delay(1000), tap(e => {
+        return of(bank).pipe(delay(1000), tap((e: Bank) => {
             if (new Date().getTime() % 3 === 0) {
                 throw new Error('sorry something went wrong!');
             } else {
+                e.id = '10';
                 return of(e);
             }
         }));
