@@ -8,6 +8,7 @@ export class DashboardStateModel {
     initialized: boolean;
     error: string;
     ownedBanks: Bank[];
+    otherBanks: Bank[];
 }
 
 @State<DashboardStateModel>({
@@ -15,7 +16,8 @@ export class DashboardStateModel {
     defaults: {
         initialized: false,
         error: null,
-        ownedBanks: undefined
+        ownedBanks: undefined,
+        otherBanks: undefined
     }
 })
 export class DashboardState {
@@ -30,6 +32,11 @@ export class DashboardState {
     @Selector()
     static myOwenedBanks({ ownedBanks }: DashboardStateModel) {
         return ownedBanks;
+    }
+
+    @Selector()
+    static OtherBanks({ otherBanks }: DashboardStateModel) {
+        return otherBanks;
     }
 
     @Action(ResetStateAction)

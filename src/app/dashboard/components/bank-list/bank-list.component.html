@@ -1,2 +1,2 @@
-<h2>Deine eigenen Piggy Banks</h2>
-<app-bank-item *ngFor="let bank of banks$|async" [item]="bank"></app-bank-item>
+<h2 [innerText]="title"></h2>
+<app-bank-item *ngFor="let bank of myBanks$|async" [item]="bank"></app-bank-item>

@@ -12,10 +12,9 @@
   </p>
 
   <div>
-    <app-bank-list [banks$]="banks$"></app-bank-list>
+    <app-bank-list [title]="'Deine eigenen Piggy Banks'" [myBanks$]="myBanks$"></app-bank-list>
+  </div>
+  <div>
+    <app-bank-list [title]="'Piggy Banks bei denen du Mitglied bist'" [myBanks$]="otherBanks$"></app-bank-list>
   </div>
 </div>
-
-<p>
-  {{(state|async)?.dashboard|json}}
-</p>
