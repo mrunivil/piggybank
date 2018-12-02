@@ -5,6 +5,7 @@ import { DashboardService } from '../services/dashboard.service';
 import { LoadUserOwenedBanksAction, ResetStateAction, AttachBankAction } from './actions';
 
 export class DashboardStateModel {
+    initialized: boolean;
     error: string;
     owenedBanks: Bank[];
 }
@@ -12,6 +13,7 @@ export class DashboardStateModel {
 @State<DashboardStateModel>({
     name: 'dashboard',
     defaults: {
+        initialized: false,
         error: null,
         owenedBanks: undefined
     }
@@ -38,15 +40,17 @@ export class DashboardState {
     }
 
     @Action(LoadUserOwenedBanksAction)
-    loadUserOwenedBanks({ patchState }: StateContext<DashboardStateModel>, { payload }: LoadUserOwenedBanksAction) {
-        this.bankService.getMyOwenedBanks(payload.uid).pipe(
-            first()
-            , tap(res => {
-                patchState({
-                    owenedBanks: res
+    loadUserOwenedBanks({ patchState, getState }: StateContext<DashboardStateModel>, { payload }: LoadUserOwenedBanksAction) {
+        if (!getState().initialized) {
+            this.bankService.getMyOwenedBanks(payload.uid).pipe(
+                first()
+                , tap(res => {
+                    patchState({
+                        owenedBanks: res
+                    })
                 })
-            })
-        ).subscribe();
+            ).subscribe();
+        }
     }
 
     @Action(AttachBankAction)
