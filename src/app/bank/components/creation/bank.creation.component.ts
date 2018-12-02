@@ -8,6 +8,8 @@ import { RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 import { SaveNewBankAction } from '../../state/actions';
 import { BankState } from '../../state/bank.state';
+import { AttachBankAction } from 'src/app/dashboard/state/actions';
+import { ResetStateAction } from '../../state/actions';
 
 @Component({
     selector: 'app-bank-creation',
@@ -23,17 +25,17 @@ export class BankCreationComponent {
     user: User;
     bank: Bank;
 
-    constructor(private store: Store) {
+    constructor(public store: Store) {
         this.user = this.store.selectSnapshot(AppState.currentUser);
         this.bank = { name: `${this.user.email}´s Bank`, owner: this.user, photoURL: this.user.photoURL, balance: 0, paypal_account: this.user.email } as Bank;
+        this.store.dispatch(new ResetStateAction)
     }
 
     save() {
         this.store.dispatch(new SaveNewBankAction(this.bank));
         this.success$.pipe(takeWhile(res => res !== true)).subscribe((res) => { }, (err) => { }, () => {
-            debugger
-            const id = this.store.selectSnapshot(BankState.currentBank).id;
-            this.store.dispatch(new RedirectToBankDetailsAction(id))
+            this.store.dispatch(new AttachBankAction(this.store.selectSnapshot(BankState.currentBank)));
+            this.store.dispatch(new RedirectToBankDetailsAction(this.store.selectSnapshot(BankState.currentBank).id));
         });
     }
 }

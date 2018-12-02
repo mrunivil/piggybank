@@ -17,10 +17,10 @@
   <label [innerText]="error"></label>
 </p>
 
-<p>
-  {{success$|async}}
-</p>
-
 <div>
   <button (click)="save()">speichern</button>
 </div>
+
+<p>
+  {{(store|async)?.bank|json}}
+</p>

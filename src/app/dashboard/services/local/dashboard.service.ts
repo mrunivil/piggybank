@@ -20,7 +20,7 @@ export class LocalDashboardService extends DashboardService {
     return this.http.get<Bank[]>('./mockdata/banks.json').pipe(
       first()
       , delay(500)
-      , tap(val => {
+      , tap(() => {
         if (new Date().getTime() % 3 === 0) {
           throw new Error('sorry something went wrong!');
         }

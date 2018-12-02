@@ -24,7 +24,7 @@ export class LocalPreferencesService extends PreferencesService {
     updatePreferences(preferences: Preferences): Observable<Preferences> {
         return of(preferences).pipe(
             delay(500)
-            , tap(val => {
+            , tap(() => {
                 if (new Date().getTime() % 3 === 0) {
                     throw new Error('sorry something went wrong!');
                 }

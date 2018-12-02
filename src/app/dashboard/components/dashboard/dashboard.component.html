@@ -15,3 +15,7 @@
     <app-bank-list [banks$]="banks$"></app-bank-list>
   </div>
 </div>
+
+<p>
+  {{(state|async)?.dashboard|json}}
+</p>

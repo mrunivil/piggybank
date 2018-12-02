@@ -47,7 +47,9 @@ export class BankState {
     resetStateAction({ patchState }: StateContext<BankStateModel>) {
         patchState({
             currentBank: undefined,
-            error: undefined
+            newBank: {} as Bank,
+            error: undefined,
+            success: undefined
         })
     }
 
