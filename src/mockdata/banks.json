@@ -75,6 +75,11 @@
   {
     "id": "10",
     "name": "gökhan.erbay@example.com´s Bank",
+    "members": [{
+      "uid": "65cbbaa7-a176-40e3-9a8e-84604b45857f",
+      "email": "gökhan.erbay@example.com",
+      "photoURL": "https://randomuser.me/api/portraits/thumb/men/2.jpg"
+    }],
     "owner": {
       "uid": "65cbbaa7-a176-40e3-9a8e-84604b45857f",
       "email": "gökhan.erbay@example.com",
@@ -90,6 +95,7 @@
           "email": "gökhan.erbay@example.com",
           "photoURL": "https://randomuser.me/api/portraits/thumb/men/2.jpg"
         },
+        "type": "Bank erstellt",
         "date": "2018-12-02T17:17:21.428Z"
       }
     ]

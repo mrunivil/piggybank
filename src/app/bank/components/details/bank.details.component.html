@@ -13,6 +13,7 @@
   <h2>Vorgänge</h2>
   <div *ngFor="let history of (currentBank$|async)?.history">
     <img [src]="history.user.photoURL" alt="no picture available">
+    <h4 [innerText]="history.date | date:'dd.MM.yyyy HH:mm'"></h4>
     <h4 [innerText]="history.type"></h4>
   </div>
 </div>

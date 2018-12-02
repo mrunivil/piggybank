@@ -28,12 +28,13 @@ export class BankCreationComponent {
 
     constructor(public store: Store) {
         this.user = this.store.selectSnapshot(AppState.currentUser);
-        this.bank = { name: `${this.user.email}´s Bank`, owner: this.user, photoURL: this.user.photoURL, balance: 0, paypal_account: this.user.email, history: [] } as Bank;
+        this.bank = { name: `${this.user.email}´s Bank`, owner: this.user, photoURL: this.user.photoURL, balance: 0, paypal_account: this.user.email, history: [], members: [] } as Bank;
         this.store.dispatch(new ResetStateAction)
     }
 
     save() {
         this.bank.history.push(new CreateBank(this.user, new Date()));
+        this.bank.members.push(this.user);
         console.dir(JSON.stringify(this.bank));
         this.store.dispatch(new SaveNewBankAction(this.bank));
         this.success$.pipe(takeWhile(res => res !== true)).subscribe((res) => { }, (err) => { }, () => {
