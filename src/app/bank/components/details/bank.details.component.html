@@ -1,5 +1,21 @@
 <app-header [title]="'Bank Details'"></app-header>
 <h1>Bank Details Component is under construction</h1>
+
+<div>
+  <h2>Mitglieder</h2>
+  <span *ngFor="let member of (currentBank$|async)?.members">
+    <img [src]="member.photoURL" alt="no picture available">
+    <label [innerText]="member.email"></label>
+  </span>
+</div>
+
+<div>
+  <h2>Vorgänge</h2>
+  <div>
+    <img [src]="member.photoURL" alt="no picture available">
+    <label></label>
+  </div>
+</div>
 <p *ngIf="error$|async as error" class="error">
   <label [innerText]="error"></label>
 </p>
