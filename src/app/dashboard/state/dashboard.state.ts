@@ -1,5 +1,5 @@
 import { Action, Selector, State, StateContext, NgxsOnInit } from '@ngxs/store';
-import { first, tap } from 'rxjs/operators';
+import { first, tap, catchError, retry } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
 import { DashboardService } from '../services/dashboard.service';
 import { LoadUserOwenedBanksAction, ResetStateAction, AttachBankAction } from './actions';
@@ -44,12 +44,13 @@ export class DashboardState {
         if (!getState().initialized) {
             this.bankService.getMyOwenedBanks(payload.uid).pipe(
                 first()
-                , tap(res => {
-                    patchState({
-                        owenedBanks: res
-                    })
+                , retry(3)
+            ).subscribe((res) => {
+                patchState({
+                    owenedBanks: res,
+                    initialized: true
                 })
-            ).subscribe();
+            }, (e) => { patchState({ error: e }); });
         }
     }
 

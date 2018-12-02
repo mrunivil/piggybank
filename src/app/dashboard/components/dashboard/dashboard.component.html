@@ -6,6 +6,11 @@
 <div *ngIf="(user$|async)">
   <button (click)="createBank()"> neue Bankerstellen </button>
   <h1>Übersicht</h1>
+
+  <p *ngIf="error$|async" class="error">
+    <label [innerText]="error$|async"></label>
+  </p>
+
   <div>
     <app-bank-list [banks$]="banks$"></app-bank-list>
   </div>

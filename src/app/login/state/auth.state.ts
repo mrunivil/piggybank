@@ -4,7 +4,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { GoogleLoginAction, LogoutAction, ResetStateAction } from './actions';
 import { LoginFailedEvent, GoogleLoggedInEvent, LoggedOutEvent, LoggedOutFailedEvent } from './events';
 import { AuthService } from '../services/auth';
-import { take, first, switchMap, concatAll, concat } from 'rxjs/operators'
+import { take, first, switchMap, concatAll, concat, retry, catchError } from 'rxjs/operators'
 import { SetUserAction } from 'src/app/shared/state/actions';
 export class AuthStateModel {
     error: string;
@@ -32,11 +32,16 @@ export class AuthState {
         });
     }
 
+    /**
+     * 
+     * @param ctx Login Action
+     */
     @Action(GoogleLoginAction)
     loginWithGoogle(ctx: StateContext<AuthStateModel>) {
         ctx.dispatch(new ResetStateAction).pipe(
             switchMap(() => this.authService.loginWithGoogle())
-            , take(1)
+            , first()
+            , retry(3)
         ).subscribe((res: User) => {
             ctx.dispatch(new GoogleLoggedInEvent(res));
         }, err => {
@@ -46,10 +51,7 @@ export class AuthState {
 
     @Action(GoogleLoggedInEvent)
     loginWithGoogleSuccessful(ctx: StateContext<AuthStateModel>, { payload }: GoogleLoggedInEvent) {
-        ctx.patchState({
-            error: null
-        });
-        ctx.dispatch(new SetUserAction(payload));
+        ctx.dispatch(new ResetStateAction).pipe(first()).subscribe(() => ctx.dispatch(new SetUserAction(payload)).pipe(first()).subscribe());
     }
 
     @Action(LoginFailedEvent)
@@ -59,11 +61,16 @@ export class AuthState {
         });
     }
 
+    /**
+     * 
+     * @param ctx Logout Action
+     */
     @Action(LogoutAction)
     logout(ctx: StateContext<AuthStateModel>) {
         this.authService.logout().pipe(
             first()
-        ).subscribe(res => {
+            , retry(3)
+        ).subscribe(() => {
             ctx.dispatch(new LoggedOutEvent);
         }, err => {
             ctx.dispatch(new LoggedOutFailedEvent(err));

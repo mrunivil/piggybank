@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
 
   @Select(AppState.currentUser) user$: Observable<User>;
   @Select(DashboardState.myOwenedBanks) banks$: Observable<Bank[]>;
+  @Select(DashboardState.errorMessage) error$: Observable<string>;
 
   constructor(private store: Store) {
   }

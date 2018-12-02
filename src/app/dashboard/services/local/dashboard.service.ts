@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bank } from 'src/app/models/bank';
 import { DashboardService } from '../dashboard.service';
-import { first, map } from 'rxjs/operators';
+import { first, map, delay, tap, retry } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
 
 @Injectable()
@@ -17,7 +17,14 @@ export class LocalDashboardService extends DashboardService {
     throw new Error('Method not implemented.');
   }
   getMyOwenedBanks(uid: string): Observable<Bank[]> {
-    return this.http.get<Bank[]>('./mockdata/banks.json').pipe(first()
+    return this.http.get<Bank[]>('./mockdata/banks.json').pipe(
+      first()
+      , delay(500)
+      , tap(val => {
+        if (new Date().getTime() % 3 === 0) {
+          throw new Error('sorry something went wrong!');
+        }
+      })
       , map((banks: Bank[]) => {
         return banks.filter(b => b.owner.uid === uid);
       }));
