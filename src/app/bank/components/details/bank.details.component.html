@@ -11,9 +11,9 @@
 
 <div>
   <h2>Vorgänge</h2>
-  <div>
-    <img [src]="member.photoURL" alt="no picture available">
-    <label></label>
+  <div *ngFor="let history of (currentBank$|async)?.history">
+    <img [src]="history.user.photoURL" alt="no picture available">
+    <h4 [innerText]="history.type"></h4>
   </div>
 </div>
 <p *ngIf="error$|async as error" class="error">

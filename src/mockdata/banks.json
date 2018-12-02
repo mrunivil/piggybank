@@ -1,4 +1,5 @@
-[{
+[
+  {
     "id": "1",
     "name": "Test Bank 1",
     "photoURL": "https://randomuser.me/api/portraits/thumb/men/2.jpg",
@@ -7,23 +8,28 @@
       "email": "gökhan.erbay@example.com",
       "photoURL": "https://randomuser.me/api/portraits/thumb/men/2.jpg"
     },
-    "members": [{
-      "uid": "242f31fb-3991-4723-a73e-ce6e6a18d300",
-      "email": "brooklyn.hughes@example.com",
-      "photoURL": "https://randomuser.me/api/portraits/thumb/women/41.jpg"
-    }, {
-      "uid": "33b092e0-2fae-4e1b-9110-062ca7928874",
-      "email": "connor.green@example.com",
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/80.jpg"
-    }, {
-      "uid": "3fd5e6f6-bb9b-4dde-b874-d66d24cde405",
-      "email": "ellie.wright@example.com",
-      "photoURL": "https://randomuser.me/api/portraits/thumb/women/18.jpg"
-    }, {
-      "uid": "65cbbaa7-a176-40e3-9a8e-84604b45857f",
-      "email": "gökhan.erbay@example.com",
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/2.jpg"
-    }],
+    "members": [
+      {
+        "uid": "242f31fb-3991-4723-a73e-ce6e6a18d300",
+        "email": "brooklyn.hughes@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/women/41.jpg"
+      },
+      {
+        "uid": "33b092e0-2fae-4e1b-9110-062ca7928874",
+        "email": "connor.green@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/men/80.jpg"
+      },
+      {
+        "uid": "3fd5e6f6-bb9b-4dde-b874-d66d24cde405",
+        "email": "ellie.wright@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/women/18.jpg"
+      },
+      {
+        "uid": "65cbbaa7-a176-40e3-9a8e-84604b45857f",
+        "email": "gökhan.erbay@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/men/2.jpg"
+      }
+    ],
     "history": [],
     "balance": 0
   },
@@ -36,28 +42,56 @@
       "email": "adolfo.mendez@example.com",
       "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
     },
-    "members": [{
-      "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-      "email": "adolfo.mendez@example.com",
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-    }, {
-      "uid": "242f31fb-3991-4723-a73e-ce6e6a18d300",
-      "email": "brooklyn.hughes@example.com",
-      "photoURL": "https://randomuser.me/api/portraits/thumb/women/41.jpg"
-    }, {
-      "uid": "33b092e0-2fae-4e1b-9110-062ca7928874",
-      "email": "connor.green@example.com",
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/80.jpg"
-    }, {
-      "uid": "3fd5e6f6-bb9b-4dde-b874-d66d24cde405",
-      "email": "ellie.wright@example.com",
-      "photoURL": "https://randomuser.me/api/portraits/thumb/women/18.jpg"
-    }, {
+    "members": [
+      {
+        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+        "email": "adolfo.mendez@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+      },
+      {
+        "uid": "242f31fb-3991-4723-a73e-ce6e6a18d300",
+        "email": "brooklyn.hughes@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/women/41.jpg"
+      },
+      {
+        "uid": "33b092e0-2fae-4e1b-9110-062ca7928874",
+        "email": "connor.green@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/men/80.jpg"
+      },
+      {
+        "uid": "3fd5e6f6-bb9b-4dde-b874-d66d24cde405",
+        "email": "ellie.wright@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/women/18.jpg"
+      },
+      {
+        "uid": "65cbbaa7-a176-40e3-9a8e-84604b45857f",
+        "email": "gökhan.erbay@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/men/2.jpg"
+      }
+    ],
+    "history": [],
+    "balance": 0
+  },
+  {
+    "id": "10",
+    "name": "gökhan.erbay@example.com´s Bank",
+    "owner": {
       "uid": "65cbbaa7-a176-40e3-9a8e-84604b45857f",
       "email": "gökhan.erbay@example.com",
       "photoURL": "https://randomuser.me/api/portraits/thumb/men/2.jpg"
-    }],
-    "history": [],
-    "balance": 0
+    },
+    "photoURL": "https://randomuser.me/api/portraits/thumb/men/2.jpg",
+    "balance": 0,
+    "paypal_account": "gökhan.erbay@example.com",
+    "history": [
+      {
+        "user": {
+          "uid": "65cbbaa7-a176-40e3-9a8e-84604b45857f",
+          "email": "gökhan.erbay@example.com",
+          "photoURL": "https://randomuser.me/api/portraits/thumb/men/2.jpg"
+        },
+        "date": "2018-12-02T17:17:21.428Z"
+      }
+    ]
   }
 ]
