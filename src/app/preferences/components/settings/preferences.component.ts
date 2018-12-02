@@ -4,8 +4,8 @@ import { Navigate } from '@ngxs/router-plugin';
 import { PreferencesState, PreferencesStateModel } from '../../state/preferences.state';
 import { Observable, of, Subscription } from 'rxjs';
 import { Preferences } from 'src/app/models/preferences';
-import { take, catchError } from 'rxjs/operators';
-import { UpdateUserPreferences } from '../../state/actions';
+import { last, take, catchError, first, tap } from 'rxjs/operators';
+import { UpdateUserPreferences, LoadUserPreferences } from '../../state/actions';
 import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
 
 @Component({
@@ -16,15 +16,12 @@ import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
 export class PreferencesComponent implements OnInit, OnDestroy {
 
   @Select(PreferencesState.userPreferences) preferences$: Observable<Preferences>;
-
-  preferences: Preferences = { allowNotifications: true, allowPhoto: true, uid: null } as Preferences;
-  error: string;
-
+  @Select(PreferencesState.error) error$: Observable<string>;
 
   constructor(private store: Store) { }
 
   ngOnInit() {
-    this.preferences = { ...this.store.selectSnapshot(PreferencesState.userPreferences) };
+    this.store.dispatch(new LoadUserPreferences).pipe(first()).subscribe();
   }
 
   ngOnDestroy() {
@@ -35,23 +32,18 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   }
 
   updateAvataSettings($event?: CustomEvent) {
-    this.preferences.allowPhoto = !this.preferences.allowPhoto;
-    this.updatePreferences($event);
+    const preferences = { ...this.store.selectSnapshot(PreferencesState.userPreferences) };
+    preferences.allowPhoto = !preferences.allowPhoto;
+    this.updatePreferences(preferences, $event);
   }
 
   updateNotificationSettings($event?: CustomEvent) {
-    this.preferences.allowNotifications = !this.preferences.allowNotifications;
-    this.updatePreferences($event);
+    const preferences = { ...this.store.selectSnapshot(PreferencesState.userPreferences) };
+    preferences.allowNotifications = !preferences.allowNotifications;
+    this.updatePreferences(preferences, $event);
   }
 
-  updatePreferences($event?: CustomEvent) {
-    this.store.dispatch(new UpdateUserPreferences(this.preferences)).
-      subscribe(() => {
-        this.error = undefined;
-        this.preferences = { ...this.store.selectSnapshot(PreferencesState.userPreferences) };
-      }, (err) => {
-        this.error = err;
-        this.preferences = { ...this.store.selectSnapshot(PreferencesState.userPreferences) };
-      });
+  updatePreferences(preferences: Preferences, $event?: CustomEvent) {
+    this.store.dispatch(new UpdateUserPreferences(preferences));
   }
 }
