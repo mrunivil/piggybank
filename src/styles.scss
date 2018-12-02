@@ -1,4 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons');
+@import url('./utils/normalize.scss');
+
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
 .header {
   height: 150px;
+}
+
+.error {
+  background-color: red;
+  color: white;
+  padding: 0.5rem;
 }

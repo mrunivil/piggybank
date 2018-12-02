@@ -1,27 +1,20 @@
 <app-header></app-header>
 
-<div>
-  <label>your photo is visible to others?</label>
+<p>
   <input type="checkbox" (change)="updatePreferences($event)" [(ngModel)]="preferences.allowPhoto">
-</div>
+  <label (click)="updateAvataSettings($event)"> your photo is visible to others?</label>
+</p>
 
-<div>
-  <label>you want to receive notifications about changes regarding your banks?</label>
-  <input type="checkbox" (change)="updatePreferences($event)" [(ngModel)]="preferences.allowNotifications">
-</div>
+<p>
+  <input type="checkbox" (change)="updateNotificationSettings($event)" [checked]="preferences.allowNotifications">
+  <label (click)="updateNotificationSettings($event)"> you want to receive notifications about changes regarding your
+    banks?</label>
+</p>
 
-<div *ngIf="error">
+<p *ngIf="error" class="error">
   <label [innerText]="error"></label>
-</div>
+</p>
 
-<div>
+<p>
   <label>Version Number: 0.0.1</label>
-</div>
-
-<div>
-  {{preferences|json}}
-</div>
-<div>
-  {{preferences$|async|json}}
-</div>
-<button (click)="output()">output</button>
+</p>

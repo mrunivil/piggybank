@@ -57,12 +57,9 @@ export class PreferencesState implements NgxsOnInit {
         return this.preferencesService.updatePreferences(payload).pipe(
             take(1),
             tap(() => {
-                // debugger;
                 patchState({ preferences: payload });
             })
             , catchError((e) => {
-                // debugger
-                // patchState({ preferences: getState().preferences });
                 console.error(`Error while saving new Bank:${e}`);
                 throw e;
             })

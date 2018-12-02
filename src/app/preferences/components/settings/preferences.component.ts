@@ -20,25 +20,31 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   preferences: Preferences = { allowNotifications: true, allowPhoto: true, uid: null } as Preferences;
   error: string;
 
-  subscription: Subscription;
 
   constructor(private store: Store) { }
 
   ngOnInit() {
     this.preferences = { ...this.store.selectSnapshot(PreferencesState.userPreferences) };
-    // this.subscription = this.preferences$.subscribe(pref => this.preferences = pref);
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   backToDashboard() {
     this.store.dispatch(new RedirectToDashboardAction);
   }
 
+  updateAvataSettings($event?: CustomEvent) {
+    this.preferences.allowPhoto = !this.preferences.allowPhoto;
+    this.updatePreferences($event);
+  }
+
+  updateNotificationSettings($event?: CustomEvent) {
+    this.preferences.allowNotifications = !this.preferences.allowNotifications;
+    this.updatePreferences($event);
+  }
+
   updatePreferences($event?: CustomEvent) {
-    console.log('sending:' + { preferences: this.preferences });
     this.store.dispatch(new UpdateUserPreferences(this.preferences)).
       subscribe(() => {
         this.error = undefined;
@@ -47,9 +53,5 @@ export class PreferencesComponent implements OnInit, OnDestroy {
         this.error = err;
         this.preferences = { ...this.store.selectSnapshot(PreferencesState.userPreferences) };
       });
-  }
-
-  output() {
-    console.log({ preferences: this.store.selectSnapshot(PreferencesState.userPreferences) });
   }
 }
