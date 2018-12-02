@@ -1,11 +1,8 @@
-import { State, StateContext, Action, Selector } from '@ngxs/store';
+import { Navigate } from '@ngxs/router-plugin';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { ResetStateAction } from 'src/app/login/state/actions';
 import { User } from 'src/app/models/user';
-import { SetUserAction, RedirectToLoginAction, RedirectToDashboardAction, RedirectToBankDetailsAction, RedirectToPreferencesAction, RedirectToBankCreationAction } from './actions';
-import { GoogleLoggedInEvent, LoggedOutEvent } from 'src/app/login/state/events';
-import { Navigate } from '@ngxs/router-plugin';
-import { LoadUserOwenedBanksAction } from 'src/app/dashboard/state/actions';
-import { switchMap } from 'rxjs/operators';
+import { RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToLoginAction, RedirectToPreferencesAction, SetUserAction } from './actions';
 
 export class AppStateModel {
     user: User;

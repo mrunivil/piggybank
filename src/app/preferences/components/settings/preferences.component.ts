@@ -7,6 +7,7 @@ import { Preferences } from 'src/app/models/preferences';
 import { last, take, catchError, first, tap } from 'rxjs/operators';
 import { UpdateUserPreferences, LoadUserPreferences } from '../../state/actions';
 import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
+import { AppState } from 'src/app/shared/state/app.state';
 
 @Component({
   selector: 'app-preferences',
@@ -21,7 +22,7 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   constructor(private store: Store) { }
 
   ngOnInit() {
-    this.store.dispatch(new LoadUserPreferences).pipe(first()).subscribe();
+    this.store.dispatch(new LoadUserPreferences(this.store.selectSnapshot(AppState.currentUser).uid)).pipe(first()).subscribe();
   }
 
   ngOnDestroy() {

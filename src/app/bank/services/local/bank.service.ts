@@ -25,6 +25,12 @@ export class LocalBankService extends BankService {
     getBankDetails(id: string, userid: string): Observable<Bank> {
         return this.http.get<Bank[]>('./mockdata/banks.json').pipe(
             first()
+            , delay(500)
+            , tap(() => {
+                if (new Date().getTime() % 3 === 0) {
+                    throw new Error('sorry something went wrong!');
+                }
+            })
             , map((banks: Bank[]) => {
                 const bank = banks.filter(b => b.id === id);
                 return bank.pop();

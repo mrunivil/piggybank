@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { take, pluck } from 'rxjs/operators';
-import { Store, Select } from '@ngxs/store';
-import { LoadBankDetailsAction, ResetStateAction } from '../../state/actions';
-import { AppState } from 'src/app/shared/state/app.state';
-import { BankState } from '../../state/bank.state';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { first, pluck, take } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
+import { AppState } from 'src/app/shared/state/app.state';
+import { LoadBankDetailsAction, ResetStateAction } from '../../state/actions';
+import { BankState } from '../../state/bank.state';
 
 @Component({
     selector: 'app-bank-details',
@@ -15,17 +15,18 @@ import { Bank } from 'src/app/models/bank';
 })
 export class BankDetailsComponent implements OnInit {
 
-    @Select(BankState.currentBank) $currentBank: Observable<Bank>;
+    @Select(BankState.currentBank) currentBank$: Observable<Bank>;
+    @Select(BankState.error) error$: Observable<string>;
 
     constructor(private route: ActivatedRoute, private store: Store) { }
 
     ngOnInit() {
         this.store.dispatch(new ResetStateAction)
             .pipe(
-                take(1)
+                first()
             ).subscribe(() => {
                 this.route.params.pipe(
-                    take(1),
+                    first(),
                     pluck('id')
                 ).subscribe((bankid: string) => {
                     this.store.dispatch(new LoadBankDetailsAction(bankid, this.store.selectSnapshot(AppState.currentUser).uid));

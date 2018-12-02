@@ -12,9 +12,15 @@
   <label>Bitte geb dein PayPal Konto an</label>
   <input type="text" [(ngModel)]="bank.paypal_account">
 </div>
-<div *ngIf="error">
+
+<p *ngIf="error$|async as error" class="error">
   <label [innerText]="error"></label>
-</div>
+</p>
+
+<p>
+  {{success$|async}}
+</p>
+
 <div>
   <button (click)="save()">speichern</button>
 </div>

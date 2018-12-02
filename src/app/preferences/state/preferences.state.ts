@@ -1,12 +1,8 @@
-import { State, NgxsOnInit, StateContext, Store, Action, Selector } from '@ngxs/store';
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
+import { first, retry } from 'rxjs/operators';
 import { Preferences } from 'src/app/models/preferences';
 import { PreferencesService } from '../services/preferences.service';
-import { User } from 'src/app/models/user';
-import { take, catchError, tap, retry, first } from 'rxjs/operators';
-import { LoadUserPreferences, UpdateUserPreferences, SuccessLoadingUserPreferencesEvent, ErrorLoadingUserPreferencesEvent, SuccessUpdatingUserPreferencesEvent, ErrorUpdatingUserPreferencesEvent } from './actions';
-import { Observable } from 'rxjs';
-import { AppState } from 'src/app/shared/state/app.state';
-import { dispatch } from 'rxjs/internal/observable/range';
+import { ErrorLoadingUserPreferencesEvent, ErrorUpdatingUserPreferencesEvent, LoadUserPreferences, SuccessLoadingUserPreferencesEvent, SuccessUpdatingUserPreferencesEvent, UpdateUserPreferences } from './actions';
 
 export class PreferencesStateModel {
     error: string;
@@ -44,8 +40,8 @@ export class PreferencesState {
      * @memberof PreferencesState
      */
     @Action(LoadUserPreferences)
-    loadUserPreferences({ dispatch }: StateContext<PreferencesStateModel>) {
-        this.preferencesService.getPreferences(this.store.selectSnapshot(AppState.currentUser).uid).pipe(
+    loadUserPreferences({ dispatch }: StateContext<PreferencesStateModel>, { payload }: LoadUserPreferences) {
+        this.preferencesService.getPreferences(payload).pipe(
             first()
             , retry(3)
         ).subscribe(res => dispatch(new SuccessLoadingUserPreferencesEvent(res))

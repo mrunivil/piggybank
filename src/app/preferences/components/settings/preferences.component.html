@@ -1,9 +1,9 @@
 <app-header></app-header>
 
-<!-- <p>
-  <input type="checkbox" (change)="updatePreferences($event)" [(ngModel)]="preferences.allowPhoto">
+<p>
+  <input type="checkbox" (change)="updatePreferences($event)" [checked]="(preferences$|async)?.allowPhoto">
   <label (click)="updateAvataSettings($event)"> your photo is visible to others?</label>
-</p> -->
+</p>
 
 <p>
   <input type="checkbox" (change)="updateNotificationSettings($event)" [checked]="(preferences$|async)?.allowNotifications">

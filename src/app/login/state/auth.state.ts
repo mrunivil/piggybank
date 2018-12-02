@@ -1,11 +1,10 @@
+import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { first, retry, switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
-import { State, Selector, StateContext, Action } from '@ngxs/store';
-import { Navigate } from '@ngxs/router-plugin';
-import { GoogleLoginAction, LogoutAction, ResetStateAction } from './actions';
-import { LoginFailedEvent, GoogleLoggedInEvent, LoggedOutEvent, LoggedOutFailedEvent } from './events';
-import { AuthService } from '../services/auth';
-import { take, first, switchMap, concatAll, concat, retry, catchError } from 'rxjs/operators'
 import { SetUserAction } from 'src/app/shared/state/actions';
+import { AuthService } from '../services/auth';
+import { GoogleLoginAction, LogoutAction, ResetStateAction } from './actions';
+import { GoogleLoggedInEvent, LoggedOutEvent, LoggedOutFailedEvent, LoginFailedEvent } from './actions';
 export class AuthStateModel {
     error: string;
 }

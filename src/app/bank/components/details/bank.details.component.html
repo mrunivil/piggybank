@@ -1,5 +1,8 @@
 <app-header [title]="'Bank Details'"></app-header>
 <h1>Bank Details Component is under construction</h1>
+<p *ngIf="error$|async as error" class="error">
+  <label [innerText]="error"></label>
+</p>
 <p>
-  {{($currentBank | async) | json}}
+  {{(currentBank$ | async) | json}}
 </p>
