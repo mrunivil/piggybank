@@ -9,7 +9,7 @@ export interface DashboardServiceInterface {
 
     getMyOwenedBanks(uid: string): Observable<Bank[]>;
 
-    getMyOtherBanks(): Observable<Bank[]>;
+    getMyOtherBanks(uid: string): Observable<Bank[]>;
 
     deleteBank(bank: Bank): Observable<boolean>;
 }
@@ -21,7 +21,7 @@ export abstract class DashboardService implements DashboardServiceInterface {
 
     abstract getMyOwenedBanks(uid: string): Observable<Bank[]>;
 
-    abstract getMyOtherBanks(): Observable<Bank[]>;
+    abstract getMyOtherBanks(uid: string): Observable<Bank[]>;
 
     abstract deleteBank(bank: Bank);
 }

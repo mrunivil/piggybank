@@ -37,6 +37,10 @@
       "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
     },
     "members": [{
+      "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+      "email": "adolfo.mendez@example.com",
+      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+    }, {
       "uid": "242f31fb-3991-4723-a73e-ce6e6a18d300",
       "email": "brooklyn.hughes@example.com",
       "photoURL": "https://randomuser.me/api/portraits/thumb/women/41.jpg"

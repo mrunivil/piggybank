@@ -6,7 +6,7 @@ import { Bank } from 'src/app/models/bank';
 import { User } from 'src/app/models/user';
 import { RedirectToBankCreationAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
-import { LoadUserOwnedBanksAction } from '../../state/actions';
+import { LoadUserOwnedBanksAction, LoadMemberBanksAction } from '../../state/actions';
 import { DashboardState } from '../../state/dashboard.state';
 
 @Component({
@@ -19,13 +19,16 @@ export class DashboardComponent implements OnInit {
   @Select(AppState.currentUser) user$: Observable<User>;
   @Select(DashboardState.errorMessage) error$: Observable<string>;
 
-  @Select(DashboardState.myOwenedBanks) myBanks$: Observable<Bank[]>;
-  @Select(DashboardState.OtherBanks) otherBanks$: Observable<Bank[]>;
+  @Select(DashboardState.MY_BANKS) myBanks$: Observable<Bank[]>;
+  @Select(DashboardState.OTHERS_BANKS) otherBanks$: Observable<Bank[]>;
 
   constructor(public store: Store) { }
 
   ngOnInit() {
-    this.store.dispatch(new LoadUserOwnedBanksAction(this.store.selectSnapshot(AppState.currentUser)));
+    this.store.dispatch(
+      [new LoadUserOwnedBanksAction(this.store.selectSnapshot(AppState.currentUser))
+        , new LoadMemberBanksAction(this.store.selectSnapshot(AppState.currentUser))]
+    );
   }
 
   createBank() {

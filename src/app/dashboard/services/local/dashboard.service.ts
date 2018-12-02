@@ -29,8 +29,22 @@ export class LocalDashboardService extends DashboardService {
         return banks.filter(b => b.owner.uid === uid);
       }));
   }
-  getMyOtherBanks(): Observable<Bank[]> {
-    throw new Error('Method not implemented.');
+  getMyOtherBanks(uid: string): Observable<Bank[]> {
+    return this.http.get<Bank[]>('./mockdata/banks.json').pipe(
+      first()
+      , delay(500)
+      , tap(() => {
+        if (new Date().getTime() % 3 === 0) {
+          throw new Error('sorry something went wrong!');
+        }
+      })
+      , map((banks: Bank[]) => {
+        return banks.filter(b => b.owner.uid !== uid);
+      })
+      , map((banks: Bank[]) => {
+        return banks.filter(b => b.members.find(m => m.uid === uid));
+      })
+    );
   }
   deleteBank(bank: Bank): Observable<boolean> {
     throw new Error('Method not implemented.');

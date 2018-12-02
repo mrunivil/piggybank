@@ -11,7 +11,7 @@ import { Bank } from 'src/app/models/bank';
 })
 export class BankListComponent implements OnInit {
 
-  @Input() myBanks$: Observable<Bank[]>;
+  @Input() banks$: Observable<Bank[]>;
   @Input() title: string;
   constructor() { }
 

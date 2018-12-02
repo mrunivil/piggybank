@@ -2,13 +2,13 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { first, retry } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
 import { DashboardService } from '../services/dashboard.service';
-import { AttachBankAction, ErrorLoadUserOwnedBanksEvent, LoadUserOwnedBanksAction, ResetStateAction, SuccessLoadUserOwnedBanksEvent } from './actions';
+import { AttachBankAction, ErrorLoadUserOwnedBanksEvent, LoadUserOwnedBanksAction, ResetStateAction, SuccessLoadUserOwnedBanksEvent, LoadMemberBanksAction, SuccessLoadMemberBanksEvent, ErrorLoadMemberBanksEvent } from './actions';
 
 export class DashboardStateModel {
     initialized: boolean;
     error: string;
-    ownedBanks: Bank[];
-    otherBanks: Bank[];
+    MY_BANKS: Bank[];
+    OTHERS_BANKS: Bank[];
 }
 
 @State<DashboardStateModel>({
@@ -16,8 +16,8 @@ export class DashboardStateModel {
     defaults: {
         initialized: false,
         error: null,
-        ownedBanks: undefined,
-        otherBanks: undefined
+        MY_BANKS: undefined,
+        OTHERS_BANKS: undefined
     }
 })
 export class DashboardState {
@@ -30,13 +30,13 @@ export class DashboardState {
     }
 
     @Selector()
-    static myOwenedBanks({ ownedBanks }: DashboardStateModel) {
-        return ownedBanks;
+    static MY_BANKS({ MY_BANKS }: DashboardStateModel) {
+        return MY_BANKS;
     }
 
     @Selector()
-    static OtherBanks({ otherBanks }: DashboardStateModel) {
-        return otherBanks;
+    static OTHERS_BANKS({ OTHERS_BANKS }: DashboardStateModel) {
+        return OTHERS_BANKS;
     }
 
     @Action(ResetStateAction)
@@ -55,7 +55,7 @@ export class DashboardState {
      */
     @Action(LoadUserOwnedBanksAction)
     loadUserOwnedBanks({ dispatch, getState }: StateContext<DashboardStateModel>, { payload }: LoadUserOwnedBanksAction) {
-        if (!getState().initialized) {
+        if (!getState().MY_BANKS) {
             this.bankService.getMyOwenedBanks(payload.uid).pipe(
                 first()
                 , retry(3)
@@ -64,15 +64,48 @@ export class DashboardState {
         }
     }
     @Action(SuccessLoadUserOwnedBanksEvent)
-    successLoadUserOwenedBanksEvent({ patchState }: StateContext<DashboardStateModel>, { payload }: SuccessLoadUserOwnedBanksEvent) {
+    successLoadUserOwenedBanks({ patchState }: StateContext<DashboardStateModel>, { payload }: SuccessLoadUserOwnedBanksEvent) {
         patchState({
             error: undefined,
             initialized: true,
-            ownedBanks: payload
+            MY_BANKS: payload
         })
     }
     @Action(ErrorLoadUserOwnedBanksEvent)
-    errorLoadUserOwenedBanksEvent({ patchState }: StateContext<DashboardStateModel>, { payload }: ErrorLoadUserOwnedBanksEvent) {
+    errorLoadUserOwenedBanks({ patchState }: StateContext<DashboardStateModel>, { payload }: ErrorLoadUserOwnedBanksEvent) {
+        patchState({
+            error: payload
+        })
+    }
+
+    /**
+         * Load banks owned by others and logged in user is member
+         *
+         * @param {StateContext<DashboardStateModel>} { patchState, getState }
+         * @param {LoadMemberBanksAction} { payload }
+         * @memberof DashboardState
+         */
+    @Action(LoadMemberBanksAction)
+    loadMemberBanks({ dispatch, getState }: StateContext<DashboardStateModel>, { payload }: LoadMemberBanksAction) {
+        if (!getState().OTHERS_BANKS) {
+            this.bankService.getMyOtherBanks(payload.uid).pipe(
+                first()
+                , retry(3)
+            ).subscribe(
+                res => dispatch(new SuccessLoadMemberBanksEvent(res))
+                , err => dispatch(new ErrorLoadMemberBanksEvent(err)));
+        }
+    }
+    @Action(SuccessLoadMemberBanksEvent)
+    successLoadMemberBanks({ patchState }: StateContext<DashboardStateModel>, { payload }: SuccessLoadMemberBanksEvent) {
+        patchState({
+            error: undefined,
+            initialized: true,
+            OTHERS_BANKS: payload
+        })
+    }
+    @Action(ErrorLoadMemberBanksEvent)
+    errorLoadMemberBanks({ patchState }: StateContext<DashboardStateModel>, { payload }: ErrorLoadMemberBanksEvent) {
         patchState({
             error: payload
         })
@@ -82,7 +115,7 @@ export class DashboardState {
     attachBankAction(ctx: StateContext<DashboardStateModel>, { payload }: AttachBankAction) {
         const state = ctx.getState();
         ctx.patchState({
-            ownedBanks: [...state.ownedBanks, payload]
+            MY_BANKS: [...state.MY_BANKS, payload]
         })
     }
 
