@@ -11,9 +11,10 @@ import { BankService } from './services/bank.service';
 import { FirebaseBankService } from './services/firebase/bank.service';
 import { LocalBankService } from './services/local/bank.service';
 import { BankState } from './state/bank.state';
+import { HistoryComponent } from './components/history/history.component';
 
 @NgModule({
-  declarations: [HeaderComponent, BankDetailsComponent, BankCreationComponent],
+  declarations: [HeaderComponent, BankDetailsComponent, BankCreationComponent, HistoryComponent],
   imports: [
     CommonModule,
     FormsModule,

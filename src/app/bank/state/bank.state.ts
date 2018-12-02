@@ -5,6 +5,7 @@ import { LoadBankDetailsAction, SaveNewBankAction, ResetStateAction, SuccessLoad
 import { tap, take, catchError, flatMap, first, retry } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AttachBankAction } from 'src/app/dashboard/state/actions';
+import { ResetAppStateAction } from 'src/app/shared/state/actions';
 
 
 export class BankStateModel {
@@ -46,9 +47,9 @@ export class BankState {
     @Action(ResetStateAction)
     resetStateAction({ patchState }: StateContext<BankStateModel>) {
         patchState({
+            error: null,
             currentBank: undefined,
             newBank: {} as Bank,
-            error: undefined,
             success: undefined
         })
     }
@@ -104,5 +105,15 @@ export class BankState {
         patchState({
             error: payload
         })
+    }
+    /**
+         * Reset state after logout
+         *
+         * @param {StateContext<AuthStateModel>} { dispatch }
+         * @memberof AuthState
+         */
+    @Action(ResetAppStateAction)
+    resetAll({ dispatch }: StateContext<BankStateModel>) {
+        dispatch(new ResetStateAction);
     }
 }

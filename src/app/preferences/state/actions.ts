@@ -1,6 +1,13 @@
 import { Preferences } from 'src/app/models/preferences';
 
 /**
+ * Reset complete state
+ */
+export class ResetStateAction {
+    static readonly type = "[PREFERENCES RESET] reset preferences state";
+}
+
+/**
  * Loading user preferences
  */
 export class LoadUserPreferences {

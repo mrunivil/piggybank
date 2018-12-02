@@ -1,7 +1,7 @@
 import { User } from 'src/app/models/user';
 import { Preferences } from 'src/app/models/preferences';
 
-export class ResetStateAction {
+export class ResetAppStateAction {
     static readonly type = '[APP RESET] reset state to defaults';
 }
 

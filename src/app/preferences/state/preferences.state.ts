@@ -2,7 +2,8 @@ import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { first, retry } from 'rxjs/operators';
 import { Preferences } from 'src/app/models/preferences';
 import { PreferencesService } from '../services/preferences.service';
-import { ErrorLoadingUserPreferencesEvent, ErrorUpdatingUserPreferencesEvent, LoadUserPreferences, SuccessLoadingUserPreferencesEvent, SuccessUpdatingUserPreferencesEvent, UpdateUserPreferences } from './actions';
+import { ErrorLoadingUserPreferencesEvent, ErrorUpdatingUserPreferencesEvent, LoadUserPreferences, SuccessLoadingUserPreferencesEvent, SuccessUpdatingUserPreferencesEvent, UpdateUserPreferences, ResetStateAction } from './actions';
+import { ResetAppStateAction } from 'src/app/shared/state/actions';
 
 export class PreferencesStateModel {
     error: string;
@@ -95,4 +96,14 @@ export class PreferencesState {
         })
     }
 
+    /**
+       * Reset state after logout
+       *
+       * @param {StateContext<AuthStateModel>} { dispatch }
+       * @memberof AuthState
+       */
+    @Action(ResetAppStateAction)
+    resetAll({ dispatch }: StateContext<PreferencesStateModel>) {
+        dispatch(new ResetStateAction);
+    }
 }

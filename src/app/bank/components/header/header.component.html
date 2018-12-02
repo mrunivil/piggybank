@@ -1,5 +1,13 @@
 <div class="header">
-  <button (click)="back()">&lt;-</button>
+  <button (click)="back()">
+    <i class="material-icons">arrow_back</i>
+  </button>
   <label>{{title?title:'-- no title set --'}}</label>
+  <button (click)="share()" [disabled]="(currentBank$|async)?.owner.uid !== (currentUser$|async)?.uid">
+    <i class="material-icons">share</i>
+  </button>
+  <button (click)="showHistory()" [disabled]="!(currentBank$|async)">
+    <i class="material-icons">info</i>
+  </button>
 </div>
 <hr>

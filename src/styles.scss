@@ -7,6 +7,15 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  width: 900px;
+}
+
 .header {
   height: 150px;
 }

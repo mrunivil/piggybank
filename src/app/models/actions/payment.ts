@@ -1,16 +1,8 @@
-import { Action } from '../action';
 import { User } from '../user';
+import { BalanceChange } from './balance-change';
 
-export class Payment implements Action {
-    user: User;
-    date: Date;
-    amount: number;
-    readonly type: string;
+export class Payment extends BalanceChange {
     constructor(user: User, amount: number, date: Date) {
-        this.user = user;
-        this.date = date;
-        this.amount = amount;
-        this.type = 'Einzahlung';
+        super(user, amount, date, 'Auszahlung');
     }
-
 }

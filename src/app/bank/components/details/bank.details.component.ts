@@ -34,4 +34,7 @@ export class BankDetailsComponent implements OnInit {
             });
     }
 
+    newAction() {
+        throw new Error('create a new histry entry is not implemented yet');
+    }
 }

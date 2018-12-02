@@ -1,7 +1,7 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { first, retry, switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
-import { SetUserAction } from 'src/app/shared/state/actions';
+import { SetUserAction, ResetAppStateAction } from 'src/app/shared/state/actions';
 import { AuthService } from '../services/auth';
 import { GoogleLoginAction, LogoutAction, ResetStateAction } from './actions';
 import { GoogleLoggedInEvent, LoggedOutEvent, LoggedOutFailedEvent, LoginFailedEvent } from './actions';
@@ -75,12 +75,11 @@ export class AuthState {
             ctx.dispatch(new LoggedOutFailedEvent(err));
         });
     }
-
     @Action(LoggedOutEvent)
     logoutSuccessful(ctx: StateContext<AuthStateModel>) {
-        ctx.dispatch([new SetUserAction(null), new ResetStateAction,]);
+        ctx.dispatch(new ResetAppStateAction);
+        // ctx.dispatch(new SetUserAction(null));
     }
-
     @Action(LoggedOutFailedEvent)
     logoutFailed(ctx: StateContext<AuthStateModel>, { payload }: LoggedOutFailedEvent) {
         ctx.patchState({
@@ -88,4 +87,14 @@ export class AuthState {
         });
     }
 
+    /**
+     * Reset state after logout
+     *
+     * @param {StateContext<AuthStateModel>} { dispatch }
+     * @memberof AuthState
+     */
+    @Action(ResetAppStateAction)
+    resetAll({ dispatch }: StateContext<AuthStateModel>) {
+        dispatch(new ResetStateAction);
+    }
 }

@@ -1,8 +1,7 @@
 import { Navigate } from '@ngxs/router-plugin';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { ResetStateAction } from 'src/app/login/state/actions';
 import { User } from 'src/app/models/user';
-import { RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToLoginAction, RedirectToPreferencesAction, SetUserAction } from './actions';
+import { RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToLoginAction, RedirectToPreferencesAction, ResetAppStateAction, SetUserAction } from './actions';
 
 export class AppStateModel {
     user: User;
@@ -22,7 +21,7 @@ export class AppState {
         return user;
     }
 
-    @Action(ResetStateAction)
+    @Action(ResetAppStateAction)
     resetComponentState(ctx: StateContext<AppStateModel>) {
         ctx.patchState({
             user: undefined

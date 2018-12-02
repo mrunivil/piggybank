@@ -3,6 +3,7 @@ import { first, retry } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
 import { DashboardService } from '../services/dashboard.service';
 import { AttachBankAction, ErrorLoadUserOwnedBanksEvent, LoadUserOwnedBanksAction, ResetStateAction, SuccessLoadUserOwnedBanksEvent, LoadMemberBanksAction, SuccessLoadMemberBanksEvent, ErrorLoadMemberBanksEvent } from './actions';
+import { ResetAppStateAction } from 'src/app/shared/state/actions';
 
 export class DashboardStateModel {
     initialized: boolean;
@@ -42,7 +43,10 @@ export class DashboardState {
     @Action(ResetStateAction)
     reset({ patchState }: StateContext<DashboardStateModel>) {
         patchState({
-            error: null
+            initialized: false,
+            error: null,
+            MY_BANKS: undefined,
+            OTHERS_BANKS: undefined
         });
     }
 
@@ -118,6 +122,15 @@ export class DashboardState {
             MY_BANKS: [...state.MY_BANKS, payload]
         })
     }
-
+    /**
+         * Reset state after logout
+         *
+         * @param {StateContext<AuthStateModel>} { dispatch }
+         * @memberof AuthState
+         */
+    @Action(ResetAppStateAction)
+    resetAll({ dispatch }: StateContext<DashboardStateModel>) {
+        dispatch(new ResetStateAction);
+    }
 
 }
