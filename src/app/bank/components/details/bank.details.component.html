@@ -1,38 +1,39 @@
 <app-header [title]="'Bank Details'"></app-header>
-<h1>Bank Details Component is under construction</h1>
+<div class="content-wrapper">
+  <h1>Bank Details Component is under construction</h1>
 
-<div>
-  <h2>Kontostand</h2>
-  <h4>{{(currentBank$|async)?.balance | number: '1.2-2'}} €</h4>
-</div>
-
-<div>
-  <h2>Mitglieder</h2>
-  <span *ngFor="let member of (currentBank$|async)?.members">
-    <img [src]="member.photoURL" alt="no picture available">
-    <label [innerText]="member.email"></label>
-  </span>
-</div>
-
-<div>
-  <h2>Vorgänge
-    <button (click)="showHistory()" [disabled]="!(currentBank$|async)">
-      <i class="material-icons">search</i>
-    </button>
-    <button (click)="newAction()">
-      <i class="material-icons">
-        add
-      </i>
-    </button>
-  </h2>
-  <div *ngFor="let history of (currentBank$|async)?.history">
-    <app-history [onlyBalanceChanges]="onlyBalanceChanges$|async" [history]="history"></app-history>
+  <div>
+    <h2>Kontostand</h2>
+    <h4>{{(currentBank$|async)?.balance | number: '1.2-2'}} €</h4>
   </div>
-</div>
-<p *ngIf="error$|async as error" class="error">
-  <label [innerText]="error"></label>
-</p>
 
+  <div>
+    <h2>Mitglieder</h2>
+    <span *ngFor="let member of (currentBank$|async)?.members">
+      <img [src]="member.photoURL" alt="no picture available">
+      <label [innerText]="member.email"></label>
+    </span>
+  </div>
+
+  <div>
+    <h2>Vorgänge
+      <button (click)="showHistory()" [disabled]="!(currentBank$|async)">
+        <i class="material-icons">search</i>
+      </button>
+      <button (click)="newAction()">
+        <i class="material-icons">
+          add
+        </i>
+      </button>
+    </h2>
+    <div *ngFor="let history of (currentBank$|async)?.history">
+      <app-history [onlyBalanceChanges]="onlyBalanceChanges$|async" [history]="history"></app-history>
+    </div>
+  </div>
+  <p *ngIf="error$|async as error" class="error">
+    <label [innerText]="error"></label>
+  </p>
+</div>
 <p>
   {{(currentBank$ | async) | json}}
 </p>
