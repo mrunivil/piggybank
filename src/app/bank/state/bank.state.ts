@@ -1,7 +1,7 @@
 import { BankService } from '../services/bank.service';
 import { Selector, State, Action, StateContext } from '@ngxs/store';
 import { Bank } from 'src/app/models/bank';
-import { LoadBankDetailsAction, SaveNewBankAction, ResetStateAction, SuccessLoadBankDetailsEvent, ErrorLoadBankDetailsEvent, SuccessSaveNewBankEvent, ErrorSaveNewBankEvent } from './actions';
+import { LoadBankDetailsAction, SaveNewBankAction, ResetStateAction, SuccessLoadBankDetailsEvent, ErrorLoadBankDetailsEvent, SuccessSaveNewBankEvent, ErrorSaveNewBankEvent, ToggleHistoryDteailsAction } from './actions';
 import { tap, take, catchError, flatMap, first, retry } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AttachBankAction } from 'src/app/dashboard/state/actions';
@@ -13,6 +13,7 @@ export class BankStateModel {
     currentBank: Bank;
     newBank: Bank;
     success?: boolean;
+    onlyBalanceChanges: boolean;
 }
 
 @State<BankStateModel>({
@@ -21,6 +22,7 @@ export class BankStateModel {
         error: null,
         currentBank: undefined,
         newBank: {} as Bank,
+        onlyBalanceChanges: true
     }
 })
 export class BankState {
@@ -43,6 +45,11 @@ export class BankState {
     static newBank({ newBank }: BankStateModel) {
         return newBank;
     }
+    @Selector()
+    static onlyBalanceChanges({ onlyBalanceChanges }: BankStateModel) {
+        return onlyBalanceChanges;
+    }
+
 
     @Action(ResetStateAction)
     resetStateAction({ patchState }: StateContext<BankStateModel>) {
@@ -50,7 +57,8 @@ export class BankState {
             error: null,
             currentBank: undefined,
             newBank: {} as Bank,
-            success: undefined
+            success: undefined,
+            onlyBalanceChanges: true
         })
     }
 
@@ -107,13 +115,21 @@ export class BankState {
         })
     }
     /**
-         * Reset state after logout
-         *
-         * @param {StateContext<AuthStateModel>} { dispatch }
-         * @memberof AuthState
-         */
+    * Reset state after logout
+    *
+    * @param {StateContext<AuthStateModel>} { dispatch }
+    * @memberof AuthState
+    */
     @Action(ResetAppStateAction)
     resetAll({ dispatch }: StateContext<BankStateModel>) {
         dispatch(new ResetStateAction);
     }
+
+    @Action(ToggleHistoryDteailsAction)
+    toggleHistoryDteailsAction({ getState, patchState }: StateContext<BankStateModel>) {
+        patchState({
+            onlyBalanceChanges: !getState().onlyBalanceChanges
+        })
+    }
+
 }

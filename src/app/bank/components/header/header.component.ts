@@ -25,10 +25,6 @@ export class HeaderComponent {
     throw new Error('sharing piggy banks is not implemented yet');
   }
 
-  showHistory() {
-    throw new Error('showing the complete history is not implemented yet');
-  }
-
   back() {
     this.store.dispatch(new RedirectToDashboardAction);
   }

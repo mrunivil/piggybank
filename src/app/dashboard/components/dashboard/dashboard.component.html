@@ -1,20 +1,45 @@
 <app-header></app-header>
-<div>
-  <h2 *ngIf="!(user$|async)">Please login to get access to your piggy banks</h2>
-</div>
-
-<div *ngIf="(user$|async)">
-  <button (click)="createBank()"> neue Bankerstellen </button>
-  <h1>Übersicht</h1>
+<div class="content-wrapper">
 
   <p *ngIf="error$|async" class="error">
     <label [innerText]="error$|async"></label>
   </p>
+  <div>
+    <h2 *ngIf="!(user$|async)">Please login to get access to your piggy banks</h2>
+  </div>
 
-  <div>
-    <app-bank-list [title]="'Deine eigenen Piggy Banks'" [banks$]="myBanks$"></app-bank-list>
-  </div>
-  <div>
-    <app-bank-list [title]="'Piggy Banks bei denen du Mitglied bist'" [banks$]="otherBanks$"></app-bank-list>
-  </div>
+  <span *ngIf="(user$|async)">
+    <button class="fab-bottom-right" (click)="createBank()">
+      <i class="material-icons">add</i>
+    </button>
+    <div>
+      <h3 class="wrapper">
+        Deine eigenen Piggy Banks
+      </h3>
+      <app-bank-list [banks$]="myBanks$"></app-bank-list>
+    </div>
+    <div>
+      <h3 class="wrapper">
+        Piggy Banks Anderer
+      </h3>
+      <app-bank-list [banks$]="otherBanks$"></app-bank-list>
+    </div>
+  </span>
 </div>
+
+<style>
+  .content-wrapper {
+    margin-top: var(--header-size);
+  }
+
+  .wrapper {
+    padding: .5rem
+  }
+
+  .fab-bottom-right {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+</style>

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { first, pluck, take } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
 import { AppState } from 'src/app/shared/state/app.state';
-import { LoadBankDetailsAction, ResetStateAction } from '../../state/actions';
+import { LoadBankDetailsAction, ResetStateAction, ToggleHistoryDteailsAction } from '../../state/actions';
 import { BankState } from '../../state/bank.state';
 
 @Component({
@@ -17,6 +17,7 @@ export class BankDetailsComponent implements OnInit {
 
     @Select(BankState.currentBank) currentBank$: Observable<Bank>;
     @Select(BankState.error) error$: Observable<string>;
+    @Select(BankState.onlyBalanceChanges) onlyBalanceChanges$: Observable<boolean>;
 
     constructor(private route: ActivatedRoute, private store: Store) { }
 
@@ -32,6 +33,10 @@ export class BankDetailsComponent implements OnInit {
                     this.store.dispatch(new LoadBankDetailsAction(bankid, this.store.selectSnapshot(AppState.currentUser).uid));
                 });
             });
+    }
+
+    showHistory() {
+        this.store.dispatch(new ToggleHistoryDteailsAction);
     }
 
     newAction() {

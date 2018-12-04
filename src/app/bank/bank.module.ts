@@ -7,11 +7,11 @@ import { BankRoutingModule } from './bank.routing.module';
 import { BankCreationComponent } from './components/creation/bank.creation.component';
 import { BankDetailsComponent } from './components/details/bank.details.component';
 import { HeaderComponent } from './components/header/header.component';
+import { HistoryComponent } from './components/history/history.component';
 import { BankService } from './services/bank.service';
 import { FirebaseBankService } from './services/firebase/bank.service';
 import { LocalBankService } from './services/local/bank.service';
 import { BankState } from './state/bank.state';
-import { HistoryComponent } from './components/history/history.component';
 
 @NgModule({
   declarations: [HeaderComponent, BankDetailsComponent, BankCreationComponent, HistoryComponent],

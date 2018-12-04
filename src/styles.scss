@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons');
+@import 'variables';
 @import url('./utils/normalize.scss');
 
 html {
@@ -17,7 +17,14 @@ body {
 }
 
 .header {
-  height: 150px;
+  height: var(--header-size);
+  border-bottom: thin solid #ccc;
+  box-shadow: 0px 5px 5px #ccc;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
 }
 
 .error {

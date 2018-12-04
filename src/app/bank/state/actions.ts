@@ -35,3 +35,9 @@ export class ErrorSaveNewBankEvent {
     static readonly type = '[BANK SAVE] failed';
     constructor(public payload: string) { }
 }
+/**
+ * Toggle History Details
+ */
+export class ToggleHistoryDteailsAction {
+    static readonly type = '[BANK SAVE] toggle history details';
+}

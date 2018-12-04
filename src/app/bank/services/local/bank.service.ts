@@ -5,6 +5,7 @@ import { Action } from 'src/app/models/action';
 import { HttpClient } from '@angular/common/http';
 import { first, concatMap, delay, tap, flatMap, filter, map } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
+import { BalanceChange } from 'src/app/models/actions/balance-change';
 
 @Injectable()
 export class LocalBankService extends BankService {

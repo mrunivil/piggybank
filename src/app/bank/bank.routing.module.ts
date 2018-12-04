@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { BankDetailsComponent } from './components/details/bank.details.component';
+import { RouterModule, Routes } from '@angular/router';
 import { BankCreationComponent } from './components/creation/bank.creation.component';
+import { BankDetailsComponent } from './components/details/bank.details.component';
 
 const routes: Routes = [
   {
@@ -12,7 +11,7 @@ const routes: Routes = [
   {
     path: ':id',
     component: BankDetailsComponent
-  }
+  },
 ];
 
 

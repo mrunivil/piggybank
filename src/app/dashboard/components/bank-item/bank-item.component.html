@@ -1,13 +1,13 @@
-<p class="list-item" (click)="showDetails()">
+<div class="list-item" (click)="showDetails()">
   <img [src]="item.photoURL">
   <label style="padding:0.5rem" [innerHTML]="(item.balance|number:'1.2-2') + ' €'"></label>
   <label style="padding:0.5rem" [innerHTML]="item.name"></label>
-</p>
+</div>
 
 <style>
   .list-item {
     cursor: pointer;
-    border: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
     padding: 0.5rem;
   }
 
