@@ -6,5 +6,4 @@
   <button (click)="share()" [disabled]="(currentBank$|async)?.owner.uid !== (currentUser$|async)?.uid">
     <i class="material-icons">share</i>
   </button>
-
 </div>
