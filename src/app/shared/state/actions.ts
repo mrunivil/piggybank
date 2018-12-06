@@ -23,6 +23,10 @@ export class RedirectToPreferencesAction {
     static readonly type = '[APP REDIRECT] /preferences';
 }
 
+export class RedirectToFeedbackAction {
+    static readonly type = '[APP REDIRECT] /feedback';
+}
+
 export class RedirectToDashboardAction {
     static readonly type = '[APP REDIRECT] /dashboard';
 }

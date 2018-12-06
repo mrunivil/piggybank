@@ -1,7 +1,7 @@
 import { Navigate } from '@ngxs/router-plugin';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { User } from 'src/app/models/user';
-import { RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToLoginAction, RedirectToPreferencesAction, ResetAppStateAction, SetUserAction } from './actions';
+import { RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToLoginAction, RedirectToPreferencesAction, ResetAppStateAction, SetUserAction, RedirectToFeedbackAction } from './actions';
 
 export class AppStateModel {
     user: User;
@@ -42,6 +42,11 @@ export class AppState {
     @Action(RedirectToPreferencesAction)
     redirectToPreferences(ctx: StateContext<AppStateModel>) {
         ctx.dispatch(new Navigate(['/preferences']));
+    }
+
+    @Action(RedirectToFeedbackAction)
+    redirectToFeedback(ctx: StateContext<AppStateModel>) {
+        ctx.dispatch(new Navigate(['/feedback']));
     }
 
     @Action(RedirectToDashboardAction)

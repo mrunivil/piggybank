@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { LogoutAction } from 'src/app/login/state/actions';
 import { User } from 'src/app/models/user';
-import { RedirectToLoginAction, RedirectToPreferencesAction } from 'src/app/shared/state/actions';
+import { RedirectToLoginAction, RedirectToPreferencesAction, RedirectToFeedbackAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 
 @Component({
@@ -27,7 +27,9 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.store.dispatch(new LogoutAction);
   }
-
+  sendFeedback() {
+    this.store.dispatch(new RedirectToFeedbackAction);
+  }
   preferences() {
     this.store.dispatch(new RedirectToPreferencesAction);
   }

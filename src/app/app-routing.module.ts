@@ -26,6 +26,12 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
+    path: 'feedback',
+    loadChildren: './feedback/feedback.module#FeedbackModule',
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard]
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
