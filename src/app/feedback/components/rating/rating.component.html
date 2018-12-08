@@ -1,0 +1,11 @@
+<div>
+  Rating Component is under construction
+  <button [ngClass]="star.class" (click)="rate(star)" *ngFor="let star of stars let $index = index">star {{star.value}}</button>
+</div>
+
+<style>
+  .rated {
+    background-color: gold;
+  }
+
+</style>
