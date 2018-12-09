@@ -1,25 +1,28 @@
 <app-header [title]="'Bank erstellen'"></app-header>
-<h1>Bank creation component is under construction</h1>
-<div>
-  <label>Gib den namen deiner PiggyBank ein</label>
-  <input type="text" [(ngModel)]="bank.name">
-</div>
-<div>
-  <label>Möchtest du dein PayPal Konto hinterlegen?</label>
-  <input type="checkbox" [(ngModel)]="bank.paypal">
-</div>
-<div *ngIf="bank.paypal">
-  <label>Bitte geb dein PayPal Konto an</label>
-  <input type="text" [(ngModel)]="bank.paypal_account">
+<div class="content-wrapper">
+  <h1>Bank creation component is under construction</h1>
+  <div>
+    <label>Gib den namen deiner PiggyBank ein</label>
+    <input type="text" [(ngModel)]="bank.name">
+  </div>
+  <div>
+    <label>Möchtest du dein PayPal Konto hinterlegen?</label>
+    <input type="checkbox" [(ngModel)]="bank.paypal">
+  </div>
+  <div *ngIf="bank.paypal">
+    <label>Bitte geb dein PayPal Konto an</label>
+    <input type="text" [(ngModel)]="bank.paypal_account">
+  </div>
+
+  <p *ngIf="error$|async as error" class="error">
+    <label [innerText]="error"></label>
+  </p>
+
+  <div>
+    <button (click)="save()">speichern</button>
+  </div>
 </div>
 
-<p *ngIf="error$|async as error" class="error">
-  <label [innerText]="error"></label>
-</p>
-
-<div>
-  <button (click)="save()">speichern</button>
-</div>
 
 <p>
   {{(store|async)?.bank|json}}

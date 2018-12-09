@@ -6,7 +6,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class RatingComponent {
 
-    @Output() rating: EventEmitter<number>;
+    @Output() rating = new EventEmitter();
 
     stars: Array<Star> = [];
 
@@ -21,7 +21,7 @@ export class RatingComponent {
             if (s.value <= star.value) {
                 s.class = 'rated';
             } else {
-                s.class = '';
+                s.class = s.class.replace('rated', '');
             }
         });
         this.rating.next(star.value);

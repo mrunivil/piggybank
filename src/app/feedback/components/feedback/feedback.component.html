@@ -1,6 +1,7 @@
-<app-header></app-header>
+<app-header [title]="'Deine Meinung ist wichtig!'"></app-header>
 <div class="content-wrapper">
   <h1>Feedback Component is under construction</h1>
+  <app-rating (rating)="onRatingChanged($event)"></app-rating>
   <div>
     <label for="txt-comment">Dein Feedback</label>
     <textarea id="txt-comment" [(ngModel)]="feedback.comment"></textarea>
@@ -9,7 +10,7 @@
     <button (click)="updateFeedback()">Send Feedback</button>
   </div>
 
-  <app-rating (onRatingChanged)="rating"></app-rating>
+
 
   <p *ngIf="error$|async as error" class="error">
     <label [innerText]="error"></label>

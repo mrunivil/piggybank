@@ -22,7 +22,7 @@ export class FeedbackComponent {
     constructor(public store: Store) {
         this.feedback = {
             comment: '',
-            points: 0,
+            rating: 0,
             user: this.store.selectSnapshot(AppState.currentUser)
         } as Feedback;
     }
@@ -34,7 +34,7 @@ export class FeedbackComponent {
         });
     }
 
-    onRatingChanged(value: number) {
+    onRatingChanged(value) {
         this.feedback.rating = value;
     }
 }
