@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { first, pluck, take } from 'rxjs/operators';
+import { first, pluck } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
 import { AppState } from 'src/app/shared/state/app.state';
 import { LoadBankDetailsAction, ResetStateAction, ToggleHistoryDteailsAction } from '../../state/actions';
@@ -18,6 +18,8 @@ export class BankDetailsComponent implements OnInit {
     @Select(BankState.currentBank) currentBank$: Observable<Bank>;
     @Select(BankState.error) error$: Observable<string>;
     @Select(BankState.onlyBalanceChanges) onlyBalanceChanges$: Observable<boolean>;
+
+    showModal = false;
 
     constructor(private route: ActivatedRoute, private store: Store) { }
 
@@ -40,6 +42,15 @@ export class BankDetailsComponent implements OnInit {
     }
 
     newAction() {
-        throw new Error('create a new histry entry is not implemented yet');
+        // this.showModal = !this.showModal;
+    }
+
+    newDeposit() {
+        // this.showModal = false;
+        // this.store.dispatch(new RedirectToDepositAction);
+    }
+    newPayment() {
+        // this.showModal = false;
+        // this.store.dispatch(new RedirectToPaymentAction);
     }
 }

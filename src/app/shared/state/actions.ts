@@ -39,3 +39,11 @@ export class RedirectToBankDetailsAction {
     static readonly type = '[APP REDIRECT] /bank/:id';
     constructor(public payload: string) { }
 }
+
+export class RedirectToDepositAction {
+    static readonly type = '[APP REDIRECT] /action/deposit';
+}
+
+export class RedirectToPaymentAction {
+    static readonly type = '[APP REDIRECT] /action/payment';
+}

@@ -12,18 +12,15 @@ body {
   justify-content: center;
 }
 
-button {
-  // color: #333;
-  // border: none;
-  // background-color: none;
-  cursor: pointer;
-  padding: .5rem;
+.fab-bottom-right {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
 }
 
-button:hover {
-  // background-color: #333;
-  // color: var(--color-primary-background);
-  // border-radius: 4px;
+button {
+  cursor: pointer;
+  padding: .5rem;
 }
 
 .content {

@@ -1,7 +1,7 @@
 import { BankService } from '../services/bank.service';
 import { Selector, State, Action, StateContext } from '@ngxs/store';
 import { Bank } from 'src/app/models/bank';
-import { LoadBankDetailsAction, SaveNewBankAction, ResetStateAction, SuccessLoadBankDetailsEvent, ErrorLoadBankDetailsEvent, SuccessSaveNewBankEvent, ErrorSaveNewBankEvent, ToggleHistoryDteailsAction } from './actions';
+import { LoadBankDetailsAction, SaveNewBankAction, ResetStateAction, SuccessLoadBankDetailsEvent, ErrorLoadBankDetailsEvent, SuccessSaveNewBankEvent, ErrorSaveNewBankEvent, ToggleHistoryDteailsAction, CreateNewDepositAction } from './actions';
 import { tap, take, catchError, flatMap, first, retry } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AttachBankAction } from 'src/app/dashboard/state/actions';
@@ -91,7 +91,13 @@ export class BankState {
         })
     }
 
-
+    /**
+     * Save a new data set
+     *
+     * @param {StateContext<BankStateModel>} { patchState, dispatch }
+     * @param {SaveNewBankAction} { payload }
+     * @memberof BankState
+     */
     @Action(SaveNewBankAction)
     saveNewBankAction({ patchState, dispatch }: StateContext<BankStateModel>, { payload }: SaveNewBankAction) {
         this.bankService.createNewBank(payload).pipe(

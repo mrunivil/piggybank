@@ -41,3 +41,15 @@ export class ErrorSaveNewBankEvent {
 export class ToggleHistoryDteailsAction {
     static readonly type = '[BANK SAVE] toggle history details';
 }
+/**
+ * Action new Deposit
+ */
+export class CreateNewDepositAction {
+    static readonly type = '[BANK DEPOSIT] start creating new deposit'
+}
+/**
+ * Action new Payment
+ */
+export class CreateNewPaymentAction {
+    static readonly type = '[BANK PAYMENT] start creating new payment'
+}

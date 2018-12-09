@@ -1,7 +1,7 @@
 import { Navigate } from '@ngxs/router-plugin';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { User } from 'src/app/models/user';
-import { RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToLoginAction, RedirectToPreferencesAction, ResetAppStateAction, SetUserAction, RedirectToFeedbackAction } from './actions';
+import { RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToLoginAction, RedirectToPreferencesAction, ResetAppStateAction, SetUserAction, RedirectToFeedbackAction, RedirectToDepositAction, RedirectToPaymentAction } from './actions';
 
 export class AppStateModel {
     user: User;
@@ -64,4 +64,13 @@ export class AppState {
         dispatch(new Navigate(['/bank']));
     }
 
+    @Action(RedirectToDepositAction)
+    redirectToDeposit({ dispatch }: StateContext<AppStateModel>) {
+        dispatch(new Navigate(['/action', 'deposit']));
+    }
+
+    @Action(RedirectToPaymentAction)
+    redirectToPayment({ dispatch }: StateContext<AppStateModel>) {
+        dispatch(new Navigate(['/action', 'payment']));
+    }
 }

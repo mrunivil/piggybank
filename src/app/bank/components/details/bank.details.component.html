@@ -20,11 +20,7 @@
       <button (click)="showHistory()" [disabled]="!(currentBank$|async)">
         <i class="material-icons">search</i>
       </button>
-      <button (click)="newAction()">
-        <i class="material-icons">
-          add
-        </i>
-      </button>
+
     </h2>
     <div *ngFor="let history of (currentBank$|async)?.history">
       <app-history [onlyBalanceChanges]="onlyBalanceChanges$|async" [history]="history"></app-history>
@@ -33,6 +29,14 @@
   <p *ngIf="error$|async as error" class="error">
     <label [innerText]="error"></label>
   </p>
+
+  <div class="fab-bottom-right">
+    <button (click)="newAction()">
+      <i class="material-icons">
+        add
+      </i>
+    </button>
+  </div>
 </div>
 <p>
   {{(currentBank$ | async) | json}}

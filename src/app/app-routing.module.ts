@@ -32,6 +32,12 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
+    path: 'action',
+    loadChildren: './action/action.module#ActionModule',
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard]
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
