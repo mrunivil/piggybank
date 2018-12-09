@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { Router, Route, ActivatedRoute } from '@angular/router';
-import { first, pluck, tap, map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { BalanceChange } from 'src/app/models/actions/balance-change';
+import { Deposit } from 'src/app/models/actions/deposit';
+import { Store } from '@ngxs/store';
+import { AppState } from 'src/app/shared/state/app.state';
 
 @Component({
     templateUrl: './action.component.html',
@@ -9,23 +11,14 @@ import { Observable, of } from 'rxjs';
 })
 export class ActionComponent {
 
-    title$: Observable<string>
+    action: BalanceChange;
 
-    constructor(private route: ActivatedRoute) {
-        this.title$ = this.route.params.pipe(
-            first(),
-            pluck('type'),
-            map(type => {
-                switch (type) {
-                    case 'deposit':
-                        return 'Einzahlung';
-                    case 'payment':
-                        return 'Auszahlung';
-                    default:
-                        throw new Error('not a valid action');
-                }
-            })
-        );
+    constructor(private store: Store) {
+        this.action = new Deposit(this.store.selectSnapshot(AppState.currentUser), 0, new Date());
+    }
+
+    onSelectionChanged(type: string) {
+
     }
 
     save(): void {

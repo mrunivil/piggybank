@@ -4,7 +4,7 @@ import { ActionComponent } from './components/action/action.component';
 
 const routes: Routes = [
     {
-        path: ':type',
+        path: '',
         component: ActionComponent
     }
 ];

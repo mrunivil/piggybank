@@ -7,10 +7,12 @@ export abstract class Action {
 
     user: User;
     date: Date;
+    comment: string;
     readonly type: string;
-    constructor(user: User, date: Date, type: string) {
+    constructor(user: User, date: Date, type: string, comment?: string) {
         this.user = user;
         this.date = date;
         this.type = type;
+        this.comment = comment || `${type} am ${date.toLocaleDateString()}`;
     }
 }

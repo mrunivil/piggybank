@@ -9,6 +9,7 @@ import { ActionService } from './services/action.service';
 import { LocalActionService } from './services/local/action.service';
 import { FirebaseActionService } from './services/firebase/action.service';
 import { HeaderComponent } from './components/header/header.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { HeaderComponent } from './components/header/header.component';
     ],
     imports: [
         CommonModule,
+        FormsModule,
         NgxsModule.forFeature([ActionState]),
         ActionRoutingModule
     ],

@@ -7,6 +7,7 @@ import { Bank } from 'src/app/models/bank';
 import { AppState } from 'src/app/shared/state/app.state';
 import { LoadBankDetailsAction, ResetStateAction, ToggleHistoryDteailsAction } from '../../state/actions';
 import { BankState } from '../../state/bank.state';
+import { RedirectToAction } from 'src/app/shared/state/actions';
 
 @Component({
     selector: 'app-bank-details',
@@ -18,8 +19,6 @@ export class BankDetailsComponent implements OnInit {
     @Select(BankState.currentBank) currentBank$: Observable<Bank>;
     @Select(BankState.error) error$: Observable<string>;
     @Select(BankState.onlyBalanceChanges) onlyBalanceChanges$: Observable<boolean>;
-
-    showModal = false;
 
     constructor(private route: ActivatedRoute, private store: Store) { }
 
@@ -42,15 +41,7 @@ export class BankDetailsComponent implements OnInit {
     }
 
     newAction() {
-        // this.showModal = !this.showModal;
+        this.store.dispatch(new RedirectToAction);
     }
 
-    newDeposit() {
-        // this.showModal = false;
-        // this.store.dispatch(new RedirectToDepositAction);
-    }
-    newPayment() {
-        // this.showModal = false;
-        // this.store.dispatch(new RedirectToPaymentAction);
-    }
 }
