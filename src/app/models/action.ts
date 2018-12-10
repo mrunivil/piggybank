@@ -5,6 +5,7 @@ export abstract class Action {
     static TYPE_PAYMENT: string = 'Auszahlung';
     static TYPE_DEPOSIT: string = 'Einzahlung';
 
+    readonly id?: string;
     user: User;
     date: Date;
     comment: string;

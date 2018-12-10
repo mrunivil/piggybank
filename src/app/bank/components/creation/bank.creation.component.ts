@@ -35,7 +35,6 @@ export class BankCreationComponent {
     save() {
         this.bank.history.push(new CreateBank(this.user, new Date()));
         this.bank.members.push(this.user);
-        console.dir(JSON.stringify(this.bank));
         this.store.dispatch(new SaveNewBankAction(this.bank));
         this.success$.pipe(takeWhile(res => res !== true)).subscribe((res) => { }, (err) => { }, () => {
             this.store.dispatch(new AttachBankAction(this.store.selectSnapshot(BankState.currentBank)));

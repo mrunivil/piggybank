@@ -1,12 +1,11 @@
 <app-header [title]="'Einzahlung/ Auszahlung'"></app-header>
 <div class="content-wrapper">
 
+  <h1>Actions Component is under construction</h1>
   <input type="radio" checked="true" id="mc" name="Zahlmethode" value="Einzahlen" (change)="onSelectionChanged('deposit')">
   <label for="mc"> Einzahlen</label>
   <input type="radio" id="vi" name="Zahlmethode" value="Auszahlen" (change)="onSelectionChanged('payment')">
   <label for="vi"> Auszahlen</label>
-
-  <h1>Actions Component is under construction</h1>
 
   <div>
     <label id="lbl-amount" for="txt-amount">Betrag</label>
@@ -18,7 +17,14 @@
     <textarea id="txt-comment" rows="4" [(ngModel)]="action.comment"></textarea>
   </div>
 
-  <button class="fab-bottom-right">
+  <p *ngIf="error$|async as error" class="error">
+    <label [innerText]="error"></label>
+  </p>
+
+  <p>
+    {{action|json}}
+  </p>
+  <button class="fab-bottom-right" (click)="save()">
     <i class="material-icons">save</i>
   </button>
 </div>

@@ -1,6 +1,7 @@
 import { Bank } from 'src/app/models/bank';
 import { Observable } from 'rxjs';
 import { Action } from 'src/app/models/action';
+import { environment } from 'src/environments/environment';
 
 export interface BankServiceInterface {
     getBankDetails(id: string, userid: string): Observable<Bank>;
@@ -15,6 +16,8 @@ export interface BankServiceInterface {
 }
 
 export abstract class BankService implements BankServiceInterface {
+    protected endpoint = environment.endpoint;
+
     abstract getBankDetails(id: string, userid: string): Observable<Bank>;
 
     abstract createNewBank(bank: Bank): Observable<Bank>;

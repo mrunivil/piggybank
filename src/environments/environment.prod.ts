@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  service: 'local'
+  service: 'local',
+  endpoint: null
 };

@@ -6,6 +6,7 @@ import { tap, take, catchError, flatMap, first, retry } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AttachBankAction } from 'src/app/dashboard/state/actions';
 import { ResetAppStateAction } from 'src/app/shared/state/actions';
+import { SaveBalanceChangeSuccessEvent } from 'src/app/action/state/actions';
 
 
 export class BankStateModel {
@@ -138,4 +139,10 @@ export class BankState {
         })
     }
 
+    @Action(SaveBalanceChangeSuccessEvent)
+    saveBalanceChangeSuccess({ getState, setState }: StateContext<BankStateModel>, { payload }: SaveBalanceChangeSuccessEvent) {
+        const currentBank = { ...getState().currentBank };
+        currentBank.history.push(payload);
+        setState({ ...getState(), currentBank: currentBank });
+    }
 }
