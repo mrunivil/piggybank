@@ -17,10 +17,8 @@ import { DashboardState } from '../../state/dashboard.state';
 export class DashboardComponent implements OnInit {
 
   @Select(AppState.currentUser) user$: Observable<User>;
-  @Select(DashboardState.errorMessage) error$: Observable<string>;
-
-  @Select(DashboardState.MY_BANKS) myBanks$: Observable<Bank[]>;
-  @Select(DashboardState.OTHERS_BANKS) otherBanks$: Observable<Bank[]>;
+  @Select(AppState.myBanks) myBanks$: Observable<Bank[]>;
+  @Select(AppState.otherBanks) otherBanks$: Observable<Bank[]>;
 
   constructor(public store: Store) { }
 

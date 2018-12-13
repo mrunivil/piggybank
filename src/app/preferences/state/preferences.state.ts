@@ -48,7 +48,6 @@ export class PreferencesState {
         ).subscribe(res => dispatch(new SuccessLoadingUserPreferencesEvent(res))
             , err => dispatch(new ErrorLoadingUserPreferencesEvent(err)));
     }
-
     @Action(SuccessLoadingUserPreferencesEvent)
     successLoadingUserPreferencesEvent({ patchState }: StateContext<PreferencesStateModel>, { payload }: SuccessLoadingUserPreferencesEvent) {
         patchState({
@@ -56,7 +55,6 @@ export class PreferencesState {
             preferences: payload
         })
     }
-
     @Action(ErrorLoadingUserPreferencesEvent)
     errorLoadingUserPreferencesEvent({ patchState }: StateContext<PreferencesStateModel>, { payload }: ErrorLoadingUserPreferencesEvent) {
         patchState({
@@ -69,18 +67,15 @@ export class PreferencesState {
      *
      * @param {StateContext<PreferencesStateModel>} { patchState, getState }
      * @param {UpdateUserPreferences} { payload }
-     * @returns
-     * @memberof PreferencesState
      */
     @Action(UpdateUserPreferences)
     updateUserPreferences({ dispatch }: StateContext<PreferencesStateModel>, { payload }) {
-        return this.preferencesService.updatePreferences(payload).pipe(
+        this.preferencesService.updatePreferences(payload).pipe(
             first()
             , retry(3)
         ).subscribe(res => dispatch(new SuccessUpdatingUserPreferencesEvent(res))
             , err => dispatch(new ErrorUpdatingUserPreferencesEvent(err)));
     }
-
     @Action(SuccessUpdatingUserPreferencesEvent)
     successUpdatingUserPreferencesEvent({ patchState }: StateContext<PreferencesStateModel>, { payload }: SuccessUpdatingUserPreferencesEvent) {
         patchState({
@@ -88,7 +83,6 @@ export class PreferencesState {
             preferences: payload
         })
     }
-
     @Action(ErrorUpdatingUserPreferencesEvent)
     errorUpdatingUserPreferencesEvent(ctx: StateContext<PreferencesStateModel>, { payload }: ErrorUpdatingUserPreferencesEvent) {
         ctx.patchState({

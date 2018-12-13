@@ -1,13 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { concatMap, delay, first, tap } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
-import * as auth from '../auth';
-import { HttpClient } from '@angular/common/http';
-import { take, concatMap, concatMapTo, first, delay, tap } from 'rxjs/operators';
-
+import { AuthService } from '../auth';
+import { shuffle } from 'lodash';
 
 @Injectable()
-export class LocalAuthService extends auth.AuthService {
+export class LocalAuthService extends AuthService {
 
   user: User = null;
 
@@ -20,7 +20,7 @@ export class LocalAuthService extends auth.AuthService {
   }
 
   loginWithGoogle(): Observable<User> {
-    return this.http.get<User[]>('./mockdata/users.json').pipe(
+    return this.http.get<User[]>(`${this.endpoint}/users`).pipe(
       first()
       , delay(500)
       , tap(val => {
@@ -28,7 +28,9 @@ export class LocalAuthService extends auth.AuthService {
           throw new Error('sorry something went wrong!');
         }
       })
-      , concatMap((res) => of(res.pop())));
+      , concatMap((res) => {
+        return of(shuffle(res).pop());
+      }));
   }
 
   logout(): Observable<User> {

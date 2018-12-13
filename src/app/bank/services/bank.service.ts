@@ -2,29 +2,30 @@ import { Bank } from 'src/app/models/bank';
 import { Observable } from 'rxjs';
 import { Action } from 'src/app/models/action';
 import { environment } from 'src/environments/environment';
+import { User } from 'src/app/models/user';
 
 export interface BankServiceInterface {
-    getBankDetails(id: string, userid: string): Observable<Bank>;
+    getBankDetails(id: string): Observable<Bank[]>;
 
     createNewBank(bank: Bank): Observable<Bank>;
 
     updateMyBank(bank: Bank): Observable<Bank>;
 
-    payOff(payment: Action): Observable<boolean>;
+    setOwner(bank: Bank, owner: User): Observable<Bank>;
 
-    deposit(deposit: Action): Observable<boolean>;
+    addHistory(bank: Bank, action: Action): Observable<Bank>
 }
 
 export abstract class BankService implements BankServiceInterface {
     protected endpoint = environment.endpoint;
 
-    abstract getBankDetails(id: string, userid: string): Observable<Bank>;
+    abstract getBankDetails(id: string): Observable<Bank[]>;
 
     abstract createNewBank(bank: Bank): Observable<Bank>;
 
     abstract updateMyBank(bank: Bank): Observable<Bank>;
 
-    abstract payOff(payment: Action);
+    abstract setOwner(bank: Bank, owner: User): Observable<Bank>;
 
-    abstract deposit(deposit: Action);
+    abstract addHistory(bank: Bank, action: Action): Observable<Bank>
 }

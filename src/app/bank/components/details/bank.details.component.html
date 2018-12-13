@@ -1,6 +1,10 @@
 <app-header [title]="'Bank Details'"></app-header>
 <div class="content-wrapper">
-  <h1>Bank Details Component is under construction</h1>
+
+  <div>
+    <img *ngIf="(currentBank$|async)?.photoURL" [src]="(currentBank$|async)?.photoURL" alt="no picture available">
+    <label style="padding:0.5rem" [innerHTML]="(currentBank$|async)?.name"></label>
+  </div>
 
   <div>
     <h2>Kontostand</h2>
@@ -9,9 +13,12 @@
 
   <div>
     <h2>Mitglieder</h2>
+    <span>
+      <img *ngIf="(currentBank$|async)?.owner?.photoURL" style="border-radius:50%;box-shadow:2px 2px 4px green" [src]="(currentBank$|async)?.owner.photoURL"
+        alt="no picture available">
+    </span>
     <span *ngFor="let member of (currentBank$|async)?.members">
       <img [src]="member.photoURL" alt="no picture available">
-      <label [innerText]="member.email"></label>
     </span>
   </div>
 
@@ -38,6 +45,11 @@
     </button>
   </div>
 </div>
+
+<p *ngIf="!(currentBank$|async)">
+  Loading ...
+</p>
+
 <p>
-  {{(currentBank$ | async) | json}}
+  {{(currentBank$ | async)| json}}
 </p>

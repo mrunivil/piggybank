@@ -1,5 +1,6 @@
 import { User } from 'src/app/models/user';
 import { Preferences } from 'src/app/models/preferences';
+import { Bank } from 'src/app/models/bank';
 
 export class ResetAppStateAction {
     static readonly type = '[APP RESET] reset state to defaults';
@@ -13,6 +14,11 @@ export class SetUserAction {
 export class SetUserPreferences {
     static readonly type = '[APP SET USER PREFERENCES] recieving user information';
     constructor(public payload: Preferences) { }
+}
+
+export class SetSelectedBank {
+    static readonly type = '[APP SET SELECTED BANK] user selected bank';
+    constructor(public payload: Bank) { }
 }
 
 export class RedirectToLoginAction {
@@ -37,7 +43,6 @@ export class RedirectToBankCreationAction {
 
 export class RedirectToBankDetailsAction {
     static readonly type = '[APP REDIRECT] /bank/:id';
-    constructor(public payload: string) { }
 }
 
 export class RedirectToAction {

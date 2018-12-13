@@ -23,16 +23,16 @@ export class ActionComponent {
     action: BalanceChange;
 
     constructor(private store: Store) {
-        this.action = new Deposit(this.store.selectSnapshot(AppState.currentUser), 0, new Date());
+        this.action = new Deposit(this.store.selectSnapshot(AppState.currentUser), 0);
     }
 
     onSelectionChanged(type: string) {
         switch (type) {
             case 'deposit':
-                this.action = new Deposit(this.action.user, this.action.amount, this.action.date, this.action.comment);
+                this.action = new Deposit(this.action.user, this.action.amount, this.action.comment);
                 break;
             case 'payment':
-                this.action = new Payment(this.action.user, this.action.amount, this.action.date, this.action.comment)
+                this.action = new Payment(this.action.user, this.action.amount, this.action.comment)
                 break;
             default:
                 throw new Error(`unknown action type ${type}`);
@@ -42,7 +42,7 @@ export class ActionComponent {
     save(): void {
         this.store.dispatch(new SaveBalanceChangeAction(this.action));
         this.success$.pipe(takeWhile(res => res !== true)).subscribe(_ => { }, (err) => { }, () => {
-            this.store.dispatch(new RedirectToBankDetailsAction(this.store.selectSnapshot(BankState.currentBank).id));
+            this.store.dispatch(new RedirectToBankDetailsAction);
         });
     }
 }

@@ -19,7 +19,7 @@ export class HeaderComponent {
   constructor(private store: Store) { }
 
   back() {
-    this.store.dispatch(new RedirectToBankDetailsAction(this.store.selectSnapshot(BankState.currentBank).id));
+    this.store.dispatch(new RedirectToBankDetailsAction);
   }
 
 }

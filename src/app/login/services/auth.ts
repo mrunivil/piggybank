@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
 import { User } from '../../models/user';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
-export interface Auth {
+export interface AuthServiceInterface {
 
     getCurrentUser(): Observable<User>;
 
@@ -13,7 +14,9 @@ export interface Auth {
 }
 
 @Injectable()
-export abstract class AuthService implements Auth {
+export abstract class AuthService implements AuthServiceInterface {
+    protected endpoint = environment.endpoint;
+
     abstract getCurrentUser(): Observable<User>;
 
     abstract loginWithGoogle(): Observable<User>;

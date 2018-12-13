@@ -1,5 +1,5 @@
-import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { first, retry, switchMap } from 'rxjs/operators';
+import { Action, Selector, State, StateContext, Actions, ofActionSuccessful } from '@ngxs/store';
+import { first, retry, switchMap, concat, switchAll, last } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
 import { SetUserAction, ResetAppStateAction } from 'src/app/shared/state/actions';
 import { AuthService } from '../services/auth';
@@ -17,7 +17,7 @@ export class AuthStateModel {
 })
 export class AuthState {
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private actions: Actions) { }
 
     @Selector()
     static errorMessage({ error }: AuthStateModel) {
@@ -32,33 +32,25 @@ export class AuthState {
     }
 
     /**
-     * 
-     * @param ctx Login Action
+     * Login with Google Account
+     *
+     * @param {StateContext<AuthStateModel>} { dispatch }
+     * @memberof AuthState
      */
     @Action(GoogleLoginAction)
-    loginWithGoogle(ctx: StateContext<AuthStateModel>) {
-        ctx.dispatch(new ResetStateAction).pipe(
-            switchMap(() => this.authService.loginWithGoogle())
-            , first()
-            , retry(3)
-        ).subscribe((res: User) => {
-            ctx.dispatch(new GoogleLoggedInEvent(res));
-        }, err => {
-            ctx.dispatch(new LoginFailedEvent(err));
-        });
+    loginWithGoogle({ dispatch }: StateContext<AuthStateModel>) {
+        dispatch(new ResetStateAction).pipe(first()).subscribe(_ => {
+            this.authService.loginWithGoogle().pipe(
+                first()
+                , retry(3)
+            ).subscribe((res: User) => {
+                dispatch(new GoogleLoggedInEvent(res));
+            }, err => {
+                dispatch(err);
+            });
+        })
     }
 
-    @Action(GoogleLoggedInEvent)
-    loginWithGoogleSuccessful(ctx: StateContext<AuthStateModel>, { payload }: GoogleLoggedInEvent) {
-        ctx.dispatch(new ResetStateAction).pipe(first()).subscribe(() => ctx.dispatch(new SetUserAction(payload)).pipe(first()).subscribe());
-    }
-
-    @Action(LoginFailedEvent)
-    loginFailed(ctx: StateContext<AuthStateModel>, { payload }: LoginFailedEvent) {
-        ctx.patchState({
-            error: payload
-        });
-    }
 
     /**
      * 
@@ -78,7 +70,6 @@ export class AuthState {
     @Action(LoggedOutEvent)
     logoutSuccessful(ctx: StateContext<AuthStateModel>) {
         ctx.dispatch(new ResetAppStateAction);
-        // ctx.dispatch(new SetUserAction(null));
     }
     @Action(LoggedOutFailedEvent)
     logoutFailed(ctx: StateContext<AuthStateModel>, { payload }: LoggedOutFailedEvent) {

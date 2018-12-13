@@ -3,7 +3,7 @@
     <i class="material-icons">arrow_back</i>
   </button>
   <label>{{title?title:'-- no title set --'}}</label>
-  <button (click)="share()" [disabled]="(currentBank$|async)?.owner.uid !== (currentUser$|async)?.uid">
+  <button (click)="share()" [disabled]="(currentBank$|async)?.owner?.uid !== (currentUser$|async)?.uid">
     <i class="material-icons">share</i>
   </button>
 </div>

@@ -21,7 +21,7 @@ export class SuccessLoadUserOwnedBanksEvent {
 }
 export class ErrorLoadUserOwnedBanksEvent {
     static readonly type = '[DASHBOARD LOAD] failed load owners banks';
-    constructor(public payload: string) { }
+    constructor(public payload: Error) { }
 }
 
 /**
@@ -37,7 +37,7 @@ export class SuccessLoadMemberBanksEvent {
 }
 export class ErrorLoadMemberBanksEvent {
     static readonly type = '[DASHBOARD LOAD] failed  load members banks';
-    constructor(public payload: string) { }
+    constructor(public payload: Error) { }
 }
 
 /**

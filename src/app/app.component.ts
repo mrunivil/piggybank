@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Select } from '@ngxs/store';
+import { AppState } from './shared/state/app.state';
+import { Observable } from 'rxjs';
+import { Bank } from './models/bank';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'PiggyBank';
+
+  @Select(AppState.currentBank) currentBank$: Observable<Bank>;
+
 }

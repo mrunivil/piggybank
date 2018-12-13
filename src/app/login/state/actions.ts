@@ -12,7 +12,7 @@ export class GoogleLoggedInEvent {
 }
 export class LoginFailedEvent {
     static readonly type = '[AUTH LOGIN FAILED] error while logging in';
-    constructor(public payload: string) { }
+    constructor(public payload: Error) { }
 }
 export class LogoutAction {
     static readonly type = '[AUTH LOGOUT] logging out current user';

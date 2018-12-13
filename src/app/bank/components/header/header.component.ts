@@ -5,7 +5,6 @@ import { Bank } from 'src/app/models/bank';
 import { User } from 'src/app/models/user';
 import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
-import { BankState } from '../../state/bank.state';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +13,7 @@ import { BankState } from '../../state/bank.state';
 })
 export class HeaderComponent {
 
-  @Select(BankState.currentBank) currentBank$: Observable<Bank>;
+  @Select(AppState.currentBank) currentBank$: Observable<Bank>;
   @Select(AppState.currentUser) currentUser$: Observable<User>;
 
   @Input() title: string;

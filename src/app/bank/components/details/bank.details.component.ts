@@ -16,24 +16,19 @@ import { RedirectToAction } from 'src/app/shared/state/actions';
 })
 export class BankDetailsComponent implements OnInit {
 
-    @Select(BankState.currentBank) currentBank$: Observable<Bank>;
+    @Select(AppState.currentBank) currentBank$: Observable<Bank>;
     @Select(BankState.error) error$: Observable<string>;
     @Select(BankState.onlyBalanceChanges) onlyBalanceChanges$: Observable<boolean>;
 
     constructor(private route: ActivatedRoute, private store: Store) { }
 
     ngOnInit() {
-        this.store.dispatch(new ResetStateAction)
-            .pipe(
-                first()
-            ).subscribe(() => {
-                this.route.params.pipe(
-                    first(),
-                    pluck('id')
-                ).subscribe((bankid: string) => {
-                    this.store.dispatch(new LoadBankDetailsAction(bankid, this.store.selectSnapshot(AppState.currentUser).uid));
-                });
-            });
+        this.route.params.pipe(
+            first(),
+            pluck('id')
+        ).subscribe((bankid: string) => {
+            this.store.dispatch(new LoadBankDetailsAction(bankid))
+        });
     }
 
     showHistory() {
