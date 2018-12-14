@@ -1,12 +1,14 @@
 import { Action, Actions, ofActionSuccessful, Selector, State, StateContext, Store } from '@ngxs/store';
-import { catchError, concat, first, retry } from 'rxjs/operators';
+import { catchError, concat, first, retry, switchMap } from 'rxjs/operators';
 import { CreateBankHistoryAction } from 'src/app/models/actions/create-bank';
 import { SetOwnerHistoryAction } from 'src/app/models/actions/set-owner';
 import { Bank } from 'src/app/models/bank';
 import { ResetAppStateAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 import { BankService } from '../services/bank.service';
-import { AddNewHistoryAction, AddNewHistoryActionFailEvent, AddNewHistoryActionSuccessEvent, AddNewOwnerAction, AddNewOwnerActionFailEvent, AddNewOwnerActionSuccessEvent, ErrorLoadBankDetailsEvent, ErrorSaveNewBankEvent, LoadBankDetailsAction, ResetStateAction, SaveNewBankAction, SuccessLoadBankDetailsEvent, SuccessSaveNewBankEvent, ToggleHistoryDteailsAction, UpdateBankAction, UpdateBankFailEvent, UpdateBankSuccessEvent } from './actions';
+import { AddNewHistoryAction, AddNewHistoryActionFailEvent, AddNewHistoryActionSuccessEvent, AddNewOwnerAction, AddNewOwnerActionFailEvent, AddNewOwnerActionSuccessEvent, ErrorLoadBankDetailsEvent, ErrorSaveNewBankEvent, LoadBankDetailsAction, ResetStateAction, SaveNewBankAction, SuccessLoadBankDetailsEvent, SuccessSaveNewBankEvent, ToggleHistoryDteailsAction, UpdateBankAction, UpdateBankFailEvent, UpdateBankSuccessEvent, LoadBankHistoryAction } from './actions';
+import { SaveBalanceChangeSuccessEvent } from 'src/app/action/state/actions';
+import { LoadBankHistorySuccessEvent, LoadBankHistoryFailEvent } from 'src/app/shared/state/events';
 
 
 export class BankStateModel {
@@ -65,6 +67,15 @@ export class BankState {
         ).subscribe(res => dispatch(new SuccessLoadBankDetailsEvent(res)),
             err => dispatch(new ErrorLoadBankDetailsEvent(err)));
     }
+
+    @Action(LoadBankHistoryAction)
+    loadBankHistory({ dispatch }: StateContext<BankState>, { payload }: LoadBankHistoryAction) {
+        this.bankService.getHistory(payload).pipe(first()).subscribe(res => {
+            dispatch(new LoadBankHistorySuccessEvent(res));
+        }, err => {
+            dispatch(new LoadBankHistoryFailEvent(err));
+        });
+    }
     /**
      * Save a new data set
      *
@@ -76,12 +87,7 @@ export class BankState {
     saveNewBankAction({ dispatch }: StateContext<BankStateModel>, { payload }: SaveNewBankAction) {
         this.bankService.createNewBank(payload).pipe(
             first()).subscribe(res => {
-                concat(
-                    dispatch(new SuccessSaveNewBankEvent(res)),
-                    dispatch(new AddNewOwnerAction),
-                    dispatch(new AddNewHistoryAction(payload.id, new CreateBankHistoryAction(this.store.selectSnapshot(AppState.currentUser)))),
-                    dispatch(new AddNewHistoryAction(payload.id, new SetOwnerHistoryAction(this.store.selectSnapshot(AppState.currentUser))))
-                )
+                dispatch(new SuccessSaveNewBankEvent(res))
             }, err => {
                 dispatch(new ErrorSaveNewBankEvent(err));
             });
@@ -136,6 +142,7 @@ export class BankState {
 
     @Action(ToggleHistoryDteailsAction)
     toggleHistoryDteailsAction({ getState, patchState }: StateContext<BankStateModel>) {
+
         patchState({
             onlyBalanceChanges: !getState().onlyBalanceChanges
         })
@@ -154,12 +161,10 @@ export class BankState {
             first()
             , concat(
                 dispatch(new AddNewHistoryActionSuccessEvent(action)),
-                dispatch(new UpdateBankAction(this.store.selectSnapshot(AppState.currentBank)))
             )
             , catchError(err => dispatch(new AddNewHistoryActionFailEvent(err)))
-        )
+        ).subscribe();
     }
-
 
     @Action(AddNewOwnerAction)
     addNewOwner({ dispatch, getState }: StateContext<BankStateModel>) {

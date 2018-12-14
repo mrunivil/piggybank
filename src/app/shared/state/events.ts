@@ -1,6 +1,8 @@
 import { User } from 'src/app/models/user';
 import { Preferences } from 'src/app/models/preferences';
 import { Feedback } from 'src/app/models/feedback';
+import { Bank } from 'src/app/models/bank';
+import { Action } from 'src/app/models/action';
 
 /**
  * Login Events
@@ -59,5 +61,16 @@ export class LoadUserFeedbackSuccessfulEvent {
 }
 export class LoadUserFeedbackFailEvent {
     static readonly type = '[FEEDBACK LOAD] loading user related feedback fail';
+    constructor(public payload: Error) { }
+}
+/**
+ * Bank Events
+ */
+export class LoadBankHistorySuccessEvent {
+    static readonly type = '[BANK HISTORY] success loading bank history';
+    constructor(public payload: Action[]) { }
+}
+export class LoadBankHistoryFailEvent {
+    static readonly type = '[BANK HISTORY] failed loading history';
     constructor(public payload: Error) { }
 }

@@ -33,12 +33,7 @@ export class LocalBankService extends BankService {
             .set('id', id);
         return this.http.get<Bank[]>(`${this.endpoint}/banks`, { params }).pipe(
             first()
-            , delay(500),
-            tap(_ => {
-                if (new Date().getTime() % 3 === 0) {
-                    throw new Error('sorry something went wrong!');
-                }
-            })
+            , delay(500)
         );
     }
 
@@ -49,17 +44,18 @@ export class LocalBankService extends BankService {
             , name: bank.name
             , balance: bank.balance
             , photoURL: bank.photoURL
-        }).pipe(
-            first()
-            , delay(500)
-        )
+        })
     }
 
-    addHistory(bank: Bank, action: Action): Observable<Bank> {
-        return this.http.post<Bank>(`${this.endpoint}/bank_history`, { bank: bank.id, history: action }).pipe(
-            first()
-            , delay(500)
-        )
+    addHistory(bank: Bank, { user, comment, date, id, type }: Action): Observable<Bank> {
+        return this.http.post<Bank>(`${this.endpoint}/bank_history`, { bank: bank.id, user, comment, type, date, id });
     }
 
+    getHistory(id: string): Observable<Action[]> {
+        const params = new HttpParams()
+            .set('bank', id);
+        const headers = new HttpHeaders()
+            .append('Content-Type', 'application/json');
+        return this.http.get<Action[]>(`${this.endpoint}/bank_history`, { headers, params });
+    }
 }

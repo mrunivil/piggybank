@@ -2,12 +2,12 @@ import { Navigate } from '@ngxs/router-plugin';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { AddNewHistoryActionFailEvent, AddNewHistoryActionSuccessEvent, AddNewOwnerActionFailEvent, AddNewOwnerActionSuccessEvent, ErrorLoadBankDetailsEvent, SuccessLoadBankDetailsEvent, SuccessSaveNewBankEvent } from 'src/app/bank/state/actions';
 import { BankStateModel } from 'src/app/bank/state/bank.state';
-import { ErrorLoadMemberBanksEvent, ErrorLoadUserOwnedBanksEvent, SuccessLoadMemberBanksEvent, SuccessLoadUserOwnedBanksEvent } from 'src/app/dashboard/state/actions';
+import { ErrorLoadMemberBanksEvent, ErrorLoadUserOwnedBanksEvent, SuccessLoadMemberBanksEvent, SuccessLoadUserOwnedBanksEvent, AttachBankAction } from 'src/app/dashboard/state/actions';
 import { Bank } from 'src/app/models/bank';
 import { Preferences } from 'src/app/models/preferences';
 import { User } from 'src/app/models/user';
 import { BankSelectionChangedEvent, RedirectToAction, RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToFeedbackAction, RedirectToLoginAction, RedirectToPreferencesAction, ResetAppStateAction } from './actions';
-import { LoginSuccessfulEvent, LoginFailedEvent, LogoutSuccessfulEvent, LoggedOutFailedEvent, LoadUserPreferencesSuccessfulEvent, LoadUserPreferencesFailEvent, UpdateUserPreferencesSuccessEvent, UpdateUserPreferencesFailEvent, SendUserFeedbackSuccessEvent, SendUserFeedbackFailEvent, LoadUserFeedbackSuccessfulEvent, LoadUserFeedbackFailEvent, } from './events';
+import { LoginSuccessfulEvent, LoginFailedEvent, LogoutSuccessfulEvent, LoggedOutFailedEvent, LoadUserPreferencesSuccessfulEvent, LoadUserPreferencesFailEvent, UpdateUserPreferencesSuccessEvent, UpdateUserPreferencesFailEvent, SendUserFeedbackSuccessEvent, SendUserFeedbackFailEvent, LoadUserFeedbackSuccessfulEvent, LoadUserFeedbackFailEvent, LoadBankHistorySuccessEvent, } from './events';
 import { FeedbackStateModel } from 'src/app/feedback/state/feedback.state';
 import { Feedback } from 'src/app/models/feedback';
 
@@ -100,12 +100,18 @@ export class AppState {
     }
 
     // Bank created
+    @Action(AttachBankAction)
+    attachBank({ patchState, getState }: StateContext<AppStateModel>, { payload }: AttachBankAction) {
+        patchState({
+            currentBank: payload,
+            mybanks: [...getState().mybanks, payload]
+        })
+    }
     @Action(SuccessSaveNewBankEvent)
     saveedNewBank({ patchState, getState }: StateContext<AppStateModel>, { payload }: SuccessSaveNewBankEvent) {
         patchState({
             error: undefined,
-            currentBank: payload,
-            mybanks: [...getState().mybanks, payload]
+            currentBank: { ...getState().currentBank, ...payload }
         })
     }
 
@@ -136,7 +142,7 @@ export class AppState {
 
     // changed bank history
     @Action(AddNewHistoryActionSuccessEvent)
-    addNewHistorySuccess({ patchState, getState, setState }: StateContext<AppStateModel>, { payload }: AddNewHistoryActionSuccessEvent) {
+    addNewHistorySuccess({ getState, setState }: StateContext<AppStateModel>, { payload }: AddNewHistoryActionSuccessEvent) {
         const currentBank = { ...getState().currentBank };
         currentBank.history.push(payload);
         setState({ ...getState(), currentBank: currentBank });
@@ -145,6 +151,14 @@ export class AppState {
     addNewHistoryFail({ patchState }: StateContext<AppStateModel>, { payload }: AddNewHistoryActionFailEvent) {
         patchState({
             error: payload
+        });
+    }
+    @Action(LoadBankHistorySuccessEvent)
+    loadBankHistorySuccess({ setState, getState }: StateContext<AppStateModel>, { payload }: LoadBankHistorySuccessEvent) {
+        const state = getState();
+        setState({
+            ...state,
+            currentBank: { ...state.currentBank, history: payload }
         });
     }
 

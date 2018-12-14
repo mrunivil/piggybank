@@ -23,6 +23,14 @@ export class ErrorLoadBankDetailsEvent {
     constructor(public payload: Error) { }
 }
 /**
+ * Loading history for selected Bank
+ */
+export class LoadBankHistoryAction {
+    static readonly type = '[BANK HISTORY] loading bank history';
+    constructor(public payload: string) { }
+}
+
+/**
  * Save a new Bank
  */
 export class SaveNewBankAction {
@@ -74,7 +82,7 @@ export class AddNewHistoryActionFailEvent {
     constructor(public payload: Error) { }
 }
 /**
- * Adding a new history entry for a specific bank
+ * Adding a new owner entry for a specific bank
  */
 export class AddNewOwnerAction {
     static readonly type = '[BANK UPDATE] adding new owner';

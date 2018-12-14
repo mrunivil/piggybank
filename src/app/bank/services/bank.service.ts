@@ -14,6 +14,8 @@ export interface BankServiceInterface {
     setOwner(bank: Bank, owner: User): Observable<Bank>;
 
     addHistory(bank: Bank, action: Action): Observable<Bank>
+
+    getHistory(id: string): Observable<Action[]>;
 }
 
 export abstract class BankService implements BankServiceInterface {
@@ -27,5 +29,7 @@ export abstract class BankService implements BankServiceInterface {
 
     abstract setOwner(bank: Bank, owner: User): Observable<Bank>;
 
-    abstract addHistory(bank: Bank, action: Action): Observable<Bank>
+    abstract addHistory(bank: Bank, action: Action): Observable<Bank>;
+
+    abstract getHistory(id: string): Observable<Action[]>;
 }

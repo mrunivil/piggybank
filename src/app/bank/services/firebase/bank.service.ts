@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class FirebaseBankService extends BankService {
+    getHistory(id: string): Observable<Action[]> {
+        throw new Error('Method not implemented.');
+    }
     addHistory(bank: Bank, action: Action): Observable<Bank> {
         throw new Error('Method not implemented.');
     }
