@@ -58,6 +58,7 @@ export class LocalBankService extends BankService {
     }
 
     addHistory(bank: Bank, action: Action): Observable<Bank> {
+        debugger
         return this.http.post<Bank>(`${this.endpoint}/bank_history`, { bank: bank.id, history: action }).pipe(
             first()
             , delay(500)

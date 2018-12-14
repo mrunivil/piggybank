@@ -1,39 +1,14 @@
 import { Preferences } from 'src/app/models/preferences';
-
-/**
- * Reset complete state
- */
-export class ResetStateAction {
-    static readonly type = "[PREFERENCES RESET] reset preferences state";
-}
-
 /**
  * Loading user preferences
  */
-export class LoadUserPreferences {
+export class LoadUserPreferencesAction {
     static readonly type = '[PREFERENCES LOAD] load user preferences';
-    constructor(public payload: string) { }
-}
-export class SuccessLoadingUserPreferencesEvent {
-    static readonly type = '[PREFERENCES LOAD] success'
-    constructor(public payload: Preferences) { }
-}
-export class ErrorLoadingUserPreferencesEvent {
-    static readonly type = '[PREFERENCES LOAD] failed'
-    constructor(public payload: string) { }
 }
 /**
  * Updating user preferences
  */
-export class UpdateUserPreferences {
+export class UpdateUserPreferencesAction {
     static readonly type = '[PREFERENCES UPDATE] update user related settings';
     constructor(public payload: Preferences) { }
-}
-export class SuccessUpdatingUserPreferencesEvent {
-    static readonly type = '[PREFERENCES UPDATE] success'
-    constructor(public payload: Preferences) { }
-}
-export class ErrorUpdatingUserPreferencesEvent {
-    static readonly type = '[PREFERENCES UPDATE] failed'
-    constructor(public payload: string) { }
 }

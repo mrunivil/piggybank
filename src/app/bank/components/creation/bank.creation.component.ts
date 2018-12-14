@@ -5,7 +5,7 @@ import { concat, first } from 'rxjs/operators';
 import { AttachBankAction } from 'src/app/dashboard/state/actions';
 import { Bank } from 'src/app/models/bank';
 import { User } from 'src/app/models/user';
-import { RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
+import { RedirectToBankDetailsAction, BankSelectionChangedEvent } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 import { ResetStateAction, SaveNewBankAction, SuccessSaveNewBankEvent } from '../../state/actions';
 import { BankState } from '../../state/bank.state';
@@ -40,7 +40,10 @@ export class BankCreationComponent {
         this.store.dispatch(new SaveNewBankAction(this.bank));
         this.action.pipe(
             ofActionSuccessful(SuccessSaveNewBankEvent)
-            , concat(this.store.dispatch(new AttachBankAction(this.store.selectSnapshot(AppState.currentBank))))
+            , concat(res =>
+                this.store.dispatch(new BankSelectionChangedEvent(res)),
+                this.store.dispatch(new AttachBankAction(this.store.selectSnapshot(AppState.currentBank)))
+            )
         ).subscribe(_ => this.store.dispatch(new RedirectToBankDetailsAction).pipe(first()).subscribe());
     }
 }

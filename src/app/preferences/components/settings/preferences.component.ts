@@ -1,31 +1,26 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store, Select } from '@ngxs/store';
-import { Navigate } from '@ngxs/router-plugin';
-import { PreferencesState, PreferencesStateModel } from '../../state/preferences.state';
-import { Observable, of, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { Preferences } from 'src/app/models/preferences';
-import { last, take, catchError, first, tap } from 'rxjs/operators';
-import { UpdateUserPreferences, LoadUserPreferences } from '../../state/actions';
 import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
+import { LoadUserPreferencesAction, UpdateUserPreferencesAction } from '../../state/actions';
+import { LoadUserPreferencesSuccessfulEvent, UpdateUserPreferencesSuccessEvent } from 'src/app/shared/state/events';
 
 @Component({
   selector: 'app-preferences',
   templateUrl: './preferences.component.html',
   styleUrls: ['./preferences.component.scss']
 })
-export class PreferencesComponent implements OnInit, OnDestroy {
+export class PreferencesComponent implements OnInit {
 
-  @Select(PreferencesState.userPreferences) preferences$: Observable<Preferences>;
-  @Select(PreferencesState.error) error$: Observable<string>;
+  @Select(AppState.preferences) preferences$: Observable<Preferences>;
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private actions: Actions) { }
 
   ngOnInit() {
-    this.store.dispatch(new LoadUserPreferences(this.store.selectSnapshot(AppState.currentUser).uid)).pipe(first()).subscribe();
-  }
-
-  ngOnDestroy() {
+    this.store.dispatch(new LoadUserPreferencesAction);
   }
 
   backToDashboard() {
@@ -33,18 +28,40 @@ export class PreferencesComponent implements OnInit, OnDestroy {
   }
 
   updateAvataSettings($event?: CustomEvent) {
-    const preferences = { ...this.store.selectSnapshot(PreferencesState.userPreferences) };
+    const preferences = { ...this.store.selectSnapshot(AppState.preferences) };
     preferences.allowPhoto = !preferences.allowPhoto;
     this.updatePreferences(preferences, $event);
   }
 
   updateNotificationSettings($event?: CustomEvent) {
-    const preferences = { ...this.store.selectSnapshot(PreferencesState.userPreferences) };
+    const preferences = { ...this.store.selectSnapshot(AppState.preferences) };
     preferences.allowNotifications = !preferences.allowNotifications;
     this.updatePreferences(preferences, $event);
   }
 
-  updatePreferences(preferences: Preferences, $event?: CustomEvent) {
-    this.store.dispatch(new UpdateUserPreferences(preferences));
+  updatePreferences(preferences: Preferences, $event: CustomEvent) {
+    this.store.dispatch(new UpdateUserPreferencesAction({ ...preferences, uid: this.store.selectSnapshot(AppState.currentUser).uid }));
+  }
+
+  /**
+   * State Testing
+   */
+  loadUserPreferences() {
+    this.store.dispatch(new LoadUserPreferencesAction);
+    this.actions.pipe(
+      ofActionSuccessful(LoadUserPreferencesSuccessfulEvent)
+      , first()
+    ).subscribe(res => alert(JSON.stringify(res)));
+  }
+  updateUserPreferences() {
+    this.store.dispatch(new UpdateUserPreferencesAction({
+      allowNotifications: true,
+      allowPhoto: false,
+      uid: '123456'
+    }));
+    this.actions.pipe(
+      ofActionSuccessful(UpdateUserPreferencesSuccessEvent)
+      , first()
+    ).subscribe(res => alert(JSON.stringify(res)));
   }
 }

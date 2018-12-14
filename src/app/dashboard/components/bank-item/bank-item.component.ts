@@ -1,9 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Bank } from 'src/app/models/bank';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Navigate } from '@ngxs/router-plugin';
-import { RedirectToBankDetailsAction, SetSelectedBank } from 'src/app/shared/state/actions';
 import { concat } from 'rxjs/operators';
+import { Bank } from 'src/app/models/bank';
+import { BankSelectionChangedEvent, RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
 
 @Component({
   selector: 'app-bank-item',
@@ -20,7 +19,7 @@ export class BankItemComponent implements OnInit {
   }
 
   showDetails() {
-    this.store.dispatch(new SetSelectedBank(this.item)).pipe(
+    this.store.dispatch(new BankSelectionChangedEvent(this.item)).pipe(
       concat(this.store.dispatch(new RedirectToBankDetailsAction))
     )
   }

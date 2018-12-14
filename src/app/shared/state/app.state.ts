@@ -1,13 +1,13 @@
 import { Navigate } from '@ngxs/router-plugin';
-import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { AddNewHistoryActionFailEvent, AddNewHistoryActionSuccessEvent, AddNewOwnerActionFailEvent, AddNewOwnerActionSuccessEvent, ErrorLoadBankDetailsEvent, SuccessLoadBankDetailsEvent } from 'src/app/bank/state/actions';
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
+import { AddNewHistoryActionFailEvent, AddNewHistoryActionSuccessEvent, AddNewOwnerActionFailEvent, AddNewOwnerActionSuccessEvent, ErrorLoadBankDetailsEvent, SuccessLoadBankDetailsEvent, SuccessSaveNewBankEvent } from 'src/app/bank/state/actions';
 import { BankStateModel } from 'src/app/bank/state/bank.state';
-import { ErrorLoadUserOwnedBanksEvent, SuccessLoadUserOwnedBanksEvent, SuccessLoadMemberBanksEvent, ErrorLoadMemberBanksEvent } from 'src/app/dashboard/state/actions';
-import { GoogleLoggedInEvent as LoginSuccessfulEvent, LoginFailedEvent } from 'src/app/login/state/actions';
+import { ErrorLoadMemberBanksEvent, ErrorLoadUserOwnedBanksEvent, SuccessLoadMemberBanksEvent, SuccessLoadUserOwnedBanksEvent } from 'src/app/dashboard/state/actions';
 import { Bank } from 'src/app/models/bank';
+import { Preferences } from 'src/app/models/preferences';
 import { User } from 'src/app/models/user';
-import { RedirectToAction, RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToFeedbackAction, RedirectToLoginAction, RedirectToPreferencesAction, ResetAppStateAction, SetSelectedBank as BankSelectionChangedEvent } from './actions';
-import { DashboardStateModel } from 'src/app/dashboard/state/dashboard.state';
+import { BankSelectionChangedEvent, RedirectToAction, RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToFeedbackAction, RedirectToLoginAction, RedirectToPreferencesAction, ResetAppStateAction } from './actions';
+import { LoginSuccessfulEvent, LoginFailedEvent, LogoutSuccessfulEvent, LoggedOutFailedEvent, LoadUserPreferencesSuccessfulEvent, LoadUserPreferencesFailEvent, UpdateUserPreferencesSuccessEvent, UpdateUserPreferencesFailEvent } from './events';
 
 export class AppStateModel {
     initialized: boolean;
@@ -16,6 +16,7 @@ export class AppStateModel {
     currentBank?: Bank;
     mybanks?: Bank[];
     otherBanks?: Bank[];
+    preferences?: Preferences
 }
 
 @State<AppStateModel>({
@@ -27,9 +28,15 @@ export class AppStateModel {
 
 export class AppState {
 
+    constructor(private store: Store) { }
+
     @Selector()
     static currentUser({ user }: AppStateModel) {
         return user;
+    }
+    @Selector()
+    static preferences({ preferences }: AppStateModel) {
+        return preferences;
     }
     @Selector()
     static currentBank({ currentBank }: AppStateModel) {
@@ -45,22 +52,22 @@ export class AppState {
     }
 
 
-
+    // Reset State to defaults
     @Action(ResetAppStateAction)
     resetComponentState(ctx: StateContext<AppStateModel>) {
         ctx.patchState({
             user: undefined,
             currentBank: undefined,
             mybanks: undefined,
-            otherBanks: undefined
+            otherBanks: undefined,
+            preferences: undefined
         });
     }
 
     // Login Events
     @Action(LoginSuccessfulEvent)
-    loginWithGoogleSuccessful({ patchState, dispatch }: StateContext<AppStateModel>, { payload }: LoginSuccessfulEvent) {
+    loginWithGoogleSuccessful({ patchState }: StateContext<AppStateModel>, { payload }: LoginSuccessfulEvent) {
         patchState({ user: payload });
-        dispatch(new RedirectToDashboardAction);
     }
     @Action(LoginFailedEvent)
     loginFailed({ patchState }: StateContext<AppStateModel>, { payload }: LoginFailedEvent) {
@@ -69,6 +76,26 @@ export class AppState {
         });
     }
 
+    // Logout Events
+    @Action(LogoutSuccessfulEvent)
+    logoutSuccessful() {
+        this.store.reset({});
+    }
+    @Action(LoggedOutFailedEvent)
+    logoutFailed(ctx: StateContext<AppStateModel>, { payload }: LoggedOutFailedEvent) {
+        ctx.patchState({
+            error: payload
+        });
+    }
+
+    // Bank created
+    @Action(SuccessSaveNewBankEvent)
+    saveedNewBank({ patchState, getState }: StateContext<AppStateModel>, { payload }: SuccessSaveNewBankEvent) {
+        patchState({
+            currentBank: payload,
+            mybanks: [...getState().mybanks, payload]
+        })
+    }
 
     // Selected Bank changed
     @Action(BankSelectionChangedEvent)
@@ -77,6 +104,7 @@ export class AppState {
             currentBank: { ...getState().currentBank, ...payload }
         })
     }
+
     // Bank Details loaded
     @Action(SuccessLoadBankDetailsEvent)
     successLoadBankDetailsEvent({ patchState, getState }: StateContext<AppStateModel>, { payload }: SuccessLoadBankDetailsEvent) {
@@ -92,6 +120,7 @@ export class AppState {
             error: payload
         })
     }
+
     // changed bank history
     @Action(AddNewHistoryActionSuccessEvent)
     addNewHistorySuccess({ patchState, getState, setState }: StateContext<AppStateModel>, { payload }: AddNewHistoryActionSuccessEvent) {
@@ -105,7 +134,8 @@ export class AppState {
             error: payload
         });
     }
-    // mybanks changed
+
+    // mybanks loaded
     @Action(SuccessLoadUserOwnedBanksEvent)
     successLoadUserOwenedBanks({ patchState }: StateContext<AppStateModel>, { payload }: SuccessLoadUserOwnedBanksEvent) {
         patchState({
@@ -120,7 +150,8 @@ export class AppState {
             error: payload
         })
     }
-    // others banks changed
+
+    // others banks loaded
     @Action(SuccessLoadMemberBanksEvent)
     successLoadMemberBanks({ patchState }: StateContext<AppStateModel>, { payload }: SuccessLoadMemberBanksEvent) {
         patchState({
@@ -134,7 +165,6 @@ export class AppState {
             error: payload
         })
     }
-    //error occured
 
     // Owner changed
     @Action(AddNewOwnerActionSuccessEvent)
@@ -142,7 +172,6 @@ export class AppState {
         const currentBank = { ...getState().currentBank, owner: { ...getState().user } };
         patchState({ currentBank: currentBank });
     }
-
     @Action(AddNewOwnerActionFailEvent)
     addNewOwnerActionFailed({ patchState }: StateContext<BankStateModel>, { payload }: AddNewOwnerActionFailEvent) {
         patchState({
@@ -150,6 +179,36 @@ export class AppState {
         })
     }
 
+    // Preferences
+    @Action(LoadUserPreferencesSuccessfulEvent)
+    successLoadingUserPreferencesEvent({ patchState }: StateContext<AppStateModel>, { payload }: LoadUserPreferencesSuccessfulEvent) {
+        const preferences: Preferences = payload.length === 1 ? payload.pop() : undefined
+        patchState({
+            preferences: preferences
+        })
+    }
+    @Action(LoadUserPreferencesFailEvent)
+    errorLoadingUserPreferencesEvent({ patchState }: StateContext<AppStateModel>, { payload }: LoadUserPreferencesFailEvent) {
+        patchState({
+            error: payload
+        })
+    }
+    @Action(UpdateUserPreferencesSuccessEvent)
+    successUpdatingUserPreferencesEvent({ patchState }: StateContext<AppStateModel>, { payload }: UpdateUserPreferencesSuccessEvent) {
+        patchState({
+            preferences: payload
+        })
+    }
+    @Action(UpdateUserPreferencesFailEvent)
+    errorUpdatingUserPreferencesEvent(ctx: StateContext<AppStateModel>, { payload }: UpdateUserPreferencesFailEvent) {
+        ctx.patchState({
+            error: payload
+        })
+    }
+
+    /**
+     * Navigation
+     */
     @Action(RedirectToLoginAction)
     redirectToLogin(ctx: StateContext<AppStateModel>) {
         ctx.dispatch(new Navigate(['/login']));

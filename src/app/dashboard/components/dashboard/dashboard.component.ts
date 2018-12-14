@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
 import { User } from 'src/app/models/user';
 import { RedirectToBankCreationAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
-import { LoadUserOwnedBanksAction, LoadMemberBanksAction } from '../../state/actions';
+import { LoadMemberBanksAction, LoadUserOwnedBanksAction } from '../../state/actions';
 import { DashboardState } from '../../state/dashboard.state';
-
+import { SaveNewBankAction } from 'src/app/bank/state/actions';
+/**
+ *
+ * @export
+ * @class DashboardComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -32,4 +37,9 @@ export class DashboardComponent implements OnInit {
   createBank() {
     this.store.dispatch(new RedirectToBankCreationAction);
   }
+
+  /**
+   * DEBUGGING PURPOSE
+   */
+
 }

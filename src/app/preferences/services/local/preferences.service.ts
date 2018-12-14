@@ -1,35 +1,30 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Observable, of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 import { Preferences } from 'src/app/models/preferences';
 import { PreferencesService } from "../preferences.service";
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class LocalPreferencesService extends PreferencesService {
 
     constructor(private http: HttpClient) { super(); }
 
-    getPreferences(uid: string): Observable<Preferences> {
-        return this.http.get<Preferences>('./mockdata/preferences.json').pipe(
-            delay(500)
-            , tap(val => {
-                if (new Date().getTime() % 3 === 0) {
-                    throw new Error('sorry something went wrong!');
-                }
-            })
-        );
+    getPreferences(uid: string): Observable<Preferences[]> {
+        const params = new HttpParams()
+            .append('uid', uid);
+        return this.http.get<Preferences[]>(`${environment.endpoint}/user_preferences`, { params });
     }
 
     updatePreferences(preferences: Preferences): Observable<Preferences> {
-        return of(preferences).pipe(
-            delay(500)
-            , tap(() => {
-                if (new Date().getTime() % 3 === 0) {
-                    throw new Error('sorry something went wrong!');
-                }
-            })
-        );
+        const headers = new HttpHeaders()
+            .append('Content-Type', 'application/json');
+        if (preferences.id) {
+            return this.http.put<Preferences>(`${environment.endpoint}/user_preferences/${preferences.id}`, preferences, { headers });
+        } else {
+            return this.http.post<Preferences>(`${environment.endpoint}/user_preferences`, preferences, { headers });
+        }
 
     }
 

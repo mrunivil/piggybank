@@ -65,8 +65,6 @@ export class BankState {
         ).subscribe(res => dispatch(new SuccessLoadBankDetailsEvent(res)),
             err => dispatch(new ErrorLoadBankDetailsEvent(err)));
     }
-
-
     /**
      * Save a new data set
      *
@@ -80,10 +78,10 @@ export class BankState {
             first()).subscribe(res => {
                 concat(
                     dispatch(new SuccessSaveNewBankEvent(res)),
-                    dispatch(new AddNewHistoryAction(payload.id, new CreateBankHistoryAction(this.store.selectSnapshot(AppState.currentUser)))),
-                    ofActionSuccessful(),
                     dispatch(new AddNewOwnerAction),
-                    dispatch(new AddNewHistoryAction(payload.id, new SetOwnerHistoryAction(this.store.selectSnapshot(AppState.currentUser)))));
+                    dispatch(new AddNewHistoryAction(payload.id, new CreateBankHistoryAction(this.store.selectSnapshot(AppState.currentUser)))),
+                    // dispatch(new AddNewHistoryAction(payload.id, new SetOwnerHistoryAction(this.store.selectSnapshot(AppState.currentUser))))
+                )
             }, err => {
                 dispatch(new ErrorSaveNewBankEvent(err));
             });

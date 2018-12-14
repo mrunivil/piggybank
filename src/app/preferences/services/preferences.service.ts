@@ -4,7 +4,7 @@ import { Preferences } from 'src/app/models/preferences';
 
 export interface PreferencesServiceInterface {
 
-    getPreferences(uid: string): Observable<Preferences>;
+    getPreferences(uid: string): Observable<Preferences[]>;
 
     updatePreferences(preferences: Preferences): Observable<Preferences>;
 
@@ -14,7 +14,7 @@ export interface PreferencesServiceInterface {
 @Injectable()
 export abstract class PreferencesService implements PreferencesServiceInterface {
 
-    abstract getPreferences(uid: string): Observable<Preferences>;
+    abstract getPreferences(uid: string): Observable<Preferences[]>;
 
     abstract updatePreferences(preferences: Preferences): Observable<Preferences>;
 

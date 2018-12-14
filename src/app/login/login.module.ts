@@ -8,6 +8,7 @@ import { FirebaseAuthService } from './services/firebase/auth.service';
 import { LocalAuthService } from './services/local/auth.service';
 import { AuthState } from './state/auth.state';
 import { NgxsModule } from '@ngxs/store';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { NgxsModule } from '@ngxs/store';
   imports: [
     CommonModule,
     LoginRoutingModule,
+    SharedModule,
     NgxsModule.forFeature([AuthState])
   ],
   providers: [

@@ -1,10 +1,9 @@
-import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
+import { Action, State, StateContext, Store } from '@ngxs/store';
 import { first, retry } from 'rxjs/operators';
-import { Bank } from 'src/app/models/bank';
-import { DashboardService } from '../services/dashboard.service';
-import { AttachBankAction, ErrorLoadUserOwnedBanksEvent, LoadUserOwnedBanksAction, ResetStateAction, SuccessLoadUserOwnedBanksEvent, LoadMemberBanksAction, SuccessLoadMemberBanksEvent, ErrorLoadMemberBanksEvent } from './actions';
 import { ResetAppStateAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
+import { DashboardService } from '../services/dashboard.service';
+import { ErrorLoadMemberBanksEvent, ErrorLoadUserOwnedBanksEvent, LoadMemberBanksAction, LoadUserOwnedBanksAction, SuccessLoadMemberBanksEvent, SuccessLoadUserOwnedBanksEvent } from './actions';
 
 export class DashboardStateModel {
     initialized: boolean;
@@ -19,13 +18,6 @@ export class DashboardStateModel {
 export class DashboardState {
 
     constructor(private bankService: DashboardService, private store: Store) { }
-
-    @Action(ResetStateAction)
-    reset({ patchState }: StateContext<DashboardStateModel>) {
-        patchState({
-            initialized: false
-        });
-    }
 
     /**
      * Load banks owned by the user
@@ -65,17 +57,6 @@ export class DashboardState {
         } else {
             dispatch(new SuccessLoadMemberBanksEvent(this.store.selectSnapshot(AppState.otherBanks)));
         }
-    }
-
-    /**
-         * Reset state after logout
-         *
-         * @param {StateContext<AuthStateModel>} { dispatch }
-         * @memberof AuthState
-         */
-    @Action(ResetAppStateAction)
-    resetAll({ dispatch }: StateContext<DashboardStateModel>) {
-        dispatch(new ResetStateAction);
     }
 
 }

@@ -1,57 +1,41 @@
-import { Action, Selector, State, StateContext, Actions, ofActionSuccessful } from '@ngxs/store';
-import { first, retry, switchMap, concat, switchAll, last } from 'rxjs/operators';
+import { Action, State, StateContext } from '@ngxs/store';
+import { first, retry } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
-import { SetUserAction, ResetAppStateAction } from 'src/app/shared/state/actions';
 import { AuthService } from '../services/auth';
-import { GoogleLoginAction, LogoutAction, ResetStateAction } from './actions';
-import { GoogleLoggedInEvent, LoggedOutEvent, LoggedOutFailedEvent, LoginFailedEvent } from './actions';
+import { LoginAction, LogoutAction } from './actions';
+import { ResetStateAction } from 'src/app/bank/state/actions';
+import { LoginSuccessfulEvent, LoginFailedEvent, LogoutSuccessfulEvent, LoggedOutFailedEvent } from 'src/app/shared/state/events';
 export class AuthStateModel {
-    error: string;
+    initialized: boolean;
 }
 
 @State<AuthStateModel>({
     name: 'auth',
     defaults: {
-        error: null
+        initialized: false
     }
 })
 export class AuthState {
-
-    constructor(private authService: AuthService, private actions: Actions) { }
-
-    @Selector()
-    static errorMessage({ error }: AuthStateModel) {
-        return error;
-    }
-
-    @Action(ResetStateAction)
-    reset(ctx: StateContext<AuthStateModel>) {
-        ctx.patchState({
-            error: null
-        });
-    }
-
+    constructor(private authService: AuthService) { }
     /**
      * Login with Google Account
      *
      * @param {StateContext<AuthStateModel>} { dispatch }
      * @memberof AuthState
      */
-    @Action(GoogleLoginAction)
+    @Action(LoginAction)
     loginWithGoogle({ dispatch }: StateContext<AuthStateModel>) {
         dispatch(new ResetStateAction).pipe(first()).subscribe(_ => {
             this.authService.loginWithGoogle().pipe(
                 first()
                 , retry(3)
             ).subscribe((res: User) => {
-                dispatch(new GoogleLoggedInEvent(res));
+                dispatch(new LoginSuccessfulEvent(res));
             }, err => {
-                dispatch(err);
+                dispatch(new LoginFailedEvent(err));
             });
         })
     }
-
-
     /**
      * 
      * @param ctx Logout Action
@@ -62,30 +46,9 @@ export class AuthState {
             first()
             , retry(3)
         ).subscribe(() => {
-            ctx.dispatch(new LoggedOutEvent);
+            ctx.dispatch(new LogoutSuccessfulEvent);
         }, err => {
             ctx.dispatch(new LoggedOutFailedEvent(err));
         });
-    }
-    @Action(LoggedOutEvent)
-    logoutSuccessful(ctx: StateContext<AuthStateModel>) {
-        ctx.dispatch(new ResetAppStateAction);
-    }
-    @Action(LoggedOutFailedEvent)
-    logoutFailed(ctx: StateContext<AuthStateModel>, { payload }: LoggedOutFailedEvent) {
-        ctx.patchState({
-            error: payload
-        });
-    }
-
-    /**
-     * Reset state after logout
-     *
-     * @param {StateContext<AuthStateModel>} { dispatch }
-     * @memberof AuthState
-     */
-    @Action(ResetAppStateAction)
-    resetAll({ dispatch }: StateContext<AuthStateModel>) {
-        dispatch(new ResetStateAction);
     }
 }

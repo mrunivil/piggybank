@@ -16,7 +16,7 @@ export class SetUserPreferences {
     constructor(public payload: Preferences) { }
 }
 
-export class SetSelectedBank {
+export class BankSelectionChangedEvent {
     static readonly type = '[APP SET SELECTED BANK] user selected bank';
     constructor(public payload: Bank) { }
 }

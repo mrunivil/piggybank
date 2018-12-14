@@ -6,7 +6,7 @@ import { Preferences } from 'src/app/models/preferences';
 @Injectable()
 export class FirebasePreferencesService extends PreferencesService {
 
-    getPreferences(uid: string): Observable<Preferences> {
+    getPreferences(uid: string): Observable<Preferences[]> {
         throw new Error('Method not implemented.');
     }
 

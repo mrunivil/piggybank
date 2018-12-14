@@ -1,12 +1,6 @@
 import { Bank } from 'src/app/models/bank';
 import { User } from 'src/app/models/user';
 
-/**
- * Reset state
- */
-export class ResetStateAction {
-    static readonly type = '[DASHBOARD RESET] reset state to defaults';
-}
 
 /**
  * Loading banks owned by logged in user

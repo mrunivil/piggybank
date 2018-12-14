@@ -11,10 +11,6 @@
       banks?</label>
   </p>
 
-  <p *ngIf="error$|async as error" class="error">
-    <label [innerText]="error"></label>
-  </p>
-
   <div>
     {{preferences$|async|json}}
   </div>
@@ -23,3 +19,7 @@
     <label>Version Number: 0.0.1</label>
   </p>
 </div>
+
+<h4>Preferences Module</h4>
+<button (click)="loadUserPreferences()">loadUserPreferences</button>
+<button (click)="updateUserPreferences()">updateUserPreferences</button>

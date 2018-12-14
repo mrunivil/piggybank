@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Select, Store, Actions, ofActionDispatched, ofActionSuccessful, ofActionErrored } from '@ngxs/store';
+import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { concat, tap } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
-import { AuthState } from '../../state/auth.state';
-import { GoogleLoginAction, LogoutAction, GoogleLoggedInEvent, LoginFailedEvent } from '../../state/actions';
+import { RedirectToDashboardAction, RedirectToLoginAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
-import { first } from 'rxjs/operators';
+import { LoginSuccessfulEvent, LogoutSuccessfulEvent } from 'src/app/shared/state/events';
+import { LoginAction, LogoutAction } from '../../state/actions';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,6 @@ import { first } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-  @Select(AuthState.errorMessage) _error: Observable<string>;
   @Select(AppState.currentUser) _user: Observable<User>;
 
   constructor(private store: Store, private actions: Actions) { }
@@ -24,15 +23,44 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithGoogle(): void {
-    this.store.dispatch(new GoogleLoginAction).subscribe();
+    this.store.dispatch(new LoginAction);
     this.actions.pipe(
-      ofActionSuccessful(GoogleLoggedInEvent)
+      ofActionSuccessful(LoginSuccessfulEvent)
       , first()
-    ).subscribe();
+    ).subscribe(_ => this.store.dispatch(new RedirectToDashboardAction))
   }
 
   logout(): void {
     this.store.dispatch(new LogoutAction);
+    this.actions.pipe(
+      ofActionSuccessful(LogoutSuccessfulEvent)
+      , first()
+    ).subscribe(_ => this.store.dispatch(new RedirectToLoginAction))
+  }
+
+
+  /**
+   * DEBUGGING PURPOSE
+   */
+  loginRandomUser() {
+    this.store.dispatch(new LoginAction);
+    this.actions.pipe(
+      ofActionSuccessful(LoginSuccessfulEvent)
+      , first()
+      , tap(res => {
+        alert(JSON.stringify(res));
+      })
+    ).subscribe()
+  }
+  logoutRandomUser() {
+    this.store.dispatch(new LogoutAction);
+    this.actions.pipe(
+      ofActionSuccessful(LogoutSuccessfulEvent)
+      , first()
+      , tap(res => {
+        alert(JSON.stringify(res));
+      })
+    ).subscribe()
   }
 
 }
