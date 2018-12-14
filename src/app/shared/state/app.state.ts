@@ -241,43 +241,48 @@ export class AppState {
     loadUserFeedbackFail({ patchState }: StateContext<AppStateModel>, { payload }: LoadUserFeedbackFailEvent) {
         patchState({ error: payload })
     }
-    LoadUserFeedbackSuccessfulEvent
     /**
      * Navigation
      */
     @Action(RedirectToLoginAction)
-    redirectToLogin(ctx: StateContext<AppStateModel>) {
-        ctx.dispatch(new Navigate(['/login']));
+    redirectToLogin({ dispatch, patchState }: StateContext<AppStateModel>) {
+        patchState({ error: undefined });
+        dispatch(new Navigate(['/login']));
     }
 
     @Action(RedirectToPreferencesAction)
-    redirectToPreferences(ctx: StateContext<AppStateModel>) {
-        ctx.dispatch(new Navigate(['/preferences']));
+    redirectToPreferences({ dispatch, patchState }: StateContext<AppStateModel>) {
+        patchState({ error: undefined });
+        dispatch(new Navigate(['/preferences']));
     }
 
     @Action(RedirectToFeedbackAction)
-    redirectToFeedback(ctx: StateContext<AppStateModel>) {
-        ctx.dispatch(new Navigate(['/feedback']));
+    redirectToFeedback({ dispatch, patchState }: StateContext<AppStateModel>) {
+        patchState({ error: undefined });
+        dispatch(new Navigate(['/feedback']));
     }
 
     @Action(RedirectToDashboardAction)
-    redirectToDashboard(ctx: StateContext<AppStateModel>) {
-        ctx.dispatch(new Navigate(['/dashboard']));
+    redirectToDashboard({ dispatch, patchState }: StateContext<AppStateModel>) {
+        patchState({ error: undefined });
+        dispatch(new Navigate(['/dashboard']));
     }
 
     @Action(RedirectToBankDetailsAction)
-    redirectToBankDetailsAction({ dispatch, getState }: StateContext<AppStateModel>) {
+    redirectToBankDetailsAction({ dispatch, getState, patchState }: StateContext<AppStateModel>) {
+        patchState({ error: undefined });
         dispatch(new Navigate(['/bank', getState().currentBank.id]));
     }
 
     @Action(RedirectToBankCreationAction)
-    redirectToBankCreation({ dispatch }: StateContext<AppStateModel>) {
+    redirectToBankCreation({ dispatch, patchState }: StateContext<AppStateModel>) {
+        patchState({ error: undefined });
         dispatch(new Navigate(['/bank']));
     }
 
     @Action(RedirectToAction)
-    redirectToDeposit({ dispatch }: StateContext<AppStateModel>) {
-        dispatch(new Navigate(['/action']));
+    redirectToDeposit({ dispatch, patchState }: StateContext<AppStateModel>) {
+        patchState({ error: undefined }); dispatch(new Navigate(['/action']));
     }
 
 }

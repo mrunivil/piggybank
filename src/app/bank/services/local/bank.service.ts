@@ -44,13 +44,11 @@ export class LocalBankService extends BankService {
 
     setOwner(bank: Bank, owner: User): Observable<Bank> {
         return this.http.post<Bank>(`${this.endpoint}/user_banks`, {
-            uid: owner.uid,
-            bank: {
-                id: bank.id
-                , name: bank.name
-                , balance: bank.balance
-                , photoURL: bank.photoURL
-            }
+            owner: { uid: owner.uid }
+            , id: bank.id
+            , name: bank.name
+            , balance: bank.balance
+            , photoURL: bank.photoURL
         }).pipe(
             first()
             , delay(500)
@@ -58,7 +56,6 @@ export class LocalBankService extends BankService {
     }
 
     addHistory(bank: Bank, action: Action): Observable<Bank> {
-        debugger
         return this.http.post<Bank>(`${this.endpoint}/bank_history`, { bank: bank.id, history: action }).pipe(
             first()
             , delay(500)

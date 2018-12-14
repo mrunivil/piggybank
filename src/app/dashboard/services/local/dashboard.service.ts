@@ -16,27 +16,12 @@ export class LocalDashboardService extends DashboardService {
     throw new Error('Method not implemented.');
   }
   getMyOwenedBanks(uid: string): Observable<Bank[]> {
-    const params = new HttpParams().set('owner.uid', uid);
-    return this.http.get<Bank[]>(`${this.endpoint}/user_banks`, { params }).pipe(
-      first()
-      , delay(500)
-      , tap(_ => {
-        if (new Date().getTime() % 3 === 0) {
-          throw new Error('sorry something went wrong while loading owned banks!');
-        }
-      }));
+    const params = new HttpParams().set('uid', uid);
+    return this.http.get<Bank[]>(`${this.endpoint}/user_banks`, { params });
   }
   getMyOtherBanks(uid: string): Observable<Bank[]> {
-    const params = new HttpParams().set('userid', uid);
-    return this.http.get<Bank[]>(`${this.endpoint}/bank_users`, { params }).pipe(
-      first()
-      , delay(500)
-      , tap(() => {
-        if (new Date().getTime() % 3 === 0) {
-          throw new Error('sorry something went wrong while getting others banks!');
-        }
-      })
-    );
+    const params = new HttpParams().set('uid', uid);
+    return this.http.get<Bank[]>(`${this.endpoint}/bank_users`, { params });
   }
   deleteBank(bank: Bank): Observable<boolean> {
     throw new Error('Method not implemented.');

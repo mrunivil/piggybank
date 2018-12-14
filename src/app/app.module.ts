@@ -24,7 +24,7 @@ import { SharedModule } from './shared/shared.module';
       disabled: environment.production
     }),
     NgxsLoggerPluginModule.forRoot({
-      collapsed: true,
+      collapsed: false,
       disabled: environment.production
     })
   ],

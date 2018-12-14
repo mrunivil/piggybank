@@ -1,9 +1,5 @@
 <app-header></app-header>
 <div class="content-wrapper">
-
-  <p *ngIf="error$|async" class="error">
-    <label [innerText]="error$|async"></label>
-  </p>
   <div>
     <h2 *ngIf="!(user$|async)">Please login to get access to your piggy banks</h2>
   </div>
@@ -28,3 +24,4 @@
 </div>
 
 <h1>State test</h1>
+{{myBanks$|async|json}}

@@ -80,7 +80,7 @@ export class BankState {
                     dispatch(new SuccessSaveNewBankEvent(res)),
                     dispatch(new AddNewOwnerAction),
                     dispatch(new AddNewHistoryAction(payload.id, new CreateBankHistoryAction(this.store.selectSnapshot(AppState.currentUser)))),
-                    // dispatch(new AddNewHistoryAction(payload.id, new SetOwnerHistoryAction(this.store.selectSnapshot(AppState.currentUser))))
+                    dispatch(new AddNewHistoryAction(payload.id, new SetOwnerHistoryAction(this.store.selectSnapshot(AppState.currentUser))))
                 )
             }, err => {
                 dispatch(new ErrorSaveNewBankEvent(err));
