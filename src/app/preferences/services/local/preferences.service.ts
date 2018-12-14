@@ -1,10 +1,9 @@
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-import { Observable, of } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Preferences } from 'src/app/models/preferences';
-import { PreferencesService } from "../preferences.service";
 import { environment } from 'src/environments/environment';
+import { PreferencesService } from "../preferences.service";
 
 @Injectable()
 export class LocalPreferencesService extends PreferencesService {

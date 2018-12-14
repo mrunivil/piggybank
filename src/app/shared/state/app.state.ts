@@ -7,7 +7,9 @@ import { Bank } from 'src/app/models/bank';
 import { Preferences } from 'src/app/models/preferences';
 import { User } from 'src/app/models/user';
 import { BankSelectionChangedEvent, RedirectToAction, RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToFeedbackAction, RedirectToLoginAction, RedirectToPreferencesAction, ResetAppStateAction } from './actions';
-import { LoginSuccessfulEvent, LoginFailedEvent, LogoutSuccessfulEvent, LoggedOutFailedEvent, LoadUserPreferencesSuccessfulEvent, LoadUserPreferencesFailEvent, UpdateUserPreferencesSuccessEvent, UpdateUserPreferencesFailEvent } from './events';
+import { LoginSuccessfulEvent, LoginFailedEvent, LogoutSuccessfulEvent, LoggedOutFailedEvent, LoadUserPreferencesSuccessfulEvent, LoadUserPreferencesFailEvent, UpdateUserPreferencesSuccessEvent, UpdateUserPreferencesFailEvent, SendUserFeedbackSuccessEvent, SendUserFeedbackFailEvent, LoadUserFeedbackSuccessfulEvent, LoadUserFeedbackFailEvent, } from './events';
+import { FeedbackStateModel } from 'src/app/feedback/state/feedback.state';
+import { Feedback } from 'src/app/models/feedback';
 
 export class AppStateModel {
     initialized: boolean;
@@ -16,7 +18,8 @@ export class AppStateModel {
     currentBank?: Bank;
     mybanks?: Bank[];
     otherBanks?: Bank[];
-    preferences?: Preferences
+    preferences?: Preferences;
+    feedbacks?: Feedback[];
 }
 
 @State<AppStateModel>({
@@ -31,12 +34,20 @@ export class AppState {
     constructor(private store: Store) { }
 
     @Selector()
+    static error({ error }: AppStateModel) {
+        return error;
+    }
+    @Selector()
     static currentUser({ user }: AppStateModel) {
         return user;
     }
     @Selector()
     static preferences({ preferences }: AppStateModel) {
         return preferences;
+    }
+    @Selector()
+    static feedbacks({ feedbacks }: AppStateModel) {
+        return feedbacks;
     }
     @Selector()
     static currentBank({ currentBank }: AppStateModel) {
@@ -67,7 +78,7 @@ export class AppState {
     // Login Events
     @Action(LoginSuccessfulEvent)
     loginWithGoogleSuccessful({ patchState }: StateContext<AppStateModel>, { payload }: LoginSuccessfulEvent) {
-        patchState({ user: payload });
+        patchState({ error: undefined, user: payload });
     }
     @Action(LoginFailedEvent)
     loginFailed({ patchState }: StateContext<AppStateModel>, { payload }: LoginFailedEvent) {
@@ -92,6 +103,7 @@ export class AppState {
     @Action(SuccessSaveNewBankEvent)
     saveedNewBank({ patchState, getState }: StateContext<AppStateModel>, { payload }: SuccessSaveNewBankEvent) {
         patchState({
+            error: undefined,
             currentBank: payload,
             mybanks: [...getState().mybanks, payload]
         })
@@ -101,6 +113,7 @@ export class AppState {
     @Action(BankSelectionChangedEvent)
     bankSelectionChanged({ patchState, getState }: StateContext<AppStateModel>, { payload }: BankSelectionChangedEvent) {
         patchState({
+            error: undefined,
             currentBank: { ...getState().currentBank, ...payload }
         })
     }
@@ -135,7 +148,9 @@ export class AppState {
         });
     }
 
-    // mybanks loaded
+    /**
+     * Bank Loading
+     */
     @Action(SuccessLoadUserOwnedBanksEvent)
     successLoadUserOwenedBanks({ patchState }: StateContext<AppStateModel>, { payload }: SuccessLoadUserOwnedBanksEvent) {
         patchState({
@@ -150,12 +165,11 @@ export class AppState {
             error: payload
         })
     }
-
-    // others banks loaded
     @Action(SuccessLoadMemberBanksEvent)
     successLoadMemberBanks({ patchState }: StateContext<AppStateModel>, { payload }: SuccessLoadMemberBanksEvent) {
         patchState({
             initialized: true,
+            error: undefined,
             otherBanks: payload
         })
     }
@@ -165,12 +179,13 @@ export class AppState {
             error: payload
         })
     }
-
-    // Owner changed
+    /**
+    * Owner changed
+    */
     @Action(AddNewOwnerActionSuccessEvent)
     addNewOwnerSuccessful({ getState, patchState }: StateContext<AppStateModel>) {
         const currentBank = { ...getState().currentBank, owner: { ...getState().user } };
-        patchState({ currentBank: currentBank });
+        patchState({ error: undefined, currentBank: currentBank });
     }
     @Action(AddNewOwnerActionFailEvent)
     addNewOwnerActionFailed({ patchState }: StateContext<BankStateModel>, { payload }: AddNewOwnerActionFailEvent) {
@@ -178,13 +193,14 @@ export class AppState {
             error: payload
         })
     }
-
-    // Preferences
+    /**
+     * Preferences
+     */
     @Action(LoadUserPreferencesSuccessfulEvent)
     successLoadingUserPreferencesEvent({ patchState }: StateContext<AppStateModel>, { payload }: LoadUserPreferencesSuccessfulEvent) {
         const preferences: Preferences = payload.length === 1 ? payload.pop() : undefined
         patchState({
-            preferences: preferences
+            error: undefined, preferences: preferences
         })
     }
     @Action(LoadUserPreferencesFailEvent)
@@ -196,7 +212,7 @@ export class AppState {
     @Action(UpdateUserPreferencesSuccessEvent)
     successUpdatingUserPreferencesEvent({ patchState }: StateContext<AppStateModel>, { payload }: UpdateUserPreferencesSuccessEvent) {
         patchState({
-            preferences: payload
+            error: undefined, preferences: payload
         })
     }
     @Action(UpdateUserPreferencesFailEvent)
@@ -205,7 +221,27 @@ export class AppState {
             error: payload
         })
     }
-
+    /**
+     * Feedback
+     */
+    @Action(SendUserFeedbackSuccessEvent)
+    sendFeedbackSuccessfull({ patchState, getState }: StateContext<AppStateModel>, { payload }: SendUserFeedbackSuccessEvent) {
+        const feedbacks = [...getState().feedbacks, payload];
+        patchState({ feedbacks: feedbacks, error: undefined })
+    }
+    @Action(SendUserFeedbackFailEvent)
+    sendFeedbackFailed({ patchState }: StateContext<AppStateModel>, { payload }: SendUserFeedbackFailEvent) {
+        patchState({ error: payload })
+    }
+    @Action(LoadUserFeedbackSuccessfulEvent)
+    loadUserFeedbackSuccessfull({ patchState, getState }: StateContext<AppStateModel>, { payload }: LoadUserFeedbackSuccessfulEvent) {
+        patchState({ feedbacks: payload, error: undefined })
+    }
+    @Action(LoadUserFeedbackFailEvent)
+    loadUserFeedbackFail({ patchState }: StateContext<AppStateModel>, { payload }: LoadUserFeedbackFailEvent) {
+        patchState({ error: payload })
+    }
+    LoadUserFeedbackSuccessfulEvent
     /**
      * Navigation
      */

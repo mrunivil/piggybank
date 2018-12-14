@@ -11,6 +11,8 @@ import { environment } from 'src/environments/environment';
 import { LocalFeedbackService } from './services/local/feedback.service';
 import { FirebaseFeedbackService } from './services/firebase/feedback.service';
 import { RatingComponent } from './components/rating/rating.component';
+import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({

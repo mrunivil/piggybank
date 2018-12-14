@@ -4,6 +4,13 @@
     "email": "adolfo.mendez@example.com",
     "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
   }],
+  "user_feedback": [],
+  "user_preferences": [{
+    "allowPhoto": true,
+    "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+    "id": 1,
+    "allowNotifications": true
+  }],
   "user_banks": [],
   "bank_history": [],
   "bank_users": [],

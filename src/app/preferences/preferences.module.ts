@@ -11,6 +11,7 @@ import { PreferencesService } from "./services/preferences.service";
 import { PreferencesState } from './state/preferences.state';
 
 @NgModule({
+  declarations: [PreferencesComponent, HeaderComponent],
   imports: [
     CommonModule,
     NgxsModule.forFeature([PreferencesState]),
@@ -20,7 +21,6 @@ import { PreferencesState } from './state/preferences.state';
     {
       provide: PreferencesService, useClass: environment.service === 'local' ? LocalPreferencesService : FirebasePreferencesService
     }
-  ],
-  declarations: [PreferencesComponent, HeaderComponent]
+  ]
 })
 export class PreferencesModule { }

@@ -10,11 +10,14 @@
     <button (click)="updateFeedback()">Send Feedback</button>
   </div>
 
-
-
-  <p *ngIf="error$|async as error" class="error">
-    <label [innerText]="error"></label>
-  </p>
+  <div id="user-feedbacks">
+    <div *ngFor="let feedback of feedBacks$|async">
+      <img [src]="feedback.user.photoURL">
+      <i class="material-icons" *ngFor="let star of generateRatings(feedback.rating)">star</i>
+      <p>{{feedback.comment}}</p>
+      <hr>
+    </div>
+  </div>
 
 </div>
 

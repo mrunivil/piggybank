@@ -6,6 +6,38 @@
       "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
     }
   ],
+  "user_feedback": [
+    {
+      "comment": "test",
+      "rating": 2,
+      "user": {
+        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+        "email": "adolfo.mendez@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+      },
+      "id": 1
+    },
+    {
+      "comment": "test",
+      "rating": 5,
+      "user": {
+        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+        "email": "adolfo.mendez@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+      },
+      "id": 2
+    },
+    {
+      "comment": "2 star rating",
+      "rating": 2,
+      "user": {
+        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+        "email": "adolfo.mendez@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+      },
+      "id": 3
+    }
+  ],
   "user_preferences": [
     {
       "allowPhoto": true,

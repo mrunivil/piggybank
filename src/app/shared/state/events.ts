@@ -1,5 +1,6 @@
 import { User } from 'src/app/models/user';
 import { Preferences } from 'src/app/models/preferences';
+import { Feedback } from 'src/app/models/feedback';
 
 /**
  * Login Events
@@ -39,5 +40,24 @@ export class UpdateUserPreferencesSuccessEvent {
 }
 export class UpdateUserPreferencesFailEvent {
     static readonly type = '[PREFERENCES UPDATE] failed'
+    constructor(public payload: Error) { }
+}
+/**
+ * Feedback Events
+ */
+export class SendUserFeedbackSuccessEvent {
+    static readonly type = '[FEEDBACK SEND] sending feedback successful';
+    constructor(public payload: Feedback) { }
+}
+export class SendUserFeedbackFailEvent {
+    static readonly type = '[FEEDBACK SEND] sending feedback failed';
+    constructor(public payload: Error) { }
+}
+export class LoadUserFeedbackSuccessfulEvent {
+    static readonly type = '[FEEDBACK LOAD] loading user related feedback successful';
+    constructor(public payload: Feedback[]) { }
+}
+export class LoadUserFeedbackFailEvent {
+    static readonly type = '[FEEDBACK LOAD] loading user related feedback fail';
     constructor(public payload: Error) { }
 }

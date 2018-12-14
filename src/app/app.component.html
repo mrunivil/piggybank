@@ -6,6 +6,9 @@
 <h1>Reset Data Base</h1>
 <button (click)="reset()">resetDatabase</button>
 
+<div *ngIf="(error$|async)" style="background-color: red;width:100%;padding:1rem">{{(error$|async)?'Oh da ist wohl
+  etwas schief gegangen':''}}</div>
+
 <!-- 
 
 <h4>Preferences Module</h4>

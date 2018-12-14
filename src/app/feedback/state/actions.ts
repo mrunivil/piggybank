@@ -1,16 +1,11 @@
 import { Feedback } from 'src/app/models/feedback';
+import { User } from 'src/app/models/user';
 
-export class SendFeedbackAction {
+export class SendUserFeedbackAction {
     static readonly type = '[FEEDBACK SEND] sending feedback';
     constructor(public payload: Feedback) { }
 }
-
-export class FeedbackSendSuccessfullEvent {
-    static readonly type = '[FEEDBACK SEND] sending feedback successfull';
-    constructor(public payload: Feedback) { }
-}
-
-export class FeedbackSendFailEvent {
-    static readonly type = '[FEEDBACK SEND] sending feedback failed';
-    constructor(public payload: string) { }
+export class LoadUserFeedbackAction {
+    static readonly type = '[FEEDBACK LOAD] loading user related feedback';
+    constructor(public payload: User) { }
 }

@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
+import { Actions, ofActionSuccessful, Store, Select } from '@ngxs/store';
 import { first, tap } from 'rxjs/operators';
 import { LoginAction, LogoutAction } from './login/state/actions';
 import { Bank } from './models/bank';
 import { LoginSuccessfulEvent, LogoutSuccessfulEvent } from './shared/state/events';
+import { AppState } from './shared/state/app.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,8 @@ import { LoginSuccessfulEvent, LogoutSuccessfulEvent } from './shared/state/even
 })
 export class AppComponent {
   title = 'PiggyBank';
+
+  @Select(AppState.error) error$: Observable<Error>;
 
   constructor() { }
 
