@@ -1,7 +1,8 @@
-import { State, Action, StateContext, Store, Selector } from '@ngxs/store';
-import { SaveBalanceChangeAction, SaveBalanceChangeSuccessEvent, SaveBalanceChangeFailEvent } from './actions';
+import { Action, Actions, Selector, State, StateContext, Store } from '@ngxs/store';
+import { AddNewHistoryAction } from 'src/app/bank/state/actions';
+import { AppState } from 'src/app/shared/state/app.state';
 import { ActionService } from '../services/action.service';
-import { first } from 'rxjs/operators';
+import { SaveBalanceChangeAction, SaveBalanceChangeFailEvent, SaveBalanceChangeSuccessEvent } from './actions';
 
 export class ActionStateModel {
     initialized: boolean;
@@ -27,15 +28,11 @@ export class ActionState {
         return success;
     }
 
-    constructor(private store: Store, private service: ActionService) { }
+    constructor(private store: Store, private service: ActionService, private actions: Actions) { }
 
     @Action(SaveBalanceChangeAction)
     saveBalanceChange({ dispatch }: StateContext<ActionStateModel>, { payload }: SaveBalanceChangeAction) {
-        this.service.saveBalanceChage(payload).pipe(first()).subscribe(res => {
-            dispatch(new SaveBalanceChangeSuccessEvent(res));
-        }, (err) => {
-            dispatch(new SaveBalanceChangeFailEvent(err));
-        });
+        dispatch(new AddNewHistoryAction(this.store.selectSnapshot(AppState.currentBank).id, payload));
     }
 
     @Action(SaveBalanceChangeSuccessEvent)

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Action } from 'src/app/models/action';
+import { History } from 'src/app/models/action';
 import { BalanceChange } from 'src/app/models/actions/balance-change';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-history',
@@ -9,11 +10,11 @@ import { BalanceChange } from 'src/app/models/actions/balance-change';
 })
 export class HistoryComponent {
 
-    @Input() history: Action;
+    @Input() history: History;
     @Input() onlyBalanceChanges: boolean;
 
     show() {
-        if (this.onlyBalanceChanges && this.history) {
+        if (this.onlyBalanceChanges) {
             return this.history instanceof BalanceChange;
         } else {
             return true;

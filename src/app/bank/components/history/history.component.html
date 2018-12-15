@@ -1,6 +1,6 @@
 <div *ngIf="show()">
   <img [src]="history.user.photoURL" alt="no picture available">
   <b [innerText]="history.date | date:'dd.MM.yyyy HH:mm'"></b>
+  <b [innerText]="history.type"></b> <b *ngIf="history.amount" [innerText]="history.amount"></b>
   <hr>
-  <b [innerText]="history.type"></b>
 </div>

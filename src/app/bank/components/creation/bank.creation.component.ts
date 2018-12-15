@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
-import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
+import { Actions, Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { concat, first } from 'rxjs/operators';
-import { AttachBankAction } from 'src/app/dashboard/state/actions';
+import { first, retry } from 'rxjs/operators';
+import { CreateBankHistory } from 'src/app/models/actions/create-bank';
+import { SetOwnerHistory } from 'src/app/models/actions/set-owner';
 import { Bank } from 'src/app/models/bank';
 import { User } from 'src/app/models/user';
-import { RedirectToBankDetailsAction, BankSelectionChangedEvent } from 'src/app/shared/state/actions';
+import { RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
-import { ResetStateAction, SaveNewBankAction, SuccessSaveNewBankEvent, AddNewOwnerAction, AddNewHistoryAction, AddNewOwnerActionSuccessEvent } from '../../state/actions';
+import { AddNewHistoryAction, ResetStateAction, SaveNewUserBankAction, SaveNewUserBankFailEvent, SaveNewUserBankSuccessEvent } from '../../state/actions';
 import { BankState } from '../../state/bank.state';
-import { CreateBankHistoryAction } from 'src/app/models/actions/create-bank';
-import { SetOwnerHistoryAction } from 'src/app/models/actions/set-owner';
-import { dispatch } from 'rxjs/internal/observable/range';
 
 @Component({
     selector: 'app-bank-creation',
@@ -20,7 +18,6 @@ import { dispatch } from 'rxjs/internal/observable/range';
 })
 export class BankCreationComponent {
 
-    @Select(BankState.error) error$: Observable<string>;
 
     user: User;
     bank: Bank;
@@ -33,31 +30,48 @@ export class BankCreationComponent {
             photoURL: this.user.photoURL,
             balance: 0,
             paypal_account: this.user.email,
-            history: [],
-            members: []
         } as Bank;
-        this.store.dispatch(new ResetStateAction)
+        this.store.dispatch(new ResetStateAction);
     }
 
     save() {
+
+        // save new user database
         this.store.dispatch([
-            new AttachBankAction({ ...this.bank })
-            , new SaveNewBankAction(this.bank)
-        ]);
-        this.actions.pipe(
-            ofActionSuccessful(SuccessSaveNewBankEvent)
-            , first()
-        ).subscribe(_ => {
-            this.store.dispatch(new AddNewOwnerAction);
-        });
-        this.actions.pipe(
-            ofActionSuccessful(AddNewOwnerActionSuccessEvent)
-            , first()
+            new SaveNewUserBankAction(this.bank)
+        ]).pipe(
+            first()
+            , retry(3)
         ).subscribe(_ => {
             this.store.dispatch([
-                new AddNewHistoryAction(this.store.selectSnapshot(AppState.currentBank).id, new CreateBankHistoryAction(this.store.selectSnapshot(AppState.currentUser)))
-                , new AddNewHistoryAction(this.store.selectSnapshot(AppState.currentBank).id, new SetOwnerHistoryAction(this.store.selectSnapshot(AppState.currentUser)))])
-                .pipe(first()).subscribe(_ => this.store.dispatch(new RedirectToBankDetailsAction));
+                new AddNewHistoryAction(this.store.selectSnapshot(BankState.currentBank).id, new CreateBankHistory(this.bank.owner))
+                , new AddNewHistoryAction(this.store.selectSnapshot(BankState.currentBank).id, new SetOwnerHistory(this.bank.owner))
+                , new SaveNewUserBankSuccessEvent(this.store.selectSnapshot(BankState.currentBank))
+                , new RedirectToBankDetailsAction])
+        }, err => {
+            this.store.dispatch(new SaveNewUserBankFailEvent(err));
+
+
+
+
+            // this.store.dispatch([
+            //     new AttachBankAction({ ...this.bank })
+            //     , new SaveNewBankAction(this.bank)
+            // ]);
+            // this.actions.pipe(
+            //     ofActionSuccessful(SuccessSaveNewBankEvent)
+            //     , first()
+            // ).subscribe(_ => {
+            //     this.store.dispatch(new AddNewOwnerAction);
+            // });
+            // this.actions.pipe(
+            //     ofActionSuccessful(AddNewOwnerActionSuccessEvent)
+            //     , first()
+            // ).subscribe(_ => {
+            //     this.store.dispatch([
+            //         new AddNewHistoryAction(this.store.selectSnapshot(AppState.currentBank).id, new CreateBankHistory(this.store.selectSnapshot(AppState.currentUser)))
+            //         , new AddNewHistoryAction(this.store.selectSnapshot(AppState.currentBank).id, new SetOwnerHistory(this.store.selectSnapshot(AppState.currentUser)))])
+            //         .pipe(first()).subscribe(_ => this.store.dispatch(new RedirectToBankDetailsAction));
         })
     }
 }

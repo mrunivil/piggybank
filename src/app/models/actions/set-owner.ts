@@ -1,8 +1,8 @@
-import { Action } from '../action';
+import { History } from '../action';
 import { User } from '../user';
 
-export class SetOwnerHistoryAction extends Action {
+export class SetOwnerHistory extends History {
     constructor(user: User) {
-        super(user, Action.TYPE_OWNER);
+        super(user, History.TYPE_OWNER);
     }
 }

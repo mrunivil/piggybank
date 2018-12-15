@@ -1,9 +1,9 @@
 import { User } from '../user';
 import { BalanceChange } from './balance-change';
-import { Action } from '../action';
+import { History } from '../action';
 
 export class Payment extends BalanceChange {
     constructor(user: User, amount: number, comment?: string) {
-        super(user, amount, Action.TYPE_PAYMENT, comment);
+        super(user, amount < 0 ? amount : -amount, History.TYPE_PAYMENT, comment);
     }
 }

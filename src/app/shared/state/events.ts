@@ -2,7 +2,7 @@ import { User } from 'src/app/models/user';
 import { Preferences } from 'src/app/models/preferences';
 import { Feedback } from 'src/app/models/feedback';
 import { Bank } from 'src/app/models/bank';
-import { Action } from 'src/app/models/action';
+import { History } from 'src/app/models/action';
 
 /**
  * Login Events
@@ -68,7 +68,7 @@ export class LoadUserFeedbackFailEvent {
  */
 export class LoadBankHistorySuccessEvent {
     static readonly type = '[BANK HISTORY] success loading bank history';
-    constructor(public payload: Action[]) { }
+    constructor(public payload: History[]) { }
 }
 export class LoadBankHistoryFailEvent {
     static readonly type = '[BANK HISTORY] failed loading history';

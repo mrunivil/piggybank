@@ -25,21 +25,22 @@ export class DashboardComponent implements OnInit {
   @Select(AppState.myBanks) myBanks$: Observable<Bank[]>;
   @Select(AppState.otherBanks) otherBanks$: Observable<Bank[]>;
 
+  showMyBanks = true;
+
   constructor(public store: Store) { }
 
   ngOnInit() {
-    this.store.dispatch(
-      [new LoadUserOwnedBanksAction(this.store.selectSnapshot(AppState.currentUser))
-        , new LoadMemberBanksAction(this.store.selectSnapshot(AppState.currentUser))]
-    );
+    this.store.dispatch([
+      new LoadUserOwnedBanksAction(this.store.selectSnapshot(AppState.currentUser))
+      , new LoadMemberBanksAction(this.store.selectSnapshot(AppState.currentUser))
+    ]);
   }
 
   createBank() {
     this.store.dispatch(new RedirectToBankCreationAction);
   }
 
-  /**
-   * DEBUGGING PURPOSE
-   */
-
+  toggleMyBanks() {
+    this.showMyBanks = !this.showMyBanks;
+  }
 }

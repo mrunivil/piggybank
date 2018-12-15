@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
+import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { UpdateBankAction, UpdateBankSuccessEvent } from 'src/app/bank/state/actions';
 import { BalanceChange } from 'src/app/models/actions/balance-change';
 import { Deposit } from 'src/app/models/actions/deposit';
-import { Store, Select } from '@ngxs/store';
-import { AppState } from 'src/app/shared/state/app.state';
 import { Payment } from 'src/app/models/actions/payment';
-import { SaveBalanceChangeAction } from '../../state/actions';
-import { ActionState } from '../../state/action.state';
-import { takeWhile } from 'rxjs/operators';
-import { BankState } from 'src/app/bank/state/bank.state';
 import { RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
+import { AppState } from 'src/app/shared/state/app.state';
+import { ActionState } from '../../state/action.state';
+import { SaveBalanceChangeAction } from '../../state/actions';
 
 @Component({
     templateUrl: './action.component.html',
@@ -22,7 +22,7 @@ export class ActionComponent {
 
     action: BalanceChange;
 
-    constructor(private store: Store) {
+    constructor(private store: Store, private actions: Actions) {
         this.action = new Deposit(this.store.selectSnapshot(AppState.currentUser), 0);
     }
 
@@ -40,9 +40,18 @@ export class ActionComponent {
     }
 
     save(): void {
-        this.store.dispatch(new SaveBalanceChangeAction(this.action));
-        this.success$.pipe(takeWhile(res => res !== true)).subscribe(_ => { }, (err) => { }, () => {
-            this.store.dispatch(new RedirectToBankDetailsAction);
-        });
+        // this.store.dispatch(new SaveBalanceChangeAction(this.action));
+        // this.actions.pipe(
+        //     ofActionSuccessful(AddNewHistoryActionSuccessEvent)
+        //     , first()
+        // ).subscribe(_ => {
+        //     this.store.dispatch(new UpdateBankAction(this.store.selectSnapshot(AppState.currentBank)));
+        // });
+        // this.actions.pipe(
+        //     ofActionSuccessful(UpdateBankSuccessEvent)
+        //     , first()
+        // ).subscribe(_ => {
+        //     this.store.dispatch(new RedirectToBankDetailsAction);
+        // })
     }
 }

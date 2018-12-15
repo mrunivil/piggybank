@@ -1,6 +1,6 @@
 import { User } from './user';
 
-export abstract class Action {
+export abstract class History {
 
     static TYPE_PAYMENT: string = 'Auszahlung';
     static TYPE_DEPOSIT: string = 'Einzahlung';
@@ -11,11 +11,13 @@ export abstract class Action {
     user: User;
     date: Date;
     comment: string;
+    amount?: number;
     readonly type: string;
-    constructor(user: User, type: string, comment?: string) {
+    constructor(user: User, type: string, comment?: string, amount?: number) {
         this.user = user;
         this.date = new Date();
         this.type = type;
         this.comment = comment || `${type} am ${this.date.toLocaleDateString()}`;
+        this.amount = amount;
     }
 }

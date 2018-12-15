@@ -9,11 +9,11 @@ export class LoadUserOwnedBanksAction {
     static readonly type = '[DASHBOARD LOAD] load user owened assets';
     constructor(public payload: User) { }
 }
-export class SuccessLoadUserOwnedBanksEvent {
+export class LoadUserOwnedBanksSuccessEvent {
     static readonly type = '[DASHBOARD LOAD] success load owners banks';
     constructor(public payload: Bank[]) { }
 }
-export class ErrorLoadUserOwnedBanksEvent {
+export class LoadUserOwnedBanksFailEvent {
     static readonly type = '[DASHBOARD LOAD] failed load owners banks';
     constructor(public payload: Error) { }
 }

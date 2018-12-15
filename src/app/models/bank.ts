@@ -1,5 +1,5 @@
 import { User } from './user';
-import { Action } from './action';
+import { History } from './action';
 
 export interface Bank {
     id: string;
@@ -7,7 +7,7 @@ export interface Bank {
     photoURL?: string;
     owner?: User;
     members?: User[];
-    history?: Action[];
+    history?: History[];
     balance?: number;
     paypal?: boolean;
     paypal_account?: string;

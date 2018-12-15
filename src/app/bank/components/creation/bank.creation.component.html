@@ -13,16 +13,10 @@
     <label>Bitte geb dein PayPal Konto an</label>
     <input type="text" [(ngModel)]="bank.paypal_account">
   </div>
-
-  <p *ngIf="error$|async as error" class="error">
-    <label [innerText]="error"></label>
-  </p>
-
-  <div>
-    <button (click)="save()">speichern</button>
-  </div>
+  <button class="fab-bottom-right" (click)="save()">
+    <i class="material-icons">save</i>
+  </button>
 </div>
-
 
 <p>
   {{(store|async)?.bank|json}}

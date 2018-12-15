@@ -1,10 +1,9 @@
-import { Action } from '../action';
+import { History } from '../action';
 import { User } from '../user';
 
-export abstract class BalanceChange extends Action {
+export abstract class BalanceChange extends History {
     amount: number;
     constructor(user: User, amount: number, type: string, comment?: string) {
-        super(user, type, comment);
-        this.amount = amount;
+        super(user, type, comment, amount);
     }
 }

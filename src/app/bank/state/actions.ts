@@ -1,5 +1,5 @@
 import { Bank } from 'src/app/models/bank';
-import { Action } from 'src/app/models/action';
+import { History } from 'src/app/models/action';
 import { User } from 'src/app/models/user';
 /**
  * Reset state back to defaults
@@ -28,6 +28,19 @@ export class ErrorLoadBankDetailsEvent {
 export class LoadBankHistoryAction {
     static readonly type = '[BANK HISTORY] loading bank history';
     constructor(public payload: string) { }
+}
+
+export class SaveNewUserBankAction {
+    static readonly type = '[BANK SAVE] save new bank for current user';
+    constructor(public payload: Bank) { }
+}
+export class SaveNewUserBankSuccessEvent {
+    static readonly type = '[BANK SAVE SUCCESS] done saving new bank for current user';
+    constructor(public payload: Bank) { }
+}
+export class SaveNewUserBankFailEvent {
+    static readonly type = '[BANK SAVE FAIL] error while saving new bank for current user';
+    constructor(public payload: Bank) { }
 }
 
 /**
@@ -71,13 +84,13 @@ export class ToggleHistoryDteailsAction {
  */
 export class AddNewHistoryAction {
     static readonly type = '[BANK UPDATE] adding new history entry';
-    constructor(public id: string, public action: Action) { }
+    constructor(public id: string, public action: History) { }
 }
-export class AddNewHistoryActionSuccessEvent {
+export class AddNewHistorySuccessEvent {
     static readonly type = '[BANK UPDATE] added new history entry';
-    constructor(public payload: Action) { }
+    constructor(public payload: History) { }
 }
-export class AddNewHistoryActionFailEvent {
+export class AddNewHistoryFailEvent {
     static readonly type = '[BANK UPDATE] failed to add new history entry';
     constructor(public payload: Error) { }
 }

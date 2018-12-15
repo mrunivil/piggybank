@@ -1,6 +1,6 @@
 import { Bank } from 'src/app/models/bank';
 import { Observable } from 'rxjs';
-import { Action } from 'src/app/models/action';
+import { History } from 'src/app/models/action';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/models/user';
 
@@ -13,9 +13,9 @@ export interface BankServiceInterface {
 
     setOwner(bank: Bank, owner: User): Observable<Bank>;
 
-    addHistory(bank: Bank, action: Action): Observable<Bank>
+    addHistory(id: string, action: History): Observable<History>
 
-    getHistory(id: string): Observable<Action[]>;
+    getHistory(id: string): Observable<History[]>;
 }
 
 export abstract class BankService implements BankServiceInterface {
@@ -29,7 +29,7 @@ export abstract class BankService implements BankServiceInterface {
 
     abstract setOwner(bank: Bank, owner: User): Observable<Bank>;
 
-    abstract addHistory(bank: Bank, action: Action): Observable<Bank>;
+    abstract addHistory(id: string, action: History): Observable<History>;
 
-    abstract getHistory(id: string): Observable<Action[]>;
+    abstract getHistory(id: string): Observable<History[]>;
 }
