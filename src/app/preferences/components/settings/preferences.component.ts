@@ -28,40 +28,14 @@ export class PreferencesComponent implements OnInit {
   }
 
   updateAvataSettings($event?: CustomEvent) {
-    const preferences = { ...this.store.selectSnapshot(AppState.preferences) };
-    preferences.allowPhoto = !preferences.allowPhoto;
-    this.updatePreferences(preferences, $event);
+    this.updatePreferences({ ...this.store.selectSnapshot(AppState.preferences), allowPhoto: !this.store.selectSnapshot(AppState.preferences).allowPhoto }, $event);
   }
 
   updateNotificationSettings($event?: CustomEvent) {
-    const preferences = { ...this.store.selectSnapshot(AppState.preferences) };
-    preferences.allowNotifications = !preferences.allowNotifications;
-    this.updatePreferences(preferences, $event);
+    this.updatePreferences({ ...this.store.selectSnapshot(AppState.preferences), allowNotifications: !this.store.selectSnapshot(AppState.preferences).allowNotifications }, $event);
   }
 
   updatePreferences(preferences: Preferences, $event: CustomEvent) {
     this.store.dispatch(new UpdateUserPreferencesAction({ ...preferences, uid: this.store.selectSnapshot(AppState.currentUser).uid }));
-  }
-
-  /**
-   * State Testing
-   */
-  loadUserPreferences() {
-    this.store.dispatch(new LoadUserPreferencesAction);
-    this.actions.pipe(
-      ofActionSuccessful(LoadUserPreferencesSuccessfulEvent)
-      , first()
-    ).subscribe(res => alert(JSON.stringify(res)));
-  }
-  updateUserPreferences() {
-    this.store.dispatch(new UpdateUserPreferencesAction({
-      allowNotifications: true,
-      allowPhoto: false,
-      uid: '123456'
-    }));
-    this.actions.pipe(
-      ofActionSuccessful(UpdateUserPreferencesSuccessEvent)
-      , first()
-    ).subscribe(res => alert(JSON.stringify(res)));
   }
 }

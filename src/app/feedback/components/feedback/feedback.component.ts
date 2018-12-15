@@ -16,7 +16,7 @@ import { SendUserFeedbackSuccessEvent } from 'src/app/shared/state/events';
 })
 export class FeedbackComponent implements OnInit {
 
-    @Select(AppState.feedbacks) feedBacks$: Observable<Feedback[]>;
+    @Select(FeedbackState.feedback) feedBacks$: Observable<Feedback[]>;
     feedback: Feedback;
 
     constructor(public store: Store, private actions: Actions) {
@@ -36,13 +36,7 @@ export class FeedbackComponent implements OnInit {
     }
 
     updateFeedback(): void {
-        this.store.dispatch(new SendUserFeedbackAction(this.feedback));
-        this.actions.pipe(
-            ofActionSuccessful(SendUserFeedbackSuccessEvent)
-            , first()
-        ).subscribe(_ => {
-            this.store.dispatch(new RedirectToDashboardAction);
-        })
+        this.store.dispatch([new SendUserFeedbackAction(this.feedback), new RedirectToDashboardAction]);
     }
 
     onRatingChanged(value) {

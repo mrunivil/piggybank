@@ -133,7 +133,28 @@ export class AppState {
             currentBank: payload
         })
     }
-
+    /**
+     * Preferences loaded
+     */
+    @Action(LoadUserPreferencesSuccessfulEvent)
+    loadUserPreferencesSuccessful({ patchState }: StateContext<AppStateModel>, { payload }: LoadUserPreferencesSuccessfulEvent) {
+        patchState({
+            preferences: payload.pop()
+        })
+    }
+    @Action(UpdateUserPreferencesSuccessEvent)
+    updateUserPreferencesSuccess({ patchState }: StateContext<AppStateModel>, { payload }: UpdateUserPreferencesSuccessEvent) {
+        patchState({
+            preferences: payload
+        })
+    }
+    /**
+     * Arrived Feedback
+     */
+    @Action(SendUserFeedbackSuccessEvent)
+    sendUserFeedbackSuccess() {
+        alert('Vielen Dank für dein Feedback!');
+    }
 
     // @Action(AttachBankAction)
     // attachBank({ patchState, getState }: StateContext<AppStateModel>, { payload }: AttachBankAction) {

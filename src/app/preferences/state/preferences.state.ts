@@ -1,14 +1,13 @@
 import { Action, State, StateContext, Store } from '@ngxs/store';
 import { first, retry } from 'rxjs/operators';
 import { AppState } from 'src/app/shared/state/app.state';
+import { LoadUserPreferencesFailEvent, LoadUserPreferencesSuccessfulEvent, UpdateUserPreferencesFailEvent, UpdateUserPreferencesSuccessEvent } from 'src/app/shared/state/events';
 import { PreferencesService } from '../services/preferences.service';
 import { LoadUserPreferencesAction, UpdateUserPreferencesAction } from './actions';
-import { LoadUserPreferencesSuccessfulEvent, LoadUserPreferencesFailEvent, UpdateUserPreferencesSuccessEvent, UpdateUserPreferencesFailEvent } from 'src/app/shared/state/events';
 
 export class PreferencesStateModel {
     initialized: boolean;
 }
-
 @State<PreferencesStateModel>({
     name: 'preferences',
     defaults: {
@@ -16,13 +15,10 @@ export class PreferencesStateModel {
     }
 })
 export class PreferencesState {
-
-
     constructor(
         private store: Store,
         private preferencesService: PreferencesService
     ) { }
-
     /**
      * Load User Preferences
      *
