@@ -2,21 +2,10 @@
 
 
 
+<div *ngIf="(error$|async)" style="background-color: red;width:100%;padding:1rem">{{(error$|async)?.message}}</div>
 
-<h1>Reset Data Base</h1>
-<a href="http://localhost:4200/invite?token=0918507a-bfe2-4b1c-ade3-15afc0ff52c9">test invite link</a><br>
-<a href="http://localhost:4200/invite?token=285c05ab-939f-46bc-8f24-596809b11309">test invite link</a><br>
+<h1>Test Links</h1>
+<div *ngFor="let token of tokens$|async">
+  <a [href]="token.target">test invite link</a><br>
+</div>
 <a href="http://localhost:4200/invite?token=dengibtsjagarnicht">test invite link gibts nicht</a><br>
-<a href="http://localhost:4200/invite?token=istabgelaufen">test invite link abgelaufen</a><br>
-<button (click)="reset()">resetDatabase</button>
-
-<div *ngIf="(error$|async)" style="background-color: red;width:100%;padding:1rem">{{(error$|async)?.message}}</div> -->
-
-
-
-<!-- <h4>Preferences Module</h4>
-<button (click)="loadUserPreferences()">loadUserPreferences</button>
-<button (click)="updateUserPreferences()">updateUserPreferences</button>
-
-<button (click)="loadUserOwnedBanks()">loadUserOwnedBanks</button>
-<button (click)="loadMembersBank()">loadMembersBank</button> -->

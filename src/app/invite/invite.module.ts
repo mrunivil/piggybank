@@ -10,9 +10,10 @@ import { LocalInviteService } from './services/local/invite.service';
 import { FirebaseInviteService } from './services/firebase/invite.service';
 import { NgxsModule } from '@ngxs/store';
 import { InviteState } from './state/invite.state';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
-    declarations: [InviteComponent],
+    declarations: [InviteComponent, HeaderComponent],
     providers: [
         {
             provide: InviteService, useClass: environment.service === 'local' ? LocalInviteService : FirebaseInviteService

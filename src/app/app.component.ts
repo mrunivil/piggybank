@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Select } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AppState } from './shared/state/app.state';
+import { Token } from './models/token';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,18 @@ import { AppState } from './shared/state/app.state';
 })
 export class AppComponent {
   title = 'PiggyBank';
+  tokens$: Observable<Token[]>;
 
   @Select(AppState.error) error$: Observable<Error>;
 
-  constructor() { }
+  constructor() {
+    this.loadInvites();
+  }
 
+  async loadInvites() {
+    const res = await fetch('http://localhost:3000/token');
+    this.tokens$ = of(<Token[]>await res.json());
+  }
 
   async reset() {
     // const res = await fetch('http://localhost:3000/banks');

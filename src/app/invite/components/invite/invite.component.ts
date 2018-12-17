@@ -4,27 +4,42 @@ import { take, first, catchError } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Token } from 'src/app/models/token';
 import { environment } from 'src/environments/environment';
-import { Store } from '@ngxs/store';
+import { Store, Actions, ofActionSuccessful } from '@ngxs/store';
 import { AppState } from 'src/app/shared/state/app.state';
 import { LocalInviteService } from '../../services/local/invite.service';
 import { InviteService } from '../../services/invite.service';
 import { of } from 'rxjs';
 import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
-import { CheckTokenAction } from '../../state/actions';
+import { CheckTokenAction, CheckTokenSuccessfulEvent, CheckTokenFailEvent } from '../../state/actions';
+import { InviteState } from '../../state/invite.state';
 
 @Component({
     template: `
-    <h1> Iam the invitation module of the piggy bank app </h1>
-    {{token|json}}
+    <app-header [title]="'Einladung'"></app-header>
+    <div class="content-wrapper">
+        <h1> Iam the invitation module of the piggy bank app </h1>
+        {{token|json}}
+    </div>
     `
 })
 export class InviteComponent {
 
     token: Token;
 
-    constructor(private activeRoute: ActivatedRoute, private http: HttpClient, private store: Store, private test: InviteService) {
+    constructor(
+        private activeRoute: ActivatedRoute
+        , private http: HttpClient
+        , private store: Store
+    ) {
         this.activeRoute.params.subscribe(params => {
-            this.store.dispatch(new CheckTokenAction(params['token']));
+            this.store.dispatch(new CheckTokenAction(params['token'])).pipe(
+                first()
+            ).subscribe(_ => {
+                this.store.dispatch([
+                    new CheckTokenSuccessfulEvent(this.store.selectSnapshot(InviteState.token))
+
+                ])
+            }, err => this.store.dispatch(new CheckTokenFailEvent(err)));
         });
     }
 }
