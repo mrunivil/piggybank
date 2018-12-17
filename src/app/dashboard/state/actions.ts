@@ -25,11 +25,11 @@ export class LoadMemberBanksAction {
     static readonly type = '[DASHBOARD LOAD] load banks for member';
     constructor(public payload: User) { }
 }
-export class SuccessLoadMemberBanksEvent {
+export class LoadMemberBanksSuccessEvent {
     static readonly type = '[DASHBOARD LOAD] success load members banks';
     constructor(public payload: Bank[]) { }
 }
-export class ErrorLoadMemberBanksEvent {
+export class LoadMemberBanksFailEvent {
     static readonly type = '[DASHBOARD LOAD] failed  load members banks';
     constructor(public payload: Error) { }
 }

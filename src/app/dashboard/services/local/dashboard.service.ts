@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { delay, first, tap } from 'rxjs/operators';
+import { delay, first, tap, filter, map, concatMap, flatMap, concatAll, reduce } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
 import { DashboardService } from '../dashboard.service';
 
@@ -16,12 +16,25 @@ export class LocalDashboardService extends DashboardService {
     throw new Error('Method not implemented.');
   }
   getMyOwenedBanks(uid: string): Observable<Bank[]> {
-    const params = new HttpParams().set('uid', uid);
+    const params = new HttpParams().set('owner.uid', uid);
     return this.http.get<Bank[]>(`${this.endpoint}/user_banks`, { params });
   }
   getMyOtherBanks(uid: string): Observable<Bank[]> {
-    const params = new HttpParams().set('uid', uid);
-    return this.http.get<Bank[]>(`${this.endpoint}/bank_users`, { params });
+    return this.http.get<Bank[]>(`${this.endpoint}/user_banks`).pipe(
+      flatMap(v1 => {
+        return v1;
+      }),
+      filter(bank => {
+        return bank.members.filter(member => {
+          return member.uid === uid;
+        }).length > 0;
+      }),
+      reduce((acc: Bank[], val: Bank, index: number) => {
+        acc.push(val);
+        return acc;
+      }, []),
+      tap(console.dir)
+    );
   }
   deleteBank(bank: Bank): Observable<boolean> {
     throw new Error('Method not implemented.');

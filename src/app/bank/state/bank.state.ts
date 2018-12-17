@@ -2,16 +2,18 @@ import { Action, Actions, Selector, State, StateContext, Store } from '@ngxs/sto
 import { first, retry, tap } from 'rxjs/operators';
 import { History } from 'src/app/models/action';
 import { Bank } from 'src/app/models/bank';
-import { BankService } from '../services/bank.service';
-import { AddNewHistoryAction, AddNewHistoryFailEvent, AddNewHistorySuccessEvent, ResetStateAction, SaveNewUserBankAction, LoadBankHistoryAction, ToggleHistoryDteailsAction, UpdateUserBankAction, UpdateUserBankFailEvent, UpdateUserBankSuccessEvent, ShareYourBankAction, ShareedYourBankSuccessfullEvent, ShareedYourBankFailEvent } from './actions';
-import { AppState } from 'src/app/shared/state/app.state';
-import { LoadBankHistorySuccessEvent, LoadBankHistoryFailEvent } from 'src/app/shared/state/events';
 import { Token } from 'src/app/models/token';
+import { User } from 'src/app/models/user';
+import { AppState } from 'src/app/shared/state/app.state';
+import { LoadBankHistoryFailEvent, LoadBankHistorySuccessEvent } from 'src/app/shared/state/events';
+import { BankService } from '../services/bank.service';
+import { AddNewHistoryAction, AddNewHistoryFailEvent, AddNewHistorySuccessEvent, LoadBankHistoryAction, ResetStateAction, SaveNewUserBankAction, ShareedYourBankFailEvent, ShareedYourBankSuccessfullEvent, ShareYourBankAction, ToggleHistoryDteailsAction, UpdateUserBankAction, UpdateUserBankFailEvent, UpdateUserBankSuccessEvent } from './actions';
 
 
 export class BankStateModel {
     currentBank: Bank;
     history: History[];
+    members: User[];
     onlyBalanceChanges: boolean;
 }
 
@@ -20,6 +22,7 @@ export class BankStateModel {
     defaults: {
         currentBank: {} as Bank,
         history: [],
+        members: [],
         onlyBalanceChanges: true
     }
 })
@@ -38,6 +41,10 @@ export class BankState {
     @Selector()
     static history({ history }: BankStateModel) {
         return history;
+    }
+    @Selector()
+    static members({ members }: BankStateModel) {
+        return members;
     }
 
     @Action(ResetStateAction)

@@ -4,7 +4,23 @@
     "email": "adolfo.mendez@example.com",
     "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
   }],
-  "token": [],
+  "token": [{
+      "bankid": 2,
+      "uid": "033528d1-32d1-4c75-8ccc-18da8dd3f992",
+      "target": "http://localhost:4200/invite?token=033528d1-32d1-4c75-8ccc-18da8dd3f992",
+      "valid": "2018-12-17T22:06:02.241Z",
+      "name": "my bank",
+      "id": 2
+    },
+    {
+      "bankid": 1,
+      "uid": "033528d1-32d1-4c75-8ccc-18da8dd3f993",
+      "target": "http://localhost:4200/invite?token=033528d1-32d1-4c75-8ccc-18da8dd3f993",
+      "valid": "2018-12-17T22:06:02.241Z",
+      "name": "my bank",
+      "id": 1
+    }
+  ],
   "user_feedback": [],
   "user_preferences": [{
     "allowPhoto": true,
@@ -13,6 +29,5 @@
     "allowNotifications": true
   }],
   "user_banks": [],
-  "bank_history": [],
-  "bank_users": []
+  "bank_history": []
 }

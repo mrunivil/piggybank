@@ -29,7 +29,7 @@ export class ActionComponent {
                 this.action = new Deposit(this.action.user, this.action.amount, this.action.comment.replace('Auszahlung', 'Einzahlung'));
                 break;
             case 'payment':
-                this.action = new Payment(this.action.user, this.action.amount > 0 ? this.action.amount : -this.action.amount, this.action.comment.replace('Einzahlung', 'Auszahlung'));
+                this.action = new Payment(this.action.user, this.action.amount, this.action.comment.replace('Einzahlung', 'Auszahlung'));
                 break;
             default:
                 throw new Error(`unknown action type ${type}`);
@@ -37,12 +37,13 @@ export class ActionComponent {
     }
 
     save(): void {
+        let amount = { ...this.action }.amount;
         if (this.action instanceof Payment && this.action.amount > 0) {
-            this.action.amount = -this.action.amount;
+            amount = -amount;
         } else if (this.action instanceof Deposit && this.action.amount < 0) {
-            this.action.amount = -this.action.amount;
+            amount = -amount;
         }
-        this.store.dispatch(new AddNewHistoryAction(this.store.selectSnapshot(AppState.currentBank).id, this.action)).pipe(
+        this.store.dispatch(new AddNewHistoryAction(this.store.selectSnapshot(AppState.currentBank).id, { ...this.action, amount: amount })).pipe(
             first()
         ).subscribe();
         this.actions.pipe(
@@ -51,11 +52,5 @@ export class ActionComponent {
         ).subscribe(_ => {
             this.store.dispatch([new LoadUserOwnedBanksAction(this.store.selectSnapshot(AppState.currentUser), true), new RedirectToBankDetailsAction]);
         });
-        // this.actions.pipe(
-        //     ofActionSuccessful(UpdateBankSuccessEvent)
-        //     , first()
-        // ).subscribe(_ => {
-        //     this.store.dispatch(new RedirectToBankDetailsAction);
-        // })
     }
 }

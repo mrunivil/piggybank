@@ -30,6 +30,7 @@ export class BankCreationComponent {
             photoURL: this.user.photoURL,
             balance: 0,
             paypal_account: this.user.email,
+            members: []
         } as Bank;
         this.store.dispatch(new ResetStateAction);
     }

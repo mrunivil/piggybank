@@ -6,7 +6,7 @@ import { User } from 'src/app/models/user';
 import { Token } from 'src/app/models/token';
 
 export interface BankServiceInterface {
-    getBankDetails(id: string): Observable<Bank[]>;
+    getMembers(id: string): Observable<User[]>;
 
     createNewBank(bank: Bank): Observable<Bank>;
 
@@ -24,7 +24,7 @@ export interface BankServiceInterface {
 export abstract class BankService implements BankServiceInterface {
     protected endpoint = environment.endpoint;
 
-    abstract getBankDetails(id: string): Observable<Bank[]>;
+    abstract getMembers(id: string): Observable<User[]>;
 
     abstract createNewBank(bank: Bank): Observable<Bank>;
 

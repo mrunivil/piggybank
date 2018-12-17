@@ -3,7 +3,7 @@ import { first, retry } from 'rxjs/operators';
 import { ResetAppStateAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 import { DashboardService } from '../services/dashboard.service';
-import { ErrorLoadMemberBanksEvent, LoadUserOwnedBanksFailEvent, LoadMemberBanksAction, LoadUserOwnedBanksAction, SuccessLoadMemberBanksEvent, LoadUserOwnedBanksSuccessEvent } from './actions';
+import { LoadMemberBanksFailEvent, LoadUserOwnedBanksFailEvent, LoadMemberBanksAction, LoadUserOwnedBanksAction, LoadMemberBanksSuccessEvent, LoadUserOwnedBanksSuccessEvent } from './actions';
 
 export class DashboardStateModel {
     initialized: boolean;
@@ -28,15 +28,11 @@ export class DashboardState {
      */
     @Action(LoadUserOwnedBanksAction)
     loadUserOwnedBanks({ dispatch, getState }: StateContext<DashboardStateModel>, { payload, force }: LoadUserOwnedBanksAction) {
-        if (!this.store.selectSnapshot(AppState.myBanks) || force) {
-            this.bankService.getMyOwenedBanks(payload.uid).pipe(
-                first()
-                , retry(3)
-            ).subscribe(res => dispatch(new LoadUserOwnedBanksSuccessEvent(res))
-                , err => dispatch(new LoadUserOwnedBanksFailEvent(err)));
-        } else {
-            dispatch(new LoadUserOwnedBanksSuccessEvent(this.store.selectSnapshot(AppState.myBanks)));
-        }
+        this.bankService.getMyOwenedBanks(payload.uid).pipe(
+            first()
+            , retry(3)
+        ).subscribe(res => dispatch(new LoadUserOwnedBanksSuccessEvent(res))
+            , err => dispatch(new LoadUserOwnedBanksFailEvent(err)));
     }
     /**
          * Load banks owned by others and logged in user is member
@@ -45,18 +41,14 @@ export class DashboardState {
          * @param {LoadMemberBanksAction} { payload }
          * @memberof DashboardState
          */
-    // @Action(LoadMemberBanksAction)
-    // loadMemberBanks({ dispatch, getState }: StateContext<DashboardStateModel>, { payload }: LoadMemberBanksAction) {
-    //     if (!this.store.selectSnapshot(AppState.otherBanks)) {
-    //         this.bankService.getMyOtherBanks(payload.uid).pipe(
-    //             first()
-    //             , retry(3)
-    //         ).subscribe(
-    //             res => dispatch(new SuccessLoadMemberBanksEvent(res))
-    //             , err => dispatch(new ErrorLoadMemberBanksEvent(err)));
-    //     } else {
-    //         dispatch(new SuccessLoadMemberBanksEvent(this.store.selectSnapshot(AppState.otherBanks)));
-    //     }
-    // }
+    @Action(LoadMemberBanksAction)
+    loadMemberBanks({ dispatch, getState }: StateContext<DashboardStateModel>, { payload }: LoadMemberBanksAction) {
+        this.bankService.getMyOtherBanks(payload.uid).pipe(
+            first()
+            , retry(3)
+        ).subscribe(
+            res => dispatch(new LoadMemberBanksSuccessEvent(res))
+            , err => dispatch(new LoadMemberBanksFailEvent(err)));
+    }
 
 }

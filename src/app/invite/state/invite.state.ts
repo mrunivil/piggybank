@@ -1,5 +1,5 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { first, tap } from 'rxjs/operators';
+import { first, tap, concat, merge, switchAll, switchMap } from 'rxjs/operators';
 import { Token } from 'src/app/models/token';
 import { InviteService } from '../services/invite.service';
 import { CheckTokenAction, CheckTokenSuccessfulEvent } from './actions';
@@ -27,10 +27,11 @@ export class InviteState {
     checkToken({ patchState }: StateContext<InviteStateModel>, { payload }: CheckTokenAction) {
         return this.service.checkToken(payload).pipe(
             first()
-            , tap(res => {
+            , switchMap(token => {
                 patchState({
-                    token: res
+                    token: token
                 })
+                return this.service.checkBank(token.bankid)
             })
         )
     }

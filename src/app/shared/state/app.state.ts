@@ -2,7 +2,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { first } from 'rxjs/operators';
 import { AddNewHistorySuccessEvent, SaveNewUserBankSuccessEvent, UpdateUserBankAction, UpdateUserBankSuccessEvent } from 'src/app/bank/state/actions';
-import { LoadUserOwnedBanksSuccessEvent } from 'src/app/dashboard/state/actions';
+import { LoadUserOwnedBanksSuccessEvent, LoadMemberBanksSuccessEvent } from 'src/app/dashboard/state/actions';
 import { History as History } from 'src/app/models/action';
 import { Bank } from 'src/app/models/bank';
 import { Feedback } from 'src/app/models/feedback';
@@ -136,6 +136,13 @@ export class AppState {
             mybanks: payload
         })
     }
+    @Action(LoadMemberBanksSuccessEvent)
+    loadMemberBanksSuccess({ patchState }: StateContext<AppStateModel>, { payload }: LoadMemberBanksSuccessEvent) {
+        patchState({
+            otherBanks: payload
+        })
+    }
+
     /**
      * 
      * Bank Selection changed

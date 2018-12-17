@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
+import { Actions, Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { first, pluck } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
 import { RedirectToAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
-import { LoadBankDetailsAction, LoadBankHistoryAction, SuccessLoadBankDetailsEvent, ToggleHistoryDteailsAction, ResetStateAction } from '../../state/actions';
+import { LoadBankHistoryAction, ResetStateAction, ToggleHistoryDteailsAction } from '../../state/actions';
 import { BankState } from '../../state/bank.state';
 
 @Component({
@@ -23,7 +22,10 @@ export class BankDetailsComponent implements OnInit {
     constructor(private route: ActivatedRoute, private store: Store, private actions: Actions) { }
 
     ngOnInit() {
-        this.store.dispatch([new ResetStateAction, new LoadBankHistoryAction(this.store.selectSnapshot(AppState.currentBank).id)]);
+        this.store.dispatch([
+            new ResetStateAction
+            , new LoadBankHistoryAction(this.store.selectSnapshot(AppState.currentBank).id)
+        ]);
     }
 
     showHistory() {

@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { delay, first, switchMap, tap } from 'rxjs/operators';
+import { delay, first, switchMap, tap, map } from 'rxjs/operators';
 import { History } from 'src/app/models/action';
 import { Bank } from 'src/app/models/bank';
 import { BankService } from '../bank.service';
@@ -29,13 +29,21 @@ export class LocalBankService extends BankService {
         );
     }
 
-    getBankDetails(id: string): Observable<Bank[]> {
+    getMembers(id: string): Observable<User[]> {
         const params = new HttpParams()
-            .set('id', id);
-        return this.http.get<Bank[]>(`${this.endpoint}/banks`, { params }).pipe(
-            first()
-            , delay(500)
-        );
+            .append('bankid', id)
+        return this.http.get<Bank[]>(`${this.endpoint}/bank_users`).pipe(
+            map(res => {
+                if (res.length === 0) {
+                    throw new Error('Die Piggy Bank konnte nicht gefunden werden');
+                } else if (res.length > 1) {
+                    throw new Error('Es wurde mehr als eine Piggy Bank gefunden');
+                } else {
+                    return res.pop();
+                }
+            })
+            , map((bank: Bank) => bank.members)
+        )
     }
 
     setOwner(bank: Bank, owner: User): Observable<Bank> {

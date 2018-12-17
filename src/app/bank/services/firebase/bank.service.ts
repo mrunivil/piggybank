@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class FirebaseBankService extends BankService {
+    getMembers(id: string): Observable<import("d:/webprojects/PiggyBank/src/app/models/user").User[]> {
+        throw new Error('Method not implemented.');
+    }
     invite(token: import("d:/webprojects/PiggyBank/src/app/models/token").Token): Observable<import("d:/webprojects/PiggyBank/src/app/models/token").Token> {
         throw new Error('Method not implemented.');
     }
@@ -24,9 +27,6 @@ export class FirebaseBankService extends BankService {
     constructor() { super() }
 
     createNewBank(bank: Bank): Observable<Bank> {
-        throw new Error('Method not implemented.');
-    }
-    getBankDetails(id: string): Observable<Bank[]> {
         throw new Error('Method not implemented.');
     }
     updateMyBank(bank: Bank): Observable<Bank> {
