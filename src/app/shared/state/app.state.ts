@@ -10,6 +10,7 @@ import { Preferences } from 'src/app/models/preferences';
 import { User } from 'src/app/models/user';
 import { BankSelectionChangedEvent, RedirectToAction, RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToFeedbackAction, RedirectToLoginAction, RedirectToPreferencesAction, ResetAppStateAction } from './actions';
 import { LoadUserPreferencesSuccessfulEvent, LoggedOutFailedEvent, LoginFailedEvent, LoginSuccessfulEvent, LogoutSuccessfulEvent, SendUserFeedbackSuccessEvent, UpdateUserPreferencesSuccessEvent } from './events';
+import { CheckTokenFailEvent } from 'src/app/invite/state/actions';
 
 export class AppStateModel {
     initialized: boolean;
@@ -180,6 +181,15 @@ export class AppState {
                 currentBank: currentBank
             })
         });
+    }
+    /**
+     * Invite Actions
+     */
+    @Action(CheckTokenFailEvent)
+    tokenFailed({ patchState }: StateContext<AppStateModel>, { payload }: CheckTokenFailEvent) {
+        patchState({
+            error: payload
+        })
     }
     /**
      * Navigation

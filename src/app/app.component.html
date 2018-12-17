@@ -10,8 +10,7 @@
 <a href="http://localhost:4200/invite?token=istabgelaufen">test invite link abgelaufen</a><br>
 <button (click)="reset()">resetDatabase</button>
 
-<div *ngIf="(error$|async)" style="background-color: red;width:100%;padding:1rem">{{(error$|async)?'Oh da ist wohl
-  etwas schief gegangen':''}}</div> -->
+<div *ngIf="(error$|async)" style="background-color: red;width:100%;padding:1rem">{{(error$|async)?.message}}</div> -->
 
 
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanLoad, Router } from '@angular/router';
+import { CanActivate, CanLoad } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { User } from 'src/app/models/user';
 import { RedirectToLoginAction } from '../state/actions';
@@ -7,7 +7,7 @@ import { RedirectToLoginAction } from '../state/actions';
 @Injectable()
 export class AuthGuard implements CanActivate, CanLoad {
 
-    constructor(public store: Store, private router: Router) { }
+    constructor(public store: Store) { }
 
     canActivate(): boolean {
         const user = this.store.selectSnapshot<User>((state) => state.app.user);
