@@ -2,7 +2,6 @@
   <h1>Do some awesome login via google or other vendor logins</h1>
   <button *ngIf="!(_user|async)" (click)="loginWithGoogle()">Login via Google</button>
   <button *ngIf="_user|async" (click)="logout()">Logout</button>
-  <h1 *ngIf="_error|async" style="color:red">{{_error|async}}</h1>
   <div>
     <h4>User Details:</h4>
     <small>

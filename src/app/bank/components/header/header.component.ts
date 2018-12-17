@@ -5,6 +5,7 @@ import { Bank } from 'src/app/models/bank';
 import { User } from 'src/app/models/user';
 import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
+import { ShareYourBankAction } from '../../state/actions';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,7 @@ export class HeaderComponent {
   constructor(private store: Store) { }
 
   share() {
-    throw new Error('sharing piggy banks is not implemented yet');
+    this.store.dispatch(new ShareYourBankAction);
   }
 
   back() {

@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class FirebaseBankService extends BankService {
+    invite(token: import("d:/webprojects/PiggyBank/src/app/models/token").Token): Observable<import("d:/webprojects/PiggyBank/src/app/models/token").Token> {
+        throw new Error('Method not implemented.');
+    }
     getHistory(id: string): Observable<History[]> {
         throw new Error('Method not implemented.');
     }

@@ -1,6 +1,7 @@
 import { Bank } from 'src/app/models/bank';
 import { History } from 'src/app/models/action';
 import { User } from 'src/app/models/user';
+import { Token } from 'src/app/models/token';
 /**
  * Reset state back to defaults
  */
@@ -61,15 +62,15 @@ export class ErrorSaveNewBankEvent {
 /**
  * Update a Bank
  */
-export class UpdateBankAction {
+export class UpdateUserBankAction {
     static readonly type = '[BANK UPDATE] update bank';
     constructor(public payload: Bank) { }
 }
-export class UpdateBankSuccessEvent {
+export class UpdateUserBankSuccessEvent {
     static readonly type = '[BANK UPDATE] success';
     constructor(public payload: Bank) { }
 }
-export class UpdateBankFailEvent {
+export class UpdateUserBankFailEvent {
     static readonly type = '[BANK UPDATE] failed';
     constructor(public payload: string) { }
 }
@@ -118,4 +119,18 @@ export class CreateNewDepositAction {
  */
 export class CreateNewPaymentAction {
     static readonly type = '[BANK PAYMENT] start creating new payment'
+}
+/**
+ * Share Bank
+ */
+export class ShareYourBankAction {
+    static readonly type = '[BANK SHARE] generating token and call share'
+}
+export class ShareedYourBankSuccessfullEvent {
+    static readonly type = '[BANK SHARE] successfully shared your bank';
+    constructor(public payload: Token) { }
+}
+export class ShareedYourBankFailEvent {
+    static readonly type = '[BANK SHARE] failed to shared your bank';
+    constructor(public payload: Error) { }
 }

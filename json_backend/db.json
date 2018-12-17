@@ -1,250 +1,51 @@
 {
-  "users": [
+  "users": [{
+    "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+    "email": "adolfo.mendez@example.com",
+    "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+  }],
+  "token": [{
+      "bankid": 1,
+      "uid": "0918507a-bfe2-4b1c-ade3-15afc0ff52c9",
+      "target": "http://localhost:4200/invite?token=0918507a-bfe2-4b1c-ade3-15afc0ff52c9",
+      "valid": "2018-12-16T23:17:26.718Z",
+      "id": 1
+    },
     {
+      "bankid": 1,
+      "uid": "285c05ab-939f-46bc-8f24-596809b11309",
+      "target": "http://localhost:4200/invite?token=285c05ab-939f-46bc-8f24-596809b11309",
+      "valid": "2018-12-17T00:53:27.635Z",
+      "id": 2
+    },
+    {
+      "bankid": 1,
+      "uid": "istabgelaufen",
+      "target": "http://localhost:4200/invite?token=istabgelaufen",
+      "valid": "2018-12-15T00:53:27.635Z",
+      "id": 2
+    }
+  ],
+  "user_feedback": [],
+  "user_preferences": [{
+    "allowPhoto": true,
+    "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+    "id": 1,
+    "allowNotifications": true
+  }],
+  "user_banks": [{
+    "name": "adolfo.mendez@example.com´s Bank",
+    "owner": {
       "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
       "email": "adolfo.mendez@example.com",
       "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-    }
-  ],
-  "user_feedback": [
-    {
-      "comment": "n bisschen hässlich aber sonst ganz neis!",
-      "rating": 4,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "id": 1
-    }
-  ],
-  "user_preferences": [
-    {
-      "allowPhoto": true,
-      "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-      "id": 1,
-      "allowNotifications": true
     },
-    {
-      "allowPhoto": true,
-      "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-      "id": 2
-    },
-    {
-      "allowNotifications": true,
-      "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-      "id": 3,
-      "allowPhoto": true
-    }
-  ],
-  "user_banks": [
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 1
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 2
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 3
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 4
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 5
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 6
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 7
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 8
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 9
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 10
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 11
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 12
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 13
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 14
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 15
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 16
-    },
-    {
-      "name": "adolfo.mendez@example.com´s Bank",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "id": 17
-    }
-  ],
-  "bank_history": [
-    {
+    "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
+    "balance": -3.5,
+    "paypal_account": "adolfo.mendez@example.com",
+    "id": 1
+  }],
+  "bank_history": [{
       "bank_id": 1,
       "user": {
         "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
@@ -253,7 +54,7 @@
       },
       "comment": "Bank erstellt am 15.12.2018",
       "type": "Bank erstellt",
-      "date": "2018-12-15T14:37:40.266Z",
+      "date": "2018-12-15T15:59:07.641Z",
       "id": 1
     },
     {
@@ -265,392 +66,136 @@
       },
       "comment": "Besitzer geändert am 15.12.2018",
       "type": "Besitzer geändert",
-      "date": "2018-12-15T14:37:40.274Z",
+      "date": "2018-12-15T15:59:07.649Z",
       "id": 2
     },
     {
-      "bank_id": 2,
+      "bank_id": 1,
       "user": {
         "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
         "email": "adolfo.mendez@example.com",
         "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
       },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:38:10.456Z",
+      "comment": "Einzahlung am 15.12.2018",
+      "type": "Einzahlung",
+      "date": "2018-12-15T16:04:36.064Z",
       "id": 3
     },
     {
-      "bank_id": 2,
+      "bank_id": 1,
       "user": {
         "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
         "email": "adolfo.mendez@example.com",
         "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
       },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:38:10.465Z",
+      "comment": "Einzahlung am 15.12.2018",
+      "type": "Einzahlung",
+      "date": "2018-12-15T16:04:53.817Z",
       "id": 4
     },
     {
-      "bank_id": 3,
+      "bank_id": 1,
       "user": {
         "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
         "email": "adolfo.mendez@example.com",
         "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
       },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:39:39.247Z",
+      "comment": "Auszahlung am 15.12.2018",
+      "type": "Auszahlung",
+      "date": "2018-12-15T16:06:44.270Z",
+      "amount": 5,
       "id": 5
     },
     {
-      "bank_id": 3,
+      "bank_id": 1,
       "user": {
         "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
         "email": "adolfo.mendez@example.com",
         "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
       },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:39:39.263Z",
+      "comment": "Auszahlung am 15.12.2018",
+      "type": "Auszahlung",
+      "date": "2018-12-15T16:07:47.864Z",
+      "amount": 10,
       "id": 6
     },
     {
-      "bank_id": 4,
+      "bank_id": 1,
       "user": {
         "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
         "email": "adolfo.mendez@example.com",
         "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
       },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:41:11.752Z",
+      "comment": "Auszahlung am 15.12.2018",
+      "type": "Auszahlung",
+      "date": "2018-12-15T16:11:06.619Z",
+      "amount": 25,
       "id": 7
     },
     {
-      "bank_id": 4,
+      "bank_id": 1,
       "user": {
         "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
         "email": "adolfo.mendez@example.com",
         "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
       },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:41:11.762Z",
+      "comment": "Auszahlung am 15.12.2018",
+      "type": "Auszahlung",
+      "date": "2018-12-15T16:12:02.601Z",
+      "amount": 15,
       "id": 8
     },
     {
-      "bank_id": 5,
+      "bank_id": 1,
       "user": {
         "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
         "email": "adolfo.mendez@example.com",
         "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
       },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:42:31.970Z",
+      "comment": "Auszahlung am 15.12.2018",
+      "type": "Auszahlung",
+      "date": "2018-12-15T16:14:41.680Z",
+      "amount": -60,
       "id": 9
     },
     {
-      "bank_id": 5,
+      "bank_id": 1,
       "user": {
         "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
         "email": "adolfo.mendez@example.com",
         "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
       },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:42:31.978Z",
+      "comment": "Einzahlung am 15.12.2018",
+      "type": "Einzahlung",
+      "date": "2018-12-15T16:18:23.072Z",
+      "amount": 10,
       "id": 10
     },
     {
-      "bank_id": 6,
+      "bank_id": 1,
       "user": {
         "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
         "email": "adolfo.mendez@example.com",
         "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
       },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:43:17.301Z",
+      "comment": "Auszahlung am 15.12.2018",
+      "type": "Auszahlung",
+      "date": "2018-12-15T16:20:32.765Z",
+      "amount": -3.5,
       "id": 11
     },
     {
-      "bank_id": 6,
+      "bank_id": 1,
       "user": {
         "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
         "email": "adolfo.mendez@example.com",
         "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
       },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:43:17.309Z",
+      "comment": "Auszahlung am 15.12.2018",
+      "type": "Auszahlung",
+      "date": "2018-12-15T16:21:58.672Z",
+      "amount": -5,
       "id": 12
-    },
-    {
-      "bank_id": 7,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:44:16.460Z",
-      "id": 13
-    },
-    {
-      "bank_id": 7,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:44:16.467Z",
-      "id": 14
-    },
-    {
-      "bank_id": 8,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:44:53.150Z",
-      "id": 15
-    },
-    {
-      "bank_id": 8,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:44:53.156Z",
-      "id": 16
-    },
-    {
-      "bank_id": 9,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:45:16.549Z",
-      "id": 17
-    },
-    {
-      "bank_id": 9,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:45:16.557Z",
-      "id": 18
-    },
-    {
-      "bank_id": 10,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:45:45.786Z",
-      "id": 19
-    },
-    {
-      "bank_id": 10,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:45:45.792Z",
-      "id": 20
-    },
-    {
-      "bank_id": 11,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:49:31.087Z",
-      "id": 21
-    },
-    {
-      "bank_id": 11,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:49:31.094Z",
-      "id": 22
-    },
-    {
-      "bank_id": 12,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:50:25.693Z",
-      "id": 23
-    },
-    {
-      "bank_id": 12,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:50:25.704Z",
-      "id": 24
-    },
-    {
-      "bank_id": 13,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:51:00.412Z",
-      "id": 25
-    },
-    {
-      "bank_id": 13,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:51:00.422Z",
-      "id": 26
-    },
-    {
-      "bank_id": 14,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:51:53.022Z",
-      "id": 27
-    },
-    {
-      "bank_id": 14,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:51:53.032Z",
-      "id": 28
-    },
-    {
-      "bank_id": 15,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:52:59.202Z",
-      "id": 29
-    },
-    {
-      "bank_id": 15,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:52:59.212Z",
-      "id": 30
-    },
-    {
-      "bank_id": 16,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:53:25.482Z",
-      "id": 31
-    },
-    {
-      "bank_id": 16,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:53:25.493Z",
-      "id": 32
-    },
-    {
-      "bank_id": 17,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Bank erstellt am 15.12.2018",
-      "type": "Bank erstellt",
-      "date": "2018-12-15T14:53:55.760Z",
-      "id": 33
-    },
-    {
-      "bank_id": 17,
-      "user": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "comment": "Besitzer geändert am 15.12.2018",
-      "type": "Besitzer geändert",
-      "date": "2018-12-15T14:53:55.766Z",
-      "id": 34
     }
   ],
   "bank_users": []

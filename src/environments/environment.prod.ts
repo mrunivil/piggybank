@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   service: 'local',
-  endpoint: null
+  endpoint: 'http://localhost:3000'
 };

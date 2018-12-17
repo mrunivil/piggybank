@@ -1,6 +1,6 @@
-import { User } from 'src/app/models/user';
-import { Preferences } from 'src/app/models/preferences';
 import { Bank } from 'src/app/models/bank';
+import { Preferences } from 'src/app/models/preferences';
+import { User } from 'src/app/models/user';
 
 export class ResetAppStateAction {
     static readonly type = '[APP RESET] reset state to defaults';
@@ -23,6 +23,7 @@ export class BankSelectionChangedEvent {
 
 export class RedirectToLoginAction {
     static readonly type = '[APP REDIRECT] /login';
+    constructor(public payload?: URL) { }
 }
 
 export class RedirectToPreferencesAction {

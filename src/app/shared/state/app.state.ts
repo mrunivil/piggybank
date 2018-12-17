@@ -1,17 +1,15 @@
 import { Navigate } from '@ngxs/router-plugin';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import { AddNewOwnerActionFailEvent, AddNewOwnerActionSuccessEvent, ErrorLoadBankDetailsEvent, SuccessLoadBankDetailsEvent, SuccessSaveNewBankEvent, SaveNewUserBankSuccessEvent } from 'src/app/bank/state/actions';
-import { BankStateModel } from 'src/app/bank/state/bank.state';
-import { ErrorLoadMemberBanksEvent, LoadUserOwnedBanksFailEvent, SuccessLoadMemberBanksEvent, LoadUserOwnedBanksSuccessEvent, AttachBankAction } from 'src/app/dashboard/state/actions';
+import { first } from 'rxjs/operators';
+import { AddNewHistorySuccessEvent, SaveNewUserBankSuccessEvent, UpdateUserBankAction, UpdateUserBankSuccessEvent } from 'src/app/bank/state/actions';
+import { LoadUserOwnedBanksSuccessEvent } from 'src/app/dashboard/state/actions';
+import { History as History } from 'src/app/models/action';
 import { Bank } from 'src/app/models/bank';
+import { Feedback } from 'src/app/models/feedback';
 import { Preferences } from 'src/app/models/preferences';
 import { User } from 'src/app/models/user';
 import { BankSelectionChangedEvent, RedirectToAction, RedirectToBankCreationAction, RedirectToBankDetailsAction, RedirectToDashboardAction, RedirectToFeedbackAction, RedirectToLoginAction, RedirectToPreferencesAction, ResetAppStateAction } from './actions';
-import { LoginSuccessfulEvent, LoginFailedEvent, LogoutSuccessfulEvent, LoggedOutFailedEvent, LoadUserPreferencesSuccessfulEvent, LoadUserPreferencesFailEvent, UpdateUserPreferencesSuccessEvent, UpdateUserPreferencesFailEvent, SendUserFeedbackSuccessEvent, SendUserFeedbackFailEvent, LoadUserFeedbackSuccessfulEvent, LoadUserFeedbackFailEvent, LoadBankHistorySuccessEvent, } from './events';
-import { FeedbackStateModel } from 'src/app/feedback/state/feedback.state';
-import { Feedback } from 'src/app/models/feedback';
-import { BalanceChange } from 'src/app/models/actions/balance-change';
-import { History as History } from 'src/app/models/action';
+import { LoadUserPreferencesSuccessfulEvent, LoggedOutFailedEvent, LoginFailedEvent, LoginSuccessfulEvent, LogoutSuccessfulEvent, SendUserFeedbackSuccessEvent, UpdateUserPreferencesSuccessEvent } from './events';
 
 export class AppStateModel {
     initialized: boolean;
@@ -23,6 +21,7 @@ export class AppStateModel {
     otherBanks?: Bank[];
     preferences?: Preferences;
     feedbacks?: Feedback[];
+    redirectPath?: URL;
 }
 
 @State<AppStateModel>({
@@ -63,6 +62,10 @@ export class AppState {
     @Selector()
     static otherBanks({ otherBanks }: AppStateModel) {
         return otherBanks;
+    }
+    @Selector()
+    static redirectPath({ redirectPath }: AppStateModel) {
+        return redirectPath;
     }
 
 
@@ -115,6 +118,15 @@ export class AppState {
         })
     }
     /**
+    * Bank Updated
+    */
+    @Action(UpdateUserBankSuccessEvent)
+    updateUserBankSuccess({ patchState }: StateContext<AppStateModel>, { payload }: UpdateUserBankSuccessEvent) {
+        patchState({
+            currentBank: payload
+        })
+    }
+    /**
      * User related Banks loaded
      */
     @Action(LoadUserOwnedBanksSuccessEvent)
@@ -155,171 +167,26 @@ export class AppState {
     sendUserFeedbackSuccess() {
         alert('Vielen Dank für dein Feedback!');
     }
-
-    // @Action(AttachBankAction)
-    // attachBank({ patchState, getState }: StateContext<AppStateModel>, { payload }: AttachBankAction) {
-    //     patchState({
-    //         currentBank: payload,
-    //         mybanks: [...getState().mybanks, payload]
-    //     })
-    // }
-    // @Action(SuccessSaveNewBankEvent)
-    // saveedNewBank({ patchState, getState }: StateContext<AppStateModel>, { payload }: SuccessSaveNewBankEvent) {
-    //     patchState({
-    //         error: undefined,
-    //         currentBank: { ...getState().currentBank, ...payload }
-    //     })
-    // }
-
-    // Selected Bank changed
-    // @Action(BankSelectionChangedEvent)
-    // bankSelectionChanged({ patchState, getState }: StateContext<AppStateModel>, { payload }: BankSelectionChangedEvent) {
-    //     patchState({
-    //         error: undefined,
-    //         currentBank: { ...getState().currentBank, ...payload }
-    //     })
-    // }
-
-    // Bank Details loaded
-    // @Action(SuccessLoadBankDetailsEvent)
-    // successLoadBankDetailsEvent({ patchState, getState }: StateContext<AppStateModel>, { payload }: SuccessLoadBankDetailsEvent) {
-    //     const bank: Bank = payload.length === 1 ? payload.pop() : undefined
-    //     patchState({
-    //         error: undefined,
-    //         currentBank: { ...getState().currentBank, ...bank }
-    //     })
-    // }
-    // @Action(ErrorLoadBankDetailsEvent)
-    // errorLoadBankDetailsEvent({ patchState }: StateContext<AppStateModel>, { payload }: ErrorLoadBankDetailsEvent) {
-    //     patchState({
-    //         error: payload
-    //     })
-    // }
-
-    // // changed bank history
-    // @Action(AddNewHistoryActionSuccessEvent)
-    // addNewHistorySuccess({ getState, setState }: StateContext<AppStateModel>, { payload }: AddNewHistoryActionSuccessEvent) {
-    //     const currentBank = { ...getState().currentBank };
-    //     currentBank.history.push(payload);
-    //     if (payload instanceof BalanceChange) {
-    //         currentBank.balance += (<BalanceChange>payload).amount;
-    //     }
-    //     setState({ ...getState(), currentBank: currentBank });
-    // }
-    // @Action(AddNewHistoryActionFailEvent)
-    // addNewHistoryFail({ patchState }: StateContext<AppStateModel>, { payload }: AddNewHistoryActionFailEvent) {
-    //     patchState({
-    //         error: payload
-    //     });
-    // }
-    // @Action(LoadBankHistorySuccessEvent)
-    // loadBankHistorySuccess({ setState, getState }: StateContext<AppStateModel>, { payload }: LoadBankHistorySuccessEvent) {
-    //     const state = getState();
-    //     setState({
-    //         ...state,
-    //         currentBank: { ...state.currentBank, history: payload }
-    //     });
-    // }
-
     /**
-     * Bank Loading
+     * Bank History changed
      */
-    // @Action(SuccessLoadUserOwnedBanksEvent)
-    // successLoadUserOwenedBanks({ patchState }: StateContext<AppStateModel>, { payload }: SuccessLoadUserOwnedBanksEvent) {
-    //     patchState({
-    //         error: undefined,
-    //         initialized: true,
-    //         mybanks: payload
-    //     })
-    // }
-    // @Action(ErrorLoadUserOwnedBanksEvent)
-    // errorLoadUserOwenedBanks({ patchState }: StateContext<AppStateModel>, { payload }: ErrorLoadUserOwnedBanksEvent) {
-    //     patchState({
-    //         error: payload
-    //     })
-    // }
-    // @Action(SuccessLoadMemberBanksEvent)
-    // successLoadMemberBanks({ patchState }: StateContext<AppStateModel>, { payload }: SuccessLoadMemberBanksEvent) {
-    //     patchState({
-    //         initialized: true,
-    //         error: undefined,
-    //         otherBanks: payload
-    //     })
-    // }
-    // @Action(ErrorLoadMemberBanksEvent)
-    // errorLoadMemberBanks({ patchState }: StateContext<AppStateModel>, { payload }: ErrorLoadMemberBanksEvent) {
-    //     patchState({
-    //         error: payload
-    //     })
-    // }
-    /**
-    * Owner changed
-    */
-    // @Action(AddNewOwnerActionSuccessEvent)
-    // addNewOwnerSuccessful({ getState, patchState }: StateContext<AppStateModel>) {
-    //     const currentBank = { ...getState().currentBank, owner: { ...getState().user } };
-    //     patchState({ error: undefined, currentBank: currentBank });
-    // }
-    // @Action(AddNewOwnerActionFailEvent)
-    // addNewOwnerActionFailed({ patchState }: StateContext<BankStateModel>, { payload }: AddNewOwnerActionFailEvent) {
-    //     patchState({
-    //         error: payload
-    //     })
-    // }
-    /**
-     * Preferences
-     */
-    // @Action(LoadUserPreferencesSuccessfulEvent)
-    // successLoadingUserPreferencesEvent({ patchState }: StateContext<AppStateModel>, { payload }: LoadUserPreferencesSuccessfulEvent) {
-    //     const preferences: Preferences = payload.length === 1 ? payload.pop() : undefined
-    //     patchState({
-    //         error: undefined, preferences: preferences
-    //     })
-    // }
-    // @Action(LoadUserPreferencesFailEvent)
-    // errorLoadingUserPreferencesEvent({ patchState }: StateContext<AppStateModel>, { payload }: LoadUserPreferencesFailEvent) {
-    //     patchState({
-    //         error: payload
-    //     })
-    // }
-    // @Action(UpdateUserPreferencesSuccessEvent)
-    // successUpdatingUserPreferencesEvent({ patchState }: StateContext<AppStateModel>, { payload }: UpdateUserPreferencesSuccessEvent) {
-    //     patchState({
-    //         error: undefined, preferences: payload
-    //     })
-    // }
-    // @Action(UpdateUserPreferencesFailEvent)
-    // errorUpdatingUserPreferencesEvent(ctx: StateContext<AppStateModel>, { payload }: UpdateUserPreferencesFailEvent) {
-    //     ctx.patchState({
-    //         error: payload
-    //     })
-    // }
-    /**
-     * Feedback
-     */
-    // @Action(SendUserFeedbackSuccessEvent)
-    // sendFeedbackSuccessfull({ patchState, getState }: StateContext<AppStateModel>, { payload }: SendUserFeedbackSuccessEvent) {
-    //     const feedbacks = [...getState().feedbacks, payload];
-    //     patchState({ feedbacks: feedbacks, error: undefined })
-    // }
-    // @Action(SendUserFeedbackFailEvent)
-    // sendFeedbackFailed({ patchState }: StateContext<AppStateModel>, { payload }: SendUserFeedbackFailEvent) {
-    //     patchState({ error: payload })
-    // }
-    // @Action(LoadUserFeedbackSuccessfulEvent)
-    // loadUserFeedbackSuccessfull({ patchState, getState }: StateContext<AppStateModel>, { payload }: LoadUserFeedbackSuccessfulEvent) {
-    //     patchState({ feedbacks: payload, error: undefined })
-    // }
-    // @Action(LoadUserFeedbackFailEvent)
-    // loadUserFeedbackFail({ patchState }: StateContext<AppStateModel>, { payload }: LoadUserFeedbackFailEvent) {
-    //     patchState({ error: payload })
-    // }
+    @Action(AddNewHistorySuccessEvent)
+    addNewHistorySuccess({ getState, dispatch, patchState }: StateContext<AppStateModel>, { payload }: AddNewHistorySuccessEvent) {
+        const currentBank = { ...getState().currentBank };
+        currentBank.balance += payload.amount || 0;
+        dispatch(new UpdateUserBankAction(currentBank)).pipe(first()).subscribe(_ => {
+            debugger
+            patchState({
+                currentBank: currentBank
+            })
+        });
+    }
     /**
      * Navigation
      */
     @Action(RedirectToLoginAction)
-    redirectToLogin({ dispatch, patchState }: StateContext<AppStateModel>) {
-        patchState({ error: undefined });
+    redirectToLogin({ dispatch, patchState }: StateContext<AppStateModel>, { payload }: RedirectToLoginAction) {
+        patchState({ error: undefined, redirectPath: payload });
         dispatch(new Navigate(['/login']));
     }
 
@@ -344,7 +211,7 @@ export class AppState {
     @Action(RedirectToBankDetailsAction)
     redirectToBankDetailsAction({ dispatch, getState, patchState }: StateContext<AppStateModel>) {
         patchState({ error: undefined });
-        dispatch(new Navigate(['/bank', getState().currentBank.id]));
+        dispatch(new Navigate(['/bank/details']));
     }
 
     @Action(RedirectToBankCreationAction)
@@ -355,7 +222,8 @@ export class AppState {
 
     @Action(RedirectToAction)
     redirectToDeposit({ dispatch, patchState }: StateContext<AppStateModel>) {
-        patchState({ error: undefined }); dispatch(new Navigate(['/action']));
+        patchState({ error: undefined });
+        dispatch(new Navigate(['/bank/history']));
     }
 
 }

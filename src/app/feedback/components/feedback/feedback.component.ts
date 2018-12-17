@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
-import { FeedbackState } from '../../state/feedback.state';
+import { Actions, Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Feedback } from 'src/app/models/feedback';
-import { AppState } from 'src/app/shared/state/app.state';
-import { SendUserFeedbackAction, LoadUserFeedbackAction } from '../../state/actions';
-import { takeWhile, first } from 'rxjs/operators';
 import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
-import { SendUserFeedbackSuccessEvent } from 'src/app/shared/state/events';
+import { AppState } from 'src/app/shared/state/app.state';
+import { LoadUserFeedbackAction, SendUserFeedbackAction } from '../../state/actions';
+import { FeedbackState } from '../../state/feedback.state';
 
 @Component({
     selector: 'app-feedback',

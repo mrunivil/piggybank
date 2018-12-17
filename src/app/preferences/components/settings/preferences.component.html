@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="content-wrapper">
   <p>
-    <input type="checkbox" (change)="updatePreferences($event)" [checked]="(preferences$|async)?.allowPhoto">
+    <input type="checkbox" (change)="updateAvataSettings($event)" [checked]="(preferences$|async)?.allowPhoto">
     <label (click)="updateAvataSettings($event)"> your photo is visible to others?</label>
   </p>
 
@@ -19,7 +19,3 @@
     <label>Version Number: 0.0.1</label>
   </p>
 </div>
-
-<h4>Preferences Module</h4>
-<button (click)="loadUserPreferences()">loadUserPreferences</button>
-<button (click)="updateUserPreferences()">updateUserPreferences</button>

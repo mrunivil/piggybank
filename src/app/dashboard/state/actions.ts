@@ -7,7 +7,7 @@ import { User } from 'src/app/models/user';
  */
 export class LoadUserOwnedBanksAction {
     static readonly type = '[DASHBOARD LOAD] load user owened assets';
-    constructor(public payload: User) { }
+    constructor(public payload: User, public force?: boolean) { }
 }
 export class LoadUserOwnedBanksSuccessEvent {
     static readonly type = '[DASHBOARD LOAD] success load owners banks';

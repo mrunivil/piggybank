@@ -3,9 +3,10 @@ import { first, retry, tap } from 'rxjs/operators';
 import { History } from 'src/app/models/action';
 import { Bank } from 'src/app/models/bank';
 import { BankService } from '../services/bank.service';
-import { AddNewHistoryAction, AddNewHistoryFailEvent, AddNewHistorySuccessEvent, ResetStateAction, SaveNewUserBankAction, LoadBankHistoryAction, ToggleHistoryDteailsAction } from './actions';
+import { AddNewHistoryAction, AddNewHistoryFailEvent, AddNewHistorySuccessEvent, ResetStateAction, SaveNewUserBankAction, LoadBankHistoryAction, ToggleHistoryDteailsAction, UpdateUserBankAction, UpdateUserBankFailEvent, UpdateUserBankSuccessEvent, ShareYourBankAction, ShareedYourBankSuccessfullEvent, ShareedYourBankFailEvent } from './actions';
 import { AppState } from 'src/app/shared/state/app.state';
 import { LoadBankHistorySuccessEvent, LoadBankHistoryFailEvent } from 'src/app/shared/state/events';
+import { Token } from 'src/app/models/token';
 
 
 export class BankStateModel {
@@ -61,6 +62,16 @@ export class BankState {
             })
         }));
     }
+    @Action(UpdateUserBankAction)
+    updateUserBank({ patchState, dispatch }: StateContext<BankStateModel>, { payload }: UpdateUserBankAction) {
+        this.bankService.updateMyBank(payload).pipe(first(), retry(3), tap(res => {
+            patchState({
+                currentBank: res
+            })
+        })).subscribe(_ => {
+            dispatch(new UpdateUserBankSuccessEvent(this.store.selectSnapshot(BankState.currentBank)))
+        }, err => dispatch(new UpdateUserBankFailEvent(err)));
+    }
     @Action(AddNewHistoryAction)
     addNewHostory({ dispatch, patchState, getState }: StateContext<BankStateModel>, { id, action }: AddNewHistoryAction) {
         this.bankService.addHistory(id, action).pipe(first(), retry(3), tap(res => {
@@ -72,7 +83,6 @@ export class BankState {
             , err => dispatch(new AddNewHistoryFailEvent(err))
         )
     }
-
     @Action(LoadBankHistoryAction)
     LoadBankHistory({ patchState, dispatch }: StateContext<BankStateModel>, { payload }: LoadBankHistoryAction) {
         this.bankService.getHistory(payload).pipe(
@@ -88,7 +98,16 @@ export class BankState {
             , err => dispatch(new LoadBankHistoryFailEvent(err))
         );
     }
+    @Action(ShareYourBankAction)
+    shareYourBank({ dispatch }: StateContext<BankStateModel>) {
+        this.bankService.invite(new Token(
+            this.store.selectSnapshot(AppState.currentBank).id,
+        )).pipe(first(), retry(3)).subscribe(
+            res => dispatch(new ShareedYourBankSuccessfullEvent(res))
+            , err => dispatch(new ShareedYourBankFailEvent(err)));
 
+
+    }
     /**
      * Load details for a selected bank
      *

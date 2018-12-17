@@ -7,27 +7,39 @@ import { RedirectToDashboardAction, RedirectToLoginAction } from 'src/app/shared
 import { AppState } from 'src/app/shared/state/app.state';
 import { LoginSuccessfulEvent, LogoutSuccessfulEvent } from 'src/app/shared/state/events';
 import { LoginAction, LogoutAction } from '../../state/actions';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Navigate } from '@ngxs/router-plugin';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   @Select(AppState.currentUser) _user: Observable<User>;
-
+  returnUrl: string;
   constructor(private store: Store, private actions: Actions) { }
 
-  ngOnInit() {
-  }
 
   loginWithGoogle(): void {
     this.store.dispatch(new LoginAction);
     this.actions.pipe(
       ofActionSuccessful(LoginSuccessfulEvent)
       , first()
-    ).subscribe(_ => this.store.dispatch(new RedirectToDashboardAction))
+    ).subscribe(_ => {
+      const target = this.store.selectSnapshot(AppState.redirectPath);
+      if (target) {
+        const params = {};
+        target.searchParams.forEach((val, key) => {
+          params[key] = val;
+        })
+        this.store.dispatch(new Navigate([target.pathname, params]));
+      } else {
+        this.store.dispatch(new Navigate(['/dashboard']));
+      }
+    })
   }
 
   logout(): void {
@@ -35,7 +47,10 @@ export class LoginComponent implements OnInit {
     this.actions.pipe(
       ofActionSuccessful(LogoutSuccessfulEvent)
       , first()
-    ).subscribe(_ => this.store.dispatch(new RedirectToLoginAction))
+    ).subscribe(_ => {
+      debugger
+      this.store.dispatch(new RedirectToLoginAction);
+    });
   }
 
 

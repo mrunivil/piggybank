@@ -17,10 +17,6 @@
     <textarea id="txt-comment" rows="4" [(ngModel)]="action.comment"></textarea>
   </div>
 
-  <p *ngIf="error$|async as error" class="error">
-    <label [innerText]="error"></label>
-  </p>
-
   <p>
     {{action|json}}
   </p>

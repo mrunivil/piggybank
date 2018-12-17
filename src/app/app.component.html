@@ -4,14 +4,18 @@
 
 
 <h1>Reset Data Base</h1>
+<a href="http://localhost:4200/invite?token=0918507a-bfe2-4b1c-ade3-15afc0ff52c9">test invite link</a><br>
+<a href="http://localhost:4200/invite?token=285c05ab-939f-46bc-8f24-596809b11309">test invite link</a><br>
+<a href="http://localhost:4200/invite?token=dengibtsjagarnicht">test invite link gibts nicht</a><br>
+<a href="http://localhost:4200/invite?token=istabgelaufen">test invite link abgelaufen</a><br>
 <button (click)="reset()">resetDatabase</button>
 
 <div *ngIf="(error$|async)" style="background-color: red;width:100%;padding:1rem">{{(error$|async)?'Oh da ist wohl
-  etwas schief gegangen':''}}</div>
+  etwas schief gegangen':''}}</div> -->
 
-<!-- 
 
-<h4>Preferences Module</h4>
+
+<!-- <h4>Preferences Module</h4>
 <button (click)="loadUserPreferences()">loadUserPreferences</button>
 <button (click)="updateUserPreferences()">updateUserPreferences</button>
 

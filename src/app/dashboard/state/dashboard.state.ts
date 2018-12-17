@@ -27,8 +27,8 @@ export class DashboardState {
      * @memberof DashboardState
      */
     @Action(LoadUserOwnedBanksAction)
-    loadUserOwnedBanks({ dispatch, getState }: StateContext<DashboardStateModel>, { payload }: LoadUserOwnedBanksAction) {
-        if (!this.store.selectSnapshot(AppState.myBanks)) {
+    loadUserOwnedBanks({ dispatch, getState }: StateContext<DashboardStateModel>, { payload, force }: LoadUserOwnedBanksAction) {
+        if (!this.store.selectSnapshot(AppState.myBanks) || force) {
             this.bankService.getMyOwenedBanks(payload.uid).pipe(
                 first()
                 , retry(3)

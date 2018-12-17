@@ -1,12 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Actions, ofActionSuccessful, Store, Select } from '@ngxs/store';
-import { first, tap } from 'rxjs/operators';
-import { LoginAction, LogoutAction } from './login/state/actions';
-import { Bank } from './models/bank';
-import { LoginSuccessfulEvent, LogoutSuccessfulEvent } from './shared/state/events';
-import { AppState } from './shared/state/app.state';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { AppState } from './shared/state/app.state';
 
 @Component({
   selector: 'app-root',

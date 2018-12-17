@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>PiggyBank</title>
-  <base href="/">
+  <base href=".">
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5.0, user-scalable=yes">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -14,8 +14,18 @@
 
 <body>
   <div class="content">
-    <app-root></app-root>
+    <app-root>
+      <div style="width:100vw;height:100vh;display:flex;justify-content: center;align-items: center">
+        <h4>Please wait while loading the app</h4>
+      </div>
+    </app-root>
   </div>
+  <style>
+    .content {
+      width: 900px;
+    }
+
+  </style>
 </body>
 
 </html>
