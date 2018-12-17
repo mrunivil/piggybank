@@ -5,6 +5,9 @@ import { Token } from 'src/app/models/token';
 
 @Injectable()
 export class FirebaseInviteService extends InviteService {
+    checkBank(id: string): Observable<import("d:/webprojects/PiggyBank/src/app/models/bank").Bank> {
+        throw new Error('Method not implemented.');
+    }
     checkToken(uid: string): Observable<Token> {
         throw new Error('Not implemented yet');
     }

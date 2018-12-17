@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { Token } from 'src/app/models/token';
 import { environment } from 'src/environments/environment.prod';
 import { tap, map } from 'rxjs/operators';
+import { Bank } from 'src/app/models/bank';
 
 @Injectable()
 export class LocalInviteService extends InviteService {
@@ -24,6 +25,19 @@ export class LocalInviteService extends InviteService {
                 const d2 = new Date().getTime();
                 if (d1 < d2) {
                     throw new Error('Leider ist deine Einladung abgelaufen. Lass dir bitte eine neue schicken');
+                }
+            })
+            , map(res => res.pop())
+        )
+    }
+
+    checkBank(id: string): Observable<Bank> {
+        const params = new HttpParams()
+            .append('id', id);
+        return this.http.get<Bank[]>(`${this.endpoint}/user_banks`, { params }).pipe(
+            tap((res: Bank[]) => {
+                if (res.length !== 1) {
+                    throw new Error('Leider konnte die Datenbank nicht gefunden werden');
                 }
             })
             , map(res => res.pop())

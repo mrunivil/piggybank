@@ -2,7 +2,7 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { first, tap } from 'rxjs/operators';
 import { Token } from 'src/app/models/token';
 import { InviteService } from '../services/invite.service';
-import { CheckTokenAction } from './actions';
+import { CheckTokenAction, CheckTokenSuccessfulEvent } from './actions';
 
 export class InviteStateModel {
     initialized: boolean;
@@ -34,6 +34,7 @@ export class InviteState {
             })
         )
     }
+
 
 
 }

@@ -176,7 +176,6 @@ export class AppState {
         const currentBank = { ...getState().currentBank };
         currentBank.balance += payload.amount || 0;
         dispatch(new UpdateUserBankAction(currentBank)).pipe(first()).subscribe(_ => {
-            debugger
             patchState({
                 currentBank: currentBank
             })

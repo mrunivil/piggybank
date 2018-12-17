@@ -4,6 +4,7 @@
     "email": "adolfo.mendez@example.com",
     "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
   }],
+  "token": [],
   "user_feedback": [],
   "user_preferences": [{
     "allowPhoto": true,

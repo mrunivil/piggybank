@@ -24,21 +24,23 @@ import { InviteState } from '../../state/invite.state';
 })
 export class InviteComponent {
 
-    token: Token;
-
     constructor(
         private activeRoute: ActivatedRoute
-        , private http: HttpClient
+        , private actions: Actions
         , private store: Store
     ) {
         this.activeRoute.params.subscribe(params => {
             this.store.dispatch(new CheckTokenAction(params['token'])).pipe(
                 first()
             ).subscribe(_ => {
-                this.store.dispatch([
-                    new CheckTokenSuccessfulEvent(this.store.selectSnapshot(InviteState.token))
+                if (confirm(`Möchtest du der ${this.store.selectSnapshot(InviteState.token).name} beitreten?`)) {
+                    // Füge neues Member hinzu
 
-                ])
+                    //redirect to bank details
+                } else {
+                    // redirect to dashboard
+                }
+                // Lösche den Token
             }, err => this.store.dispatch(new CheckTokenFailEvent(err)));
         });
     }

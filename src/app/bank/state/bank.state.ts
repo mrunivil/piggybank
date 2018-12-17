@@ -102,6 +102,7 @@ export class BankState {
     shareYourBank({ dispatch }: StateContext<BankStateModel>) {
         this.bankService.invite(new Token(
             this.store.selectSnapshot(AppState.currentBank).id,
+            this.store.selectSnapshot(AppState.currentBank).name
         )).pipe(first(), retry(3)).subscribe(
             res => dispatch(new ShareedYourBankSuccessfullEvent(res))
             , err => dispatch(new ShareedYourBankFailEvent(err)));
