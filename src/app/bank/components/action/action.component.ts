@@ -22,6 +22,9 @@ export class ActionComponent {
     constructor(private store: Store, private actions: Actions) {
         this.action = new Deposit(this.store.selectSnapshot(AppState.currentUser), 0);
     }
+    back() {
+        this.store.dispatch(new RedirectToBankDetailsAction);
+    }
 
     onSelectionChanged(type: string) {
         switch (type) {

@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Bank } from 'src/app/models/bank';
 import { User } from 'src/app/models/user';
-import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
+import { RedirectToDashboardAction, RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 import { ShareYourBankAction } from '../../state/actions';
 
@@ -18,7 +18,7 @@ export class HeaderComponent {
   @Select(AppState.currentUser) currentUser$: Observable<User>;
 
   @Input() title: string;
-
+  @Input() backFunction: Function;
   constructor(private store: Store) { }
 
   share() {
@@ -26,7 +26,8 @@ export class HeaderComponent {
   }
 
   back() {
-    this.store.dispatch(new RedirectToDashboardAction);
+    this.backFunction()
+    // this.store.dispatch(new RedirectToDashboardAction);
   }
 
 }

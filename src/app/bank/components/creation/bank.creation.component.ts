@@ -6,7 +6,7 @@ import { CreateBankHistory } from 'src/app/models/actions/create-bank';
 import { SetOwnerHistory } from 'src/app/models/actions/set-owner';
 import { Bank } from 'src/app/models/bank';
 import { User } from 'src/app/models/user';
-import { RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
+import { RedirectToBankDetailsAction, RedirectToDashboardAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 import { AddNewHistoryAction, ResetStateAction, SaveNewUserBankAction, SaveNewUserBankFailEvent, SaveNewUserBankSuccessEvent } from '../../state/actions';
 import { BankState } from '../../state/bank.state';
@@ -33,6 +33,10 @@ export class BankCreationComponent {
             members: []
         } as Bank;
         this.store.dispatch(new ResetStateAction);
+    }
+
+    back() {
+        this.store.dispatch(new RedirectToDashboardAction);
     }
 
     save() {

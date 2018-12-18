@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Actions, Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Bank } from 'src/app/models/bank';
-import { RedirectToAction } from 'src/app/shared/state/actions';
+import { RedirectToAction, RedirectToDashboardAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 import { LoadBankHistoryAction, ResetStateAction, ToggleHistoryDteailsAction } from '../../state/actions';
 import { BankState } from '../../state/bank.state';
@@ -26,6 +26,10 @@ export class BankDetailsComponent implements OnInit {
             new ResetStateAction
             , new LoadBankHistoryAction(this.store.selectSnapshot(AppState.currentBank).id)
         ]);
+    }
+
+    back() {
+        this.store.dispatch(new RedirectToDashboardAction);
     }
 
     showHistory() {

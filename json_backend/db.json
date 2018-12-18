@@ -42,7 +42,7 @@
         "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
       },
       "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 1,
+      "balance": 3.5,
       "paypal_account": "adolfo.mendez@example.com",
       "members": [
         {
@@ -189,6 +189,19 @@
       "type": "Besitzer geändert",
       "date": "2018-12-17T23:32:04.155Z",
       "id": 8
+    },
+    {
+      "bank_id": 1,
+      "user": {
+        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+        "email": "adolfo.mendez@example.com",
+        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+      },
+      "comment": "Einzahlung am 18.12.2018",
+      "type": "Einzahlung",
+      "date": "2018-12-18T00:55:13.063Z",
+      "amount": 2.5,
+      "id": 9
     }
   ]
 }
