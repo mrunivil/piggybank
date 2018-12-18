@@ -44,21 +44,49 @@
       "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
       "balance": 1,
       "paypal_account": "adolfo.mendez@example.com",
-      "members": [],
+      "members": [
+        {
+          "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+          "email": "adolfo.mendez@example.com",
+          "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+        },
+        {
+          "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+          "email": "adolfo.mendez@example.com",
+          "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+        },
+        {
+          "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+          "email": "adolfo.mendez@example.com",
+          "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+        },
+        {
+          "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+          "email": "adolfo.mendez@example.com",
+          "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+        },
+        {
+          "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+          "email": "adolfo.mendez@example.com",
+          "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+        },
+        {
+          "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+          "email": "adolfo.mendez@example.com",
+          "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+        },
+        {
+          "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+          "email": "adolfo.mendez@example.com",
+          "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+        },
+        {
+          "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
+          "email": "adolfo.mendez@example.com",
+          "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
+        }
+      ],
       "id": 1
-    },
-    {
-      "name": "test2",
-      "owner": {
-        "uid": "081710c6-e962-4a81-955c-93d4bc36c902",
-        "email": "adolfo.mendez@example.com",
-        "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
-      },
-      "photoURL": "https://randomuser.me/api/portraits/thumb/men/25.jpg",
-      "balance": 0,
-      "paypal_account": "adolfo.mendez@example.com",
-      "members": [],
-      "id": 2
     }
   ],
   "bank_history": [

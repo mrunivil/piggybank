@@ -1,4 +1,5 @@
 import { Token } from 'src/app/models/token';
+import { Bank } from 'src/app/models/bank';
 
 export class CheckTokenAction {
     static readonly type = '[INVITE MODULE - CHECK TOKEN]';
@@ -13,15 +14,18 @@ export class CheckTokenFailEvent {
     constructor(public payload: Error) { }
 }
 
+export class DeleteTokenAction {
+    static readonly type = '[INVITE MODULE - DELETE USED TOKEN]';
+}
+
 export class AddMemberAction {
     static readonly type = '[INVITE MODULE - ADD USER AS MEMBER]';
-    constructor(public payload: Token) { }
 }
 export class AddMemberSuccessfulEvent {
-    static readonly type = '[INVITE MODULE - ADD USER AS MEMBER]';
-    constructor(public payload: string) { }
+    static readonly type = '[INVITE MODULE - ADD USER AS MEMBER SUCCESSFULL]';
+    constructor(public payload: Bank) { }
 }
 export class AddMemberFailEvent {
-    static readonly type = '[INVITE MODULE - ADD USER AS MEMBER]';
+    static readonly type = '[INVITE MODULE - ADD USER AS MEMBER FAIL]';
     constructor(public payload: Error) { }
 }

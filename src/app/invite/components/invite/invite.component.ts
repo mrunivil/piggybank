@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { take, first, catchError } from 'rxjs/operators';
+import { take, first, catchError, concat } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Token } from 'src/app/models/token';
 import { environment } from 'src/environments/environment';
@@ -9,9 +9,10 @@ import { AppState } from 'src/app/shared/state/app.state';
 import { LocalInviteService } from '../../services/local/invite.service';
 import { InviteService } from '../../services/invite.service';
 import { of } from 'rxjs';
-import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
-import { CheckTokenAction, CheckTokenSuccessfulEvent, CheckTokenFailEvent } from '../../state/actions';
+import { RedirectToDashboardAction, RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
+import { CheckTokenAction, CheckTokenSuccessfulEvent, CheckTokenFailEvent, AddMemberAction, AddMemberSuccessfulEvent, AddMemberFailEvent, DeleteTokenAction } from '../../state/actions';
 import { InviteState } from '../../state/invite.state';
+import { dispatch } from 'rxjs/internal/observable/pairs';
 
 @Component({
     template: `
@@ -34,14 +35,29 @@ export class InviteComponent {
                 first()
             ).subscribe(_ => {
                 if (confirm(`Möchtest du der ${this.store.selectSnapshot(InviteState.token).name} beitreten?`)) {
-                    // Füge neues Member hinzu
-
-                    //redirect to bank details
+                    this.store.dispatch(new AddMemberAction)
+                        .pipe(
+                            catchError(err => {
+                                this.store.dispatch(new CheckTokenFailEvent(err));
+                                throw err
+                            })
+                        )
+                        .subscribe(_ => {
+                            this.store.dispatch([
+                                // Add new Member to Bank
+                                new AddMemberSuccessfulEvent(this.store.selectSnapshot(InviteState.bank))
+                                //redirect to bank details
+                                , new RedirectToBankDetailsAction]);
+                        }, err => {
+                            this.store.dispatch(new CheckTokenFailEvent(err));
+                        })
                 } else {
                     // redirect to dashboard
+                    this.store.dispatch(new RedirectToDashboardAction);
                 }
                 // Lösche den Token
-            }, err => this.store.dispatch(new CheckTokenFailEvent(err)));
+                this.store.dispatch(new DeleteTokenAction);
+            }, err => this.store.dispatch([new CheckTokenFailEvent(err)]));
         });
     }
 }

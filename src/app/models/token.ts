@@ -1,4 +1,5 @@
 export class Token {
+    id?: string;
     uid: string;
     bankid: string;
     valid: Date;

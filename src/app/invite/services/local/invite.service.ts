@@ -4,8 +4,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Token } from 'src/app/models/token';
 import { environment } from 'src/environments/environment.prod';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, first, retry, delay } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
+import { User } from 'src/app/models/user';
 
 @Injectable()
 export class LocalInviteService extends InviteService {
@@ -31,6 +32,11 @@ export class LocalInviteService extends InviteService {
         )
     }
 
+    deleteToken(token: Token): Observable<Token> {
+        const params = new HttpParams().append('uid', token.uid);
+        return this.http.delete<Token>(`${this.endpoint}/token/${token.id}`, { params })
+    }
+
     checkBank(id: string): Observable<Bank> {
         const params = new HttpParams()
             .append('id', id);
@@ -44,8 +50,8 @@ export class LocalInviteService extends InviteService {
         )
     }
 
-    addMember() {
-
+    addMember(bank: Bank): Observable<Bank> {
+        return this.http.put<Bank>(`${this.endpoint}/user_banks/${bank.id}`, bank).pipe(delay(Math.floor(Math.random() * 200) + 300));
     }
 
     removeToken() {
