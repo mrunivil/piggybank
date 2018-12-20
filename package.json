@@ -4,11 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "start json-server --watch json_backend/db.json && ng s -o",
-    "build": "ng build",
+    "build": "ng build --prod --optimization && cd dist && gzip -r .",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer dist/stats.json"
+    "bundle-report": "ng build --prod --optimization --stats-json && webpack-bundle-analyzer dist/stats.json"
   },
   "private": true,
   "dependencies": {
