@@ -1,7 +1,5 @@
-import { Observable } from 'rxjs';
-import { Payment } from '../../models/actions/payment';
-import { History } from '../../models/action';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Bank } from 'src/app/models/bank';
 import { environment } from 'src/environments/environment';
 

@@ -1,11 +1,10 @@
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import { first, tap, concat, merge, switchAll, switchMap, retry, catchError } from 'rxjs/operators';
-import { Token } from 'src/app/models/token';
-import { InviteService } from '../services/invite.service';
-import { CheckTokenAction, CheckTokenSuccessfulEvent, AddMemberAction, AddMemberSuccessfulEvent, AddMemberFailEvent, DeleteTokenAction } from './actions';
+import { first, retry, switchMap, tap } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
+import { Token } from 'src/app/models/token';
 import { AppState } from 'src/app/shared/state/app.state';
-import { of, throwError } from 'rxjs';
+import { InviteService } from '../services/invite.service';
+import { AddMemberAction, CheckTokenAction, DeleteTokenAction } from './actions';
 
 export class InviteStateModel {
     initialized: boolean;

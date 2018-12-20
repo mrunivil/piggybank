@@ -1,4 +1,4 @@
-import { Action, Actions, Selector, State, StateContext, Store } from '@ngxs/store';
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { first, retry, tap } from 'rxjs/operators';
 import { History } from 'src/app/models/action';
 import { Bank } from 'src/app/models/bank';
@@ -28,7 +28,7 @@ export class BankStateModel {
 })
 export class BankState {
 
-    constructor(private bankService: BankService, private store: Store, private actions: Actions) { }
+    constructor(private bankService: BankService, private store: Store) { }
 
     @Selector()
     static currentBank({ currentBank }: BankStateModel) {

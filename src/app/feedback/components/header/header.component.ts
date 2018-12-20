@@ -1,9 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { LogoutAction } from 'src/app/login/state/actions';
 import { User } from 'src/app/models/user';
-import { RedirectToLoginAction, RedirectToPreferencesAction, RedirectToFeedbackAction, RedirectToDashboardAction } from 'src/app/shared/state/actions';
+import { RedirectToDashboardAction, RedirectToFeedbackAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 
 @Component({

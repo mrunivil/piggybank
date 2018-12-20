@@ -17,7 +17,6 @@ export class LoadUserOwnedBanksFailEvent {
     static readonly type = '[DASHBOARD LOAD] failed load owners banks';
     constructor(public payload: Error) { }
 }
-
 /**
  * Loading banks owned by others and logged in user is member
  */
@@ -32,12 +31,4 @@ export class LoadMemberBanksSuccessEvent {
 export class LoadMemberBanksFailEvent {
     static readonly type = '[DASHBOARD LOAD] failed  load members banks';
     constructor(public payload: Error) { }
-}
-
-/**
- * Prevent a complete reload and just add created bank to state
- */
-export class AttachBankAction {
-    static readonly type = '[DASHBOARD ATTACH] attach new created bank';
-    constructor(public payload: Bank) { }
 }

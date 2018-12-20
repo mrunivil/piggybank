@@ -1,9 +1,8 @@
-import { Observable } from 'rxjs';
-import { User } from '../../models/user';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { Token } from 'src/app/models/token';
+import { Observable } from 'rxjs';
 import { Bank } from 'src/app/models/bank';
+import { Token } from 'src/app/models/token';
+import { environment } from 'src/environments/environment';
 
 export interface InviteServiceInterface {
     checkToken(uid: string): Observable<Token>;

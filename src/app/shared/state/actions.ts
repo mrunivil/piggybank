@@ -1,26 +1,12 @@
 import { Bank } from 'src/app/models/bank';
-import { Preferences } from 'src/app/models/preferences';
-import { User } from 'src/app/models/user';
 
 export class ResetAppStateAction {
     static readonly type = '[APP RESET] reset state to defaults';
 }
-
-export class SetUserAction {
-    static readonly type = '[APP SET USER INFORMATION] recieving user information';
-    constructor(public payload: User) { }
-}
-
-export class SetUserPreferences {
-    static readonly type = '[APP SET USER PREFERENCES] recieving user information';
-    constructor(public payload: Preferences) { }
-}
-
 export class BankSelectionChangedEvent {
     static readonly type = '[APP SET SELECTED BANK] user selected bank';
     constructor(public payload: Bank) { }
 }
-
 export class RedirectToLoginAction {
     static readonly type = '[APP REDIRECT] /login';
     constructor(public payload?: URL) { }

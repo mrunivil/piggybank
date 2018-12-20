@@ -1,9 +1,9 @@
-import { Bank } from 'src/app/models/bank';
 import { Observable } from 'rxjs';
 import { History } from 'src/app/models/action';
-import { environment } from 'src/environments/environment';
-import { User } from 'src/app/models/user';
+import { Bank } from 'src/app/models/bank';
 import { Token } from 'src/app/models/token';
+import { User } from 'src/app/models/user';
+import { environment } from 'src/environments/environment';
 
 export interface BankServiceInterface {
     getMembers(id: string): Observable<User[]>;

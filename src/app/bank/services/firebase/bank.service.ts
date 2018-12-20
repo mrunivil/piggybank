@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { History } from 'src/app/models/action';
 import { Bank } from 'src/app/models/bank';
 import { BankService } from '../bank.service';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class FirebaseBankService extends BankService {

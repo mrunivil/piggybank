@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Actions, Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Store } from '@ngxs/store';
 import { first, retry } from 'rxjs/operators';
 import { CreateBankHistory } from 'src/app/models/actions/create-bank';
 import { SetOwnerHistory } from 'src/app/models/actions/set-owner';
@@ -22,7 +21,7 @@ export class BankCreationComponent {
     user: User;
     bank: Bank;
 
-    constructor(public store: Store, private actions: Actions) {
+    constructor(public store: Store) {
         this.user = this.store.selectSnapshot(AppState.currentUser);
         this.bank = {
             name: `${this.user.email}´s Bank`,

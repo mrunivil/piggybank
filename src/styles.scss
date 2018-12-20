@@ -10,6 +10,7 @@ html {
 body {
   display: flex;
   justify-content: center;
+  background-color: #eee;
 }
 
 .fab-bottom-right {
@@ -22,8 +23,6 @@ button {
   cursor: pointer;
   padding: .5rem;
 }
-
-
 
 .content-wrapper {
   margin: calc(var(--header-size) + 0.5rem) 0;

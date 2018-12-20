@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { Actions, Select, Store, ofActionSuccessful } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
+import { first } from 'rxjs/operators';
+import { LoadUserOwnedBanksAction } from 'src/app/dashboard/state/actions';
 import { BalanceChange } from 'src/app/models/actions/balance-change';
 import { Deposit } from 'src/app/models/actions/deposit';
 import { Payment } from 'src/app/models/actions/payment';
-import { AppState } from 'src/app/shared/state/app.state';
-import { AddNewHistoryAction, UpdateUserBankSuccessEvent, UpdateUserBankAction } from '../../state/actions';
-import { first } from 'rxjs/operators';
 import { RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
-import { LoadUserOwnedBanksAction } from 'src/app/dashboard/state/actions';
+import { AppState } from 'src/app/shared/state/app.state';
+import { AddNewHistoryAction, UpdateUserBankSuccessEvent } from '../../state/actions';
 
 @Component({
     templateUrl: './action.component.html',

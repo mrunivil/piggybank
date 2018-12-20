@@ -1,11 +1,2 @@
 <router-outlet></router-outlet>
-
-
-
 <div *ngIf="(error$|async)" style="background-color: red;width:100%;padding:1rem">{{(error$|async)?.message}}</div>
-
-<h1>Test Links</h1>
-<div *ngFor="let token of tokens$|async">
-  <a [href]="token.target">test invite link</a><br>
-</div>
-<a href="http://localhost:4200/invite?token=dengibtsjagarnicht">test invite link gibts nicht</a><br>

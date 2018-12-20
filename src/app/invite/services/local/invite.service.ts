@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
-import { InviteService } from '../invite.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of, concat } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { delay, map, tap } from 'rxjs/operators';
+import { Bank } from 'src/app/models/bank';
 import { Token } from 'src/app/models/token';
 import { environment } from 'src/environments/environment.prod';
-import { tap, map, first, retry, delay, flatMap, catchError } from 'rxjs/operators';
-import { Bank } from 'src/app/models/bank';
-import { User } from 'src/app/models/user';
+import { InviteService } from '../invite.service';
 
 @Injectable()
 export class LocalInviteService extends InviteService {

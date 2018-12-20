@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { History } from 'src/app/models/action';
 import { BalanceChange } from 'src/app/models/actions/balance-change';
-import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-history',

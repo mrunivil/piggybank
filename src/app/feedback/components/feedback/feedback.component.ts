@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Actions, Select, Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Feedback } from 'src/app/models/feedback';
 import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
@@ -17,7 +17,7 @@ export class FeedbackComponent implements OnInit {
     @Select(FeedbackState.feedback) feedBacks$: Observable<Feedback[]>;
     feedback: Feedback;
 
-    constructor(public store: Store, private actions: Actions) {
+    constructor(public store: Store) {
         this.feedback = {
             comment: '',
             rating: 0,

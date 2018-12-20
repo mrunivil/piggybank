@@ -1,12 +1,12 @@
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay, first, switchMap, tap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { delay, map } from 'rxjs/operators';
 import { History } from 'src/app/models/action';
 import { Bank } from 'src/app/models/bank';
-import { BankService } from '../bank.service';
-import { User } from 'src/app/models/user';
 import { Token } from 'src/app/models/token';
+import { User } from 'src/app/models/user';
+import { BankService } from '../bank.service';
 
 
 

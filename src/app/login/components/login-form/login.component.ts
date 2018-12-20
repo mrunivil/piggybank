@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Navigate } from '@ngxs/router-plugin';
 import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { first, tap } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
-import { RedirectToDashboardAction, RedirectToLoginAction } from 'src/app/shared/state/actions';
+import { RedirectToLoginAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 import { LoginSuccessfulEvent, LogoutSuccessfulEvent } from 'src/app/shared/state/events';
 import { LoginAction, LogoutAction } from '../../state/actions';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Navigate } from '@ngxs/router-plugin';
-import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',

@@ -1,25 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { take, first, catchError, concat } from 'rxjs/operators';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Token } from 'src/app/models/token';
-import { environment } from 'src/environments/environment';
-import { Store, Actions, ofActionSuccessful } from '@ngxs/store';
-import { AppState } from 'src/app/shared/state/app.state';
-import { LocalInviteService } from '../../services/local/invite.service';
-import { InviteService } from '../../services/invite.service';
-import { of } from 'rxjs';
-import { RedirectToDashboardAction, RedirectToBankDetailsAction } from 'src/app/shared/state/actions';
-import { CheckTokenAction, CheckTokenSuccessfulEvent, CheckTokenFailEvent, AddMemberAction, AddMemberSuccessfulEvent, AddMemberFailEvent, DeleteTokenAction } from '../../state/actions';
+import { Store } from '@ngxs/store';
+import { catchError, first } from 'rxjs/operators';
+import { RedirectToBankDetailsAction, RedirectToDashboardAction } from 'src/app/shared/state/actions';
+import { AddMemberAction, AddMemberSuccessfulEvent, CheckTokenAction, CheckTokenFailEvent, DeleteTokenAction } from '../../state/actions';
 import { InviteState } from '../../state/invite.state';
-import { dispatch } from 'rxjs/internal/observable/pairs';
 
 @Component({
     template: `
     <app-header [title]="'Einladung'"></app-header>
     <div class="content-wrapper">
         <h1> Iam the invitation module of the piggy bank app </h1>
-        {{token|json}}
     </div>
     `
 })
@@ -27,7 +18,6 @@ export class InviteComponent {
 
     constructor(
         private activeRoute: ActivatedRoute
-        , private actions: Actions
         , private store: Store
     ) {
         this.activeRoute.params.subscribe(params => {

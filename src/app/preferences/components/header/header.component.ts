@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Navigate } from '@ngxs/router-plugin';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { LogoutAction } from 'src/app/login/state/actions';
 import { User } from 'src/app/models/user';
-import { AppState } from 'src/app/shared/state/app.state';
 import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
+import { AppState } from 'src/app/shared/state/app.state';
 
 @Component({
   selector: 'app-header',

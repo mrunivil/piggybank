@@ -1,6 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Select } from '@ngxs/store';
-import { DashboardState } from '../../state/dashboard.state';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bank } from 'src/app/models/bank';
 
@@ -9,12 +7,9 @@ import { Bank } from 'src/app/models/bank';
   templateUrl: './bank-list.component.html',
   styleUrls: ['./bank-list.component.scss']
 })
-export class BankListComponent implements OnInit {
+export class BankListComponent {
 
   @Input() banks$: Observable<Bank[]>;
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

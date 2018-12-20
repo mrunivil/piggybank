@@ -1,9 +1,7 @@
-import { Action, State, StateContext, Store } from '@ngxs/store';
+import { Action, State, StateContext } from '@ngxs/store';
 import { first, retry } from 'rxjs/operators';
-import { ResetAppStateAction } from 'src/app/shared/state/actions';
-import { AppState } from 'src/app/shared/state/app.state';
 import { DashboardService } from '../services/dashboard.service';
-import { LoadMemberBanksFailEvent, LoadUserOwnedBanksFailEvent, LoadMemberBanksAction, LoadUserOwnedBanksAction, LoadMemberBanksSuccessEvent, LoadUserOwnedBanksSuccessEvent } from './actions';
+import { LoadMemberBanksAction, LoadMemberBanksFailEvent, LoadMemberBanksSuccessEvent, LoadUserOwnedBanksAction, LoadUserOwnedBanksFailEvent, LoadUserOwnedBanksSuccessEvent } from './actions';
 
 export class DashboardStateModel {
     initialized: boolean;
@@ -17,7 +15,7 @@ export class DashboardStateModel {
 })
 export class DashboardState {
 
-    constructor(private bankService: DashboardService, private store: Store) { }
+    constructor(private bankService: DashboardService) { }
 
     /**
      * Load banks owned by the user

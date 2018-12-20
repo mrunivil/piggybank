@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
 import { Preferences } from 'src/app/models/preferences';
 import { RedirectToDashboardAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 import { LoadUserPreferencesAction, UpdateUserPreferencesAction } from '../../state/actions';
-import { LoadUserPreferencesSuccessfulEvent, UpdateUserPreferencesSuccessEvent } from 'src/app/shared/state/events';
 
 @Component({
   selector: 'app-preferences',
@@ -17,7 +15,7 @@ export class PreferencesComponent implements OnInit {
 
   @Select(AppState.preferences) preferences$: Observable<Preferences>;
 
-  constructor(private store: Store, private actions: Actions) { }
+  constructor(private store: Store) { }
 
   ngOnInit() {
     this.store.dispatch(new LoadUserPreferencesAction);

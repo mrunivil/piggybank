@@ -6,8 +6,6 @@ import { User } from 'src/app/models/user';
 import { RedirectToBankCreationAction } from 'src/app/shared/state/actions';
 import { AppState } from 'src/app/shared/state/app.state';
 import { LoadMemberBanksAction, LoadUserOwnedBanksAction } from '../../state/actions';
-import { DashboardState } from '../../state/dashboard.state';
-import { SaveNewBankAction } from 'src/app/bank/state/actions';
 /**
  *
  * @export
@@ -26,6 +24,7 @@ export class DashboardComponent implements OnInit {
   @Select(AppState.otherBanks) otherBanks$: Observable<Bank[]>;
 
   showMyBanks = true;
+  showOthersBanks = true;
 
   constructor(public store: Store) { }
 
@@ -42,5 +41,9 @@ export class DashboardComponent implements OnInit {
 
   toggleMyBanks() {
     this.showMyBanks = !this.showMyBanks;
+  }
+
+  toggleOthersBanks() {
+    this.showOthersBanks = !this.showOthersBanks;
   }
 }

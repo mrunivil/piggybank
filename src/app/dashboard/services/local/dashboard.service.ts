@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { delay, first, tap, filter, map, concatMap, flatMap, concatAll, reduce } from 'rxjs/operators';
+import { filter, flatMap, reduce, tap } from 'rxjs/operators';
 import { Bank } from 'src/app/models/bank';
 import { DashboardService } from '../dashboard.service';
 

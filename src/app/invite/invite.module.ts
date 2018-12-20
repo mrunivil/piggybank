@@ -1,16 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InviteComponent } from './components/invite/invite.component';
-import { RouterModule, PreloadAllModules } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedModule } from '../shared/shared.module';
-import { InviteService } from './services/invite.service';
-import { environment } from 'src/environments/environment';
-import { LocalInviteService } from './services/local/invite.service';
-import { FirebaseInviteService } from './services/firebase/invite.service';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { NgxsModule } from '@ngxs/store';
-import { InviteState } from './state/invite.state';
+import { environment } from 'src/environments/environment';
 import { HeaderComponent } from './components/header/header.component';
+import { InviteComponent } from './components/invite/invite.component';
+import { FirebaseInviteService } from './services/firebase/invite.service';
+import { InviteService } from './services/invite.service';
+import { LocalInviteService } from './services/local/invite.service';
+import { InviteState } from './state/invite.state';
 
 @NgModule({
     declarations: [InviteComponent, HeaderComponent],
@@ -21,7 +20,6 @@ import { HeaderComponent } from './components/header/header.component';
     ],
     imports: [
         CommonModule,
-        //testing
         HttpClientModule,
         RouterModule.forChild([
             {

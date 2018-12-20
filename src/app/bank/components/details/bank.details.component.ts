@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Actions, Select, Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Bank } from 'src/app/models/bank';
 import { RedirectToAction, RedirectToDashboardAction } from 'src/app/shared/state/actions';
@@ -19,7 +18,7 @@ export class BankDetailsComponent implements OnInit {
     @Select(BankState.onlyBalanceChanges) onlyBalanceChanges$: Observable<boolean>;
     @Select(BankState.history) history$: Observable<History[]>;
 
-    constructor(private route: ActivatedRoute, private store: Store, private actions: Actions) { }
+    constructor(private store: Store) { }
 
     ngOnInit() {
         this.store.dispatch([

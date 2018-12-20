@@ -17,11 +17,12 @@
       <app-bank-list [banks$]="myBanks$" *ngIf="showMyBanks"></app-bank-list>
     </div>
     <div>
-      <h3>
+      <h3 (click)="toggleOthersBanks()">
         Piggy Banks Anderer
-        <i class="material-icons">arrow_right</i>
+        <i *ngIf="showOthersBanks" class="material-icons">arrow_drop_up</i>
+        <i *ngIf="!showOthersBanks" class="material-icons">arrow_drop_down</i>
       </h3>
-      <app-bank-list [banks$]="otherBanks$"></app-bank-list>
+      <app-bank-list [banks$]="otherBanks$" *ngIf="showOthersBanks"></app-bank-list>
     </div>
   </span>
 </div>

@@ -1,8 +1,7 @@
-import { User } from 'src/app/models/user';
-import { Preferences } from 'src/app/models/preferences';
-import { Feedback } from 'src/app/models/feedback';
-import { Bank } from 'src/app/models/bank';
 import { History } from 'src/app/models/action';
+import { Feedback } from 'src/app/models/feedback';
+import { Preferences } from 'src/app/models/preferences';
+import { User } from 'src/app/models/user';
 
 /**
  * Login Events
