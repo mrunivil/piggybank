@@ -5,6 +5,8 @@ import { NgxsModule } from '@ngxs/store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     NgxsModule.forRoot(),
     NgxsRouterPluginModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     // NgxsReduxDevtoolsPluginModule.forRoot({
     //   disabled: environment.production
     // }),
