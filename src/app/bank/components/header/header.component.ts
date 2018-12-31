@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Bank } from 'src/app/models/bank';
 import { User } from 'src/app/models/user';
@@ -18,7 +18,7 @@ export class HeaderComponent {
   @Input() title: string;
   @Input() backFunction: Function;
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   copyMessage(val: string) {
     let selBox = document.createElement('textarea');
@@ -56,7 +56,7 @@ export class HeaderComponent {
   }
 
   back() {
-    this.backFunction()
+    this.store.dispatch(this.backFunction());
     // this.store.dispatch(new RedirectToDashboardAction);
   }
 

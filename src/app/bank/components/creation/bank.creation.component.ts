@@ -35,7 +35,7 @@ export class BankCreationComponent {
     }
 
     back() {
-        this.store.dispatch(new RedirectToDashboardAction);
+        return new RedirectToDashboardAction;
     }
 
     save() {

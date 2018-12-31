@@ -22,7 +22,7 @@ export class ActionComponent {
         this.action = new Deposit(this.store.selectSnapshot(AppState.currentUser), 0);
     }
     back() {
-        this.store.dispatch(new RedirectToBankDetailsAction);
+        return new RedirectToBankDetailsAction;
     }
 
     onSelectionChanged(type: string) {
