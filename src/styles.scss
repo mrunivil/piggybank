@@ -2,46 +2,66 @@
 
 @import 'variables';
 @import url('./utils/normalize.scss');
-
 html {
-  font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  background-color: #eee;
+    display: flex;
+    justify-content: center;
+    background-color: #eee;
 }
 
 .fab-bottom-right {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
 }
 
 button {
-  cursor: pointer;
-  padding: .5rem;
+    cursor: pointer;
+    padding: 0.5rem;
 }
 
 .content-wrapper {
-  margin: calc(var(--header-size) + 0.5rem) 0;
+    margin: calc(var(--header-size) + 0.5rem) 0;
 }
 
 .header {
-  height: var(--header-size);
-  background-color: var(--color-primary-background);
-  border-bottom: thin solid #ccc;
-  box-shadow: 0px 5px 5px #ccc;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  width: 100%;
+    height: var(--header-size);
+    background-color: var(--color-primary-background);
+    border-bottom: thin solid #ccc;
+    box-shadow: 0px 5px 5px #ccc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    display: grid;
+    align-items: center;
+    grid-template-rows: 1fr;
+    grid-template-columns: min-content min-content 1fr min-content;
+    grid-template-areas: 'avatar name space controlls';
+    .avatar {
+        grid-area: avatar;
+        border-radius: 50%;
+        width: 32pt;
+        height: 32pt;
+        background-size: contain;
+        background-position: center;
+    }
+    .name {
+        grid-area: name;
+    }
+    .controlls {
+        grid-area: controlls;
+        display: flex;
+        justify-content: flex-end;
+    }
 }
 
 .error {
-  background-color: red;
-  color: white;
-  padding: 0.5rem;
+    background-color: red;
+    color: white;
+    padding: 0.5rem;
 }

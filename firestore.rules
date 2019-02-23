@@ -1,0 +1,13 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	match /bank-icons/{icon}{
+    	allow read, write;
+    }
+    match /banks/{bank} {
+    	allow read, write : if request.auth.uid != null;
+    }
+    match /invite/{invite} {
+    	allow read, write : if request.auth.uid != null;
+    }
+  }
+}

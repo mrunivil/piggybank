@@ -1,3 +1,4 @@
+import { FirebaseDashboardService } from './../dashboard/services/firebase/dashboard.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -9,11 +10,11 @@ import { LocalAuthService } from './services/local/auth.service';
 import { AuthState } from './state/auth.state';
 import { NgxsModule } from '@ngxs/store';
 import { SharedModule } from '../shared/shared.module';
-
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { DashboardService } from '../dashboard/services/dashboard.service';
+import { LocalDashboardService } from '../dashboard/services/local/dashboard.service';
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,
@@ -22,8 +23,10 @@ import { SharedModule } from '../shared/shared.module';
   ],
   providers: [
     {
-      provide: AuthService, useClass: environment.service === 'local' ? LocalAuthService : FirebaseAuthService
+      provide: AuthService,
+      useClass:
+        environment.service === 'local' ? LocalAuthService : FirebaseAuthService
     }
   ]
 })
-export class LoginModule { }
+export class LoginModule {}

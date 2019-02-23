@@ -1,21 +1,29 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth';
-import { Observable } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class FirebaseAuthService extends AuthService {
+  constructor(private fireauth: AngularFireAuth) {
+    super();
+  }
 
   getCurrentUser(): Observable<User> {
-    throw 'not implemented yet';
+    return this.fireauth.authState;
   }
 
   loginWithGoogle(): Observable<User> {
-    throw 'not implemented yet';
+    return from(
+      this.fireauth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    ).pipe(map((uc: firebase.auth.UserCredential) => uc.user));
   }
 
   logout(): Observable<User> {
-    throw 'not implemented yet';
+    return from(this.fireauth.auth.signOut()).pipe(map(_ => undefined));
   }
-
 }

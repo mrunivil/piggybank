@@ -1,3 +1,7 @@
+import {
+  AngularFirestore,
+  AngularFirestoreModule
+} from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
@@ -11,7 +15,7 @@ import { DashboardService } from './services/dashboard.service';
 import { FirebaseDashboardService } from './services/firebase/dashboard.service';
 import { LocalDashboardService } from './services/local/dashboard.service';
 import { DashboardState } from './state/dashboard.state';
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,13 +26,18 @@ import { DashboardState } from './state/dashboard.state';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     NgxsModule.forFeature([DashboardState]),
     DashboardRoutingModule
   ],
   providers: [
     {
-      provide: DashboardService, useClass: environment.service === 'local' ? LocalDashboardService : FirebaseDashboardService
+      provide: DashboardService,
+      useClass:
+        environment.service === 'local'
+          ? LocalDashboardService
+          : FirebaseDashboardService
     }
   ]
 })
-export class DashboardModule { }
+export class DashboardModule {}

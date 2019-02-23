@@ -1,5 +1,12 @@
 <div class="content-wrapper">
   <h1>Do some awesome login via google or other vendor logins</h1>
-  <button *ngIf="!(_user|async)" (click)="loginWithGoogle()">Login via Google</button>
-  <button *ngIf="_user|async" (click)="logout()">Logout</button>
+  <h2>init done: {{ _initialized | async | json }}</h2>
+  <button
+    *ngIf="!(_user | async)"
+    [disabled]="!(_initialized | async)"
+    (click)="loginWithGoogle()"
+  >
+    Login via Google
+  </button>
+  <button *ngIf="(_user | async)" (click)="logout()">Logout</button>
 </div>
