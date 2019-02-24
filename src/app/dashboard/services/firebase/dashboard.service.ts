@@ -16,8 +16,16 @@ export class FirebaseDashboardService extends DashboardService {
   }
   getMyOwenedBanks(uid: string): Observable<Bank[]> {
     return this.firestore
-      .collection<Bank>('/user-banks', ref => ref.where('owner.uid', '==', uid))
-      .valueChanges();
+      .collection<Bank>('user-banks', ref => ref.where('owner', '==', uid))
+      .snapshotChanges().pipe(
+        map(changes => {
+          return changes.map(change => {
+            const ret = change.payload.doc.data();
+            ret.id = change.payload.doc.id;
+            return ret;
+          });
+        })
+      );
   }
   getMyOtherBanks(): Observable<Bank[]> {
     throw new Error('Method not implemented.');

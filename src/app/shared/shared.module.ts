@@ -8,16 +8,20 @@ import { AppState } from './state/app.state';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [],
   providers: [AuthGuard],
   imports: [
     CommonModule,
+    AngularFireModule.initializeApp(environment.config),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
     RouterModule,
     HttpClientModule,
     NgxsModule.forFeature([AppState])
   ],
   exports: []
 })
-export class SharedModule {}
+export class SharedModule { }

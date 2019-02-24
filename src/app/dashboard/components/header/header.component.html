@@ -1,12 +1,9 @@
 <div class="header">
   <button *ngIf="!($user | async)" (click)="login()">Login</button>
-  <div
-    *ngIf="($user | async)"
-    class="avatar"
-    [style.backgroundImage]="'url(' + ($user | async)?.photoURL + ')'"
-  ></div>
+  <div *ngIf="($user | async)" class="avatar"
+    [style.backgroundImage]="'url(' + ($user | async)?.photoURL + ')'"></div>
   <div *ngIf="($user | async)" class="name">
-    {{ ($user | async) ? ($user | async).email : 'unknown' }}
+    {{ ($user | async) ? ($user | async).displayName : 'unknown' }}
   </div>
   <div *ngIf="($user | async)" class="controlls">
     <button (click)="preferences()">

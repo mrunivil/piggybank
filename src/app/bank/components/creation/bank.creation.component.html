@@ -13,6 +13,10 @@
     <label>Bitte geb dein PayPal Konto an</label>
     <input type="text" [(ngModel)]="bank.paypal_account">
   </div>
+  <div>
+    <label>Wieviel Geld ist bereits in der Piggybank?</label>
+    <input type="number" [(ngModel)]="bank.balance">
+  </div>
   <button class="fab-bottom-right" (click)="save()">
     <i class="material-icons">save</i>
   </button>

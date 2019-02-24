@@ -2,6 +2,10 @@
 
 @import 'variables';
 @import url('./utils/normalize.scss');
+* {
+    box-sizing: border-box;
+}
+
 html {
     font-family: 'Roboto', sans-serif;
 }
@@ -27,8 +31,16 @@ button {
     margin: calc(var(--header-size) + 0.5rem) 0;
 }
 
+.avatar {
+    border-radius: 50%;
+    width: 32pt;
+    height: 32pt;
+    background-size: contain;
+    background-position: center;
+}
+
 .header {
-    height: var(--header-size);
+    // height: var(--header-size);
     background-color: var(--color-primary-background);
     border-bottom: thin solid #ccc;
     box-shadow: 0px 5px 5px #ccc;
@@ -40,18 +52,16 @@ button {
     display: grid;
     align-items: center;
     grid-template-rows: 1fr;
-    grid-template-columns: min-content min-content 1fr min-content;
+    grid-gap: 0.5rem;
+    padding: .5rem;
+    grid-template-columns: min-content max-content 1fr min-content;
     grid-template-areas: 'avatar name space controlls';
     .avatar {
         grid-area: avatar;
-        border-radius: 50%;
-        width: 32pt;
-        height: 32pt;
-        background-size: contain;
-        background-position: center;
     }
     .name {
         grid-area: name;
+        display: block;
     }
     .controlls {
         grid-area: controlls;

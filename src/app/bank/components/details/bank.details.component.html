@@ -1,8 +1,9 @@
 <app-header [title]="'Bank Details'" [backFunction]="back"></app-header>
 <div class="content-wrapper">
-
+  {{(currentBank$|async)?.id}}
   <div>
-    <img *ngIf="(currentBank$|async)?.photoURL" [src]="(currentBank$|async)?.photoURL" alt="no picture available">
+    <div *ngIf="(currentBank$ | async)" class="avatar"
+      [style.backgroundImage]="'url(' + (currentBank$ | async)?.photoURL + ')'"></div>
     <label style="padding:0.5rem" [innerHTML]="(currentBank$|async)?.name"></label>
   </div>
 
@@ -14,11 +15,13 @@
   <div>
     <h2>Mitglieder</h2>
     <span style="padding:0.5rem">
-      <img *ngIf="(currentBank$|async)?.owner?.photoURL" style="border-radius:50%;box-shadow:0px 0px 4px 4px green"
+      <img *ngIf="(currentBank$|async)?.owner?.photoURL"
+        style="border-radius:50%;box-shadow:0px 0px 4px 4px green"
         [src]="(currentBank$|async)?.owner.photoURL" alt="no picture available">
     </span>
     <span style="padding:0.5rem" *ngFor="let member of (currentBank$|async)?.members">
-      <img [src]="member.photoURL" alt="no picture available" style="border-radius:50%;box-shadow:2px 2px 4px gray">
+      <img [src]="member.photoURL" alt="no picture available"
+        style="border-radius:50%;box-shadow:2px 2px 4px gray">
     </span>
   </div>
 
@@ -29,7 +32,8 @@
       </button>
     </h2>
     <div *ngFor="let history of history$|async">
-      <app-history [onlyBalanceChanges]="onlyBalanceChanges$|async" [history]="history"></app-history>
+      <app-history [onlyBalanceChanges]="onlyBalanceChanges$|async" [history]="history">
+      </app-history>
     </div>
   </div>
 

@@ -14,9 +14,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    AngularFireModule.initializeApp(environment.config),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
+
     BrowserModule,
     AppRoutingModule,
     SharedModule,
@@ -36,4 +34,4 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

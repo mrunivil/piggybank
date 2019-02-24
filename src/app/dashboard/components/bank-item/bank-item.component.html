@@ -1,5 +1,5 @@
 <div class="list-item" (click)="showDetails()">
-  <img [src]="item.photoURL">
+  <div class="avatar" [style.backgroundImage]="'url('+item.photoURL+')'"></div>
   <label style="padding:0.5rem" [innerHTML]="(item.balance|number:'1.2-2') + ' €'"></label>
   <label style="padding:0.5rem" [innerHTML]="item.name"></label>
 </div>
@@ -9,10 +9,12 @@
     cursor: pointer;
     border-bottom: 1px solid lightgray;
     padding: 0.5rem;
+    display: grid;
+    grid-template-columns: min-content max-content 1fr;
+    grid-gap: 0.5rem;
   }
 
   .list-item:hover {
     background-color: lightblue;
   }
-
 </style>

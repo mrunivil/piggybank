@@ -13,12 +13,14 @@ import { FirebaseBankService } from './services/firebase/bank.service';
 import { LocalBankService } from './services/local/bank.service';
 import { BankState } from './state/bank.state';
 import { ActionComponent } from './components/action/action.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [HeaderComponent, BankDetailsComponent, BankCreationComponent, HistoryComponent, ActionComponent],
   imports: [
     CommonModule,
     FormsModule,
+    SharedModule,
     BankRoutingModule,
     NgxsModule.forFeature([BankState])
   ],

@@ -11,71 +11,70 @@ import { AddNewHistoryAction, ResetStateAction, SaveNewUserBankAction, SaveNewUs
 import { BankState } from '../../state/bank.state';
 
 @Component({
-    selector: 'app-bank-creation',
-    templateUrl: 'bank.creation.component.html',
-    styleUrls: ['bank.creation.component.scss']
+  selector: 'app-bank-creation',
+  templateUrl: 'bank.creation.component.html',
+  styleUrls: ['bank.creation.component.scss']
 })
 export class BankCreationComponent {
 
 
-    user: User;
-    bank: Bank;
+  user: User;
+  bank: Bank;
 
-    constructor(public store: Store) {
-        this.user = this.store.selectSnapshot(AppState.currentUser);
-        this.bank = {
-            name: `${this.user.email}´s Bank`,
-            owner: this.user,
-            photoURL: this.user.photoURL,
-            balance: 0,
-            paypal_account: this.user.email,
-            members: []
-        } as Bank;
-        this.store.dispatch(new ResetStateAction);
-    }
+  constructor(public store: Store) {
+    this.user = this.store.selectSnapshot(AppState.currentUser);
+    this.bank = {
+      name: `${this.user.displayName}´s Bank`,
+      owner: this.user,
+      photoURL: this.user.photoURL,
+      balance: 0,
+      paypal_account: null,
+      members: []
+    } as Bank;
+    this.store.dispatch(new ResetStateAction);
+  }
 
-    back() {
-        return new RedirectToDashboardAction;
-    }
+  back() {
+    return new RedirectToDashboardAction;
+  }
 
-    save() {
+  save() {
 
-        // save new user database
-        this.store.dispatch([
-            new SaveNewUserBankAction(this.bank)
-        ]).pipe(
-            first()
-            , retry(3)
-        ).subscribe(_ => {
-            this.store.dispatch([
-                new AddNewHistoryAction(this.store.selectSnapshot(BankState.currentBank).id, new CreateBankHistory(this.bank.owner))
-                , new AddNewHistoryAction(this.store.selectSnapshot(BankState.currentBank).id, new SetOwnerHistory(this.bank.owner))
-                , new SaveNewUserBankSuccessEvent(this.store.selectSnapshot(BankState.currentBank))
-                , new RedirectToBankDetailsAction])
-        }, err => {
-            this.store.dispatch(new SaveNewUserBankFailEvent(err));
-
+    // save new user database
+    this.store.dispatch(
+      new SaveNewUserBankAction(this.bank)
+    ).pipe(
+      first()
+    ).subscribe(_ => {
+      this.store.dispatch([
+        new AddNewHistoryAction(this.store.selectSnapshot(BankState.currentBank).id, new CreateBankHistory(this.bank.owner))
+        , new AddNewHistoryAction(this.store.selectSnapshot(BankState.currentBank).id, new SetOwnerHistory(this.bank.owner))
+        , new SaveNewUserBankSuccessEvent(this.store.selectSnapshot(BankState.currentBank))
+        , new RedirectToBankDetailsAction])
+    }, err => {
+      this.store.dispatch(new SaveNewUserBankFailEvent(err));
 
 
 
-            // this.store.dispatch([
-            //     new AttachBankAction({ ...this.bank })
-            //     , new SaveNewBankAction(this.bank)
-            // ]);
-            // this.actions.pipe(
-            //     ofActionSuccessful(SuccessSaveNewBankEvent)
-            //     , first()
-            // ).subscribe(_ => {
-            //     this.store.dispatch(new AddNewOwnerAction);
-            // });
-            // this.actions.pipe(
-            //     ofActionSuccessful(AddNewOwnerActionSuccessEvent)
-            //     , first()
-            // ).subscribe(_ => {
-            //     this.store.dispatch([
-            //         new AddNewHistoryAction(this.store.selectSnapshot(AppState.currentBank).id, new CreateBankHistory(this.store.selectSnapshot(AppState.currentUser)))
-            //         , new AddNewHistoryAction(this.store.selectSnapshot(AppState.currentBank).id, new SetOwnerHistory(this.store.selectSnapshot(AppState.currentUser)))])
-            //         .pipe(first()).subscribe(_ => this.store.dispatch(new RedirectToBankDetailsAction));
-        })
-    }
+
+      // this.store.dispatch([
+      //     new AttachBankAction({ ...this.bank })
+      //     , new SaveNewBankAction(this.bank)
+      // ]);
+      // this.actions.pipe(
+      //     ofActionSuccessful(SuccessSaveNewBankEvent)
+      //     , first()
+      // ).subscribe(_ => {
+      //     this.store.dispatch(new AddNewOwnerAction);
+      // });
+      // this.actions.pipe(
+      //     ofActionSuccessful(AddNewOwnerActionSuccessEvent)
+      //     , first()
+      // ).subscribe(_ => {
+      //     this.store.dispatch([
+      //         new AddNewHistoryAction(this.store.selectSnapshot(AppState.currentBank).id, new CreateBankHistory(this.store.selectSnapshot(AppState.currentUser)))
+      //         , new AddNewHistoryAction(this.store.selectSnapshot(AppState.currentBank).id, new SetOwnerHistory(this.store.selectSnapshot(AppState.currentUser)))])
+      //         .pipe(first()).subscribe(_ => this.store.dispatch(new RedirectToBankDetailsAction));
+    })
+  }
 }
